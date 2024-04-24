@@ -66,7 +66,7 @@ M.config = {
 			["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
 			["o"] = { "<cmd>NvimTreeFocus<CR>", "Explorer Focus" },
 			["n"] = { "<cmd>Navbuddy<CR>", "Navbuddy" },
-			a = {
+			A = {
 				name = "Apps",
 				k = { "<cmd>lua require 'jk.plugins.toggleterm'.k9s()<cr>", "k9s" },
 				g = { "<cmd>lua require 'jk.plugins.toggleterm'.lazygit()<cr>", "Git" },
@@ -206,7 +206,13 @@ M.config = {
 					k = { ":ToggleTerm 2 direction=float<cr>", "Terminal 2" },
 					l = { ":ToggleTerm 3 direction=float<cr>", "Terminal 3" },
 				},
-			}
+			},
+			-- MARK: AI
+			a = {
+				name = "AI",
+				c = { ":CodyChat<cr>", "Chat" },
+				t = { ":CodyToggle<cr>", "Toggle" },
+			},
 		},
 
 		vmappings = {

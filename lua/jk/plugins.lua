@@ -78,6 +78,15 @@ local M = {
 		{
 			"sourcegraph/sg.nvim",
 			opts = {},
+			cmd = {
+				"CodyDo",
+				"CodyAsk",
+				"CodyToggle",
+				"CodyChat",
+				"CodyTask",
+				"CodyExplain",
+				"CodyRestart"
+			},
 		},
 		{
 			"lunarvim/bigfile.nvim",
