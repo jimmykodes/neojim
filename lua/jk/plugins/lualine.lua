@@ -6,6 +6,7 @@ local ignore_bufs = {
 	"lspinfo",
 	"toggleterm",
 	"NvimTree",
+	"TelescopePrompt",
 	"qf",
 }
 M.conditions = {

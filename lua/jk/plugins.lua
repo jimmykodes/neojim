@@ -55,7 +55,11 @@ local M = {
 		-- MARK: Functionality
 		{
 			"ahmedkhalf/project.nvim",
-			opts = {},
+			event = "VimEnter",
+			cmd = "Telescope projects",
+			config = function()
+				require('project_nvim').setup({})
+			end
 		},
 		{
 			"akinsho/toggleterm.nvim",
@@ -209,7 +213,6 @@ local M = {
 		{
 			"folke/which-key.nvim",
 			event = "VeryLazy",
-			opts = {}
 		},
 		{
 			"ggandor/lightspeed.nvim",
@@ -232,7 +235,9 @@ local M = {
 			"nvim-telescope/telescope.nvim",
 			branch = "0.1.x",
 			cmd = "Telescope",
-			opts = {},
+			config = function()
+				require('jk.plugins.telescope').setup()
+			end
 		},
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",

@@ -33,7 +33,11 @@ M.config = {
 		},
 	},
 	whichkey = {
-		setup     = {},
+		setup     = {
+			window = {
+				border = 'single'
+			}
+		},
 		opts      = {
 			mode = "n",  -- NORMAL mode
 			prefix = "<leader>",
