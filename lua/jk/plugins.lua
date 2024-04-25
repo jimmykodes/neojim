@@ -78,6 +78,7 @@ local M = {
 		{
 			"sourcegraph/sg.nvim",
 			opts = {},
+			event = { "FileReadPre", "BufReadPre", "User FileOpened" },
 			cmd = {
 				"CodyDo",
 				"CodyAsk",
