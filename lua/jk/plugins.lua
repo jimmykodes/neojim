@@ -116,8 +116,10 @@ local M = {
 			priority = 1000,
 			lazy = false,
 			config = function()
-				vim.g.colors_name = "system76"
-				vim.cmd("colorscheme system76")
+				-- vim.g.colors_name = "system76"
+				-- vim.cmd("colorscheme system76")
+				vim.g.colors_name = "deep_purple"
+				vim.cmd("colorscheme deep_purple")
 			end
 		},
 		{
@@ -175,7 +177,22 @@ local M = {
 		-- MARK: Convenience
 		{
 			"jimmykodes/strman.nvim",
-			event = { "BufRead", "BufWinEnter", "BufNewFile" },
+			cmd = {
+				"StrmanCamel",
+				"StrmanPascal",
+				"StrmanSnake",
+				"StrmanKebab",
+				"StrmanSeparate",
+				"StrmanScreamingSnake",
+				"StrmanScreamingKebab",
+			}
+		},
+		{
+			"jimmykodes/incr.nvim",
+			cmd = {
+				"IncrInt",
+				"IncrIntBy",
+			}
 		},
 		{
 			'windwp/nvim-autopairs',
