@@ -283,6 +283,11 @@ local M = {
 				require("jk.plugins.treesitter").setup()
 			end
 		},
+		{
+			"nvim-treesitter/nvim-treesitter-context",
+			opts = {},
+			event = { "BufRead", "BufWinEnter", "BufNewFile" },
+		},
 		-- MARK: DAP
 		{
 			"mfussenegger/nvim-dap",
