@@ -102,25 +102,20 @@ local M = {
 				require("jk.plugins.alpha").setup()
 			end
 		},
-		-- {
-		-- 	"lunarvim/colorschemes",
-		-- 	priority = 1000,
-		-- 	lazy = false,
-		-- 	config = function()
-		-- 		vim.g.colors_name = "system76"
-		-- 		vim.cmd("colorscheme system76")
-		-- 	end
-		-- },
 		{
 			"jimmykodes/colorschemes",
 			priority = 1000,
 			lazy = false,
-			config = function()
-				-- vim.g.colors_name = "system76"
-				-- vim.cmd("colorscheme system76")
-				vim.g.colors_name = "deep_purple"
-				vim.cmd("colorscheme deep_purple")
-			end
+		},
+		{
+			"uga-rosa/ccc.nvim",
+			opts = {
+				highlighter = {
+					auto_enable = true,
+					lsp = true,
+				},
+			},
+			event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		},
 		{
 			'akinsho/bufferline.nvim',
@@ -299,7 +294,9 @@ local M = {
 			opts = {},
 			lazy = false,
 		},
-		-- MARK: Go
+		-- MARK: Language Specific
+
+		-- Go
 		{
 			"olexsmir/gopher.nvim",
 			build = ":GoInstallDeps",
@@ -313,6 +310,11 @@ local M = {
 			opts = {},
 			ft = "go"
 		},
+		-- Neovim
+		{
+			"folke/neodev.nvim",
+			opts = {}
+		}
 	}
 }
 

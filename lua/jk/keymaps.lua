@@ -25,6 +25,9 @@ M.config = {
 			["<C-l>"] = "<C-w>l",
 			["<C-c>"] = "<C-w>c",
 
+			-- color pick
+			["<C-p>"] = ":CccPick<CR>",
+
 			-- Navigate buffers
 			["<S-l>"] = ":bnext<CR>",
 			["<S-h>"] = ":bprevious<CR>",
