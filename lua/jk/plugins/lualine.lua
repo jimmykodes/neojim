@@ -8,6 +8,8 @@ local ignore_bufs = {
 	"NvimTree",
 	"TelescopePrompt",
 	"qf",
+	"lazy",
+	"mason",
 }
 M.conditions = {
 	treesitter = function()
