@@ -269,7 +269,6 @@ local M = {
 		-- MARK: Treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
-			commit = "f197a15", -- last commit to use legacy capture names, after this, markdown breaks - need to fix colorscheme to update
 			build = function()
 				require("nvim-treesitter.install").update({ with_sync = true })()
 			end,
