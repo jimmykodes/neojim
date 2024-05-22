@@ -37,7 +37,7 @@ local M = {
 	},
 	footer = {
 		type = "text",
-		val = "",
+		val = "version: " .. tostring(vim.version()),
 		opts = {
 			position = "center",
 			hl = "DashboardFooter"
