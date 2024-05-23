@@ -217,9 +217,16 @@ local M = {
 
 		},
 		{
+			"jimmykodes/scratch.nvim",
+			opts = {},
+			cmd = {
+				"ScratchNew",
+				"ScratchOpen"
+			}
+		},
+		{
 			-- Lazy loaded by Comment.nvim pre_hook
 			"JoosepAlviste/nvim-ts-context-commentstring",
-			lazy = true,
 		},
 		{
 			"numToStr/Comment.nvim",
@@ -312,7 +319,8 @@ local M = {
 		-- Neovim
 		{
 			"folke/neodev.nvim",
-			opts = {}
+			opts = {},
+			lazy = false,
 		}
 	}
 }
