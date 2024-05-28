@@ -17,6 +17,10 @@ local M = {
 		{
 			"nvimtools/none-ls.nvim",
 		},
+		-- MARK: hard mode
+		-- {
+		-- 	"m4xshen/hardtime.nvim",
+		-- }
 		-- MARK: Completions
 		{
 			"hrsh7th/nvim-cmp",

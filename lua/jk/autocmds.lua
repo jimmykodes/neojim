@@ -1,4 +1,23 @@
-local M = {}
+local M = {
+	cmds = {
+		{
+			-- hide these filetypes from buffer tabs
+			events = { "FileType" },
+			opts = {
+				group = "_filetype_settings",
+				pattern = {
+					"qf",
+				},
+				callback = function()
+					vim.cmd [[
+		          set nobuflisted
+		        ]]
+				end,
+			}
+		}
+	}
+}
+
 
 function M.define_autocmds(definitions)
 	for _, entry in ipairs(definitions) do
@@ -14,6 +33,10 @@ function M.define_autocmds(definitions)
 
 		vim.api.nvim_create_autocmd(event, opts)
 	end
+end
+
+function M.setup()
+	M.define_autocmds(M.cmds)
 end
 
 return M

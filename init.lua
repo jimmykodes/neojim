@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 
+require("jk.autocmds").setup()
 require("jk.options").setup()
 require("jk.commands").setup()
 require("jk.plugins").setup()
