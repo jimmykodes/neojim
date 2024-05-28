@@ -22,7 +22,9 @@ function M.setup_codelens_refresh(client, bufnr)
 	vim.api.nvim_create_autocmd(cl_events, {
 		group = group,
 		buffer = bufnr,
-		callback = vim.lsp.codelens.refresh,
+		callback = function(_)
+			vim.lsp.codelens.refresh({ bufnr = 0 })
+		end,
 	})
 end
 

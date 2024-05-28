@@ -10,6 +10,7 @@ local ignore_bufs = {
 	"qf",
 	"lazy",
 	"mason",
+	"checkhealth",
 }
 M.conditions = {
 	treesitter = function()

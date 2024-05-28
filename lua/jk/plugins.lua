@@ -163,7 +163,7 @@ local M = {
 		},
 		{
 			"SmiteshP/nvim-navbuddy",
-			commands = ":Navbuddy",
+			cmd = "Navbuddy",
 			dependencies = {
 				"SmiteshP/nvim-navic",
 				"MunifTanjim/nui.nvim",
@@ -217,14 +217,6 @@ local M = {
 
 		},
 		{
-			"jimmykodes/scratch.nvim",
-			opts = {},
-			cmd = {
-				"ScratchNew",
-				"ScratchOpen"
-			}
-		},
-		{
 			-- Lazy loaded by Comment.nvim pre_hook
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
@@ -257,6 +249,32 @@ local M = {
 			opts = {
 				cursor_line_only = true,
 			},
+		},
+
+		-- MARK: Notes
+		{
+			"jimmykodes/scratch.nvim",
+			opts = {
+				find_prompt_icon = icons.ui.Telescope
+			},
+			cmd = {
+				"ScratchNew",
+				"ScratchOpen",
+				"ScratchFind",
+			}
+		},
+		{
+			"jimmykodes/epistle.nvim",
+			opts = {
+				find_prompt_icon = icons.ui.Telescope,
+				dir = "$CODE_DIR/devlog/"
+			},
+			cmd = {
+				"EpistleNewFromSelection",
+				"EpistleOpen",
+				"EpistleToday",
+				"EpistleFind",
+			}
 		},
 
 		-- MARK: Telescope

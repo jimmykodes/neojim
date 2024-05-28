@@ -163,6 +163,8 @@ M.config = {
 				m = { "<cmd>TodoTelescope keywords=MARK<cr>", "Marks" },
 				C = { "<cmd>Telescope commands<cr>", "Commands" },
 				l = { "<cmd>Telescope resume<cr>", "Resume last search" },
+				s = { "<cmd>ScratchFind<cr>", "Scratch" },
+				n = { "<cmd>EpistleFind<cr>", "Notes" },
 			},
 			-- MARK: Transforms
 			T = {
