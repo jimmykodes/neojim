@@ -20,7 +20,14 @@ local M = {
 		-- MARK: hard mode
 		-- {
 		-- 	"m4xshen/hardtime.nvim",
-		-- }
+		-- 	opts = {},
+		-- 	event = { "BufRead", "BufWinEnter", "BufNewFile" },
+		-- },
+		-- {
+		-- 	"tris203/precognition.nvim",
+		-- 	opts = {},
+		-- 	event = { "BufRead", "BufWinEnter", "BufNewFile" },
+		-- },
 		-- MARK: Completions
 		{
 			"hrsh7th/nvim-cmp",
