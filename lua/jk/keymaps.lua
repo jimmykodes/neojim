@@ -60,6 +60,7 @@ M.config = {
 		mappings  = {
 			[";"] = { "<cmd>Alpha<CR>", "Dashboard" },
 			["w"] = { "<cmd>w!<CR>", "Save" },
+			["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" },
 			["x"] = { "<cmd>x<CR>", "Save and Quit" },
 			["q"] = { "<cmd>confirm q<CR>", "Quit" },
 			["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment toggle current line" },
