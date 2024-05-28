@@ -4,14 +4,27 @@ local M = {
 			jk = "joker",
 			td = "todo",
 			yaml = function(path, _)
-				local s = vim.split(path, "/")
-				s = s[#s]
-				local match = string.match(s, "^docker%-compose[%a.]*%.ya?ml$") or string.match(s, "^compose[%a.]*%.ya?ml$")
+				local filename = vim.fs.basename(path)
+				local match = string.match(filename, "^docker%-compose[%a.]*%.ya?ml$") or
+						string.match(filename, "^compose[%a.]*%.ya?ml$")
 				if match ~= nil then
 					return "yaml.docker-compose"
 				end
+				local s = vim.split(path, "/")
+				local chartIdx = vim.fn.index(s, "chart")
+				if chartIdx >= 0 and s[chartIdx + 2] == "templates" then
+					return "helm"
+				end
 				return "yaml"
-			end
+			end,
+			tpl = function(path, _)
+				local s = vim.split(path, "/")
+				local chartIdx = vim.fn.index(s, "chart")
+				if chartIdx >= 0 and s[chartIdx + 2] == "templates" then
+					return "helm"
+				end
+				return "gotmpl"
+			end,
 		},
 	},
 	parsers = {
@@ -34,8 +47,7 @@ local M = {
 				url = "https://github.com/ngalaiko/tree-sitter-go-template",
 				files = { "src/parser.c" }
 			},
-			filetype = "gotmpl",
-			used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" }
+			used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "helm" },
 		}
 	}
 }
@@ -69,6 +81,9 @@ function M.setup()
 			"vimdoc",
 			"yaml",
 		},
+		modules = {},
+		ignore_install = {},
+		auto_install = false,
 		sync_install = false,
 		highlight = { enable = true },
 		indent = { enable = true },
