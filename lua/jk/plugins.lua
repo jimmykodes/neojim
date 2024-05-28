@@ -67,6 +67,7 @@ local M = {
 		},
 		{
 			"akinsho/toggleterm.nvim",
+			-- TODO: add cmd so this can be lazy loaded
 			lazy = false,
 			config = function()
 				require("jk.plugins.toggleterm").setup()
@@ -80,22 +81,8 @@ local M = {
 			end
 		},
 		{
-			"sourcegraph/sg.nvim",
-			opts = {},
-			event = { "FileReadPre", "BufReadPre", "User FileOpened" },
-			cmd = {
-				"CodyDo",
-				"CodyAsk",
-				"CodyToggle",
-				"CodyChat",
-				"CodyTask",
-				"CodyExplain",
-				"CodyRestart"
-			},
-		},
-		{
 			"lunarvim/bigfile.nvim",
-			event = { "FileReadPre", "BufReadPre", "User FileOpened" },
+			event = { "FileReadPre", "BufReadPre" },
 			opts = {},
 		},
 		-- MARK: UI

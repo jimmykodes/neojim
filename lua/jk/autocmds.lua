@@ -14,7 +14,18 @@ local M = {
 		        ]]
 				end,
 			}
-		}
+		},
+		{
+			events = { "TextYankPost" },
+			opts = {
+				group = "_general_settings",
+				pattern = "*",
+				desc = "Highlight text on yank",
+				callback = function()
+					vim.highlight.on_yank { higroup = "Search", timeout = 100 }
+				end,
+			},
+		},
 	}
 }
 
