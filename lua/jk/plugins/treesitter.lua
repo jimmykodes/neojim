@@ -1,6 +1,7 @@
 local M = {
 	filetypes = {
 		extension = {
+			tf = "terraform",
 			jk = "joker",
 			td = "todo",
 			yaml = function(path, _)
