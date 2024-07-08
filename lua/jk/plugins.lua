@@ -92,6 +92,12 @@ local M = {
 			event = { "FileReadPre", "BufReadPre" },
 			opts = {},
 		},
+		{
+			'stevearc/oil.nvim',
+			opts = {},
+			dependencies = { "nvim-tree/nvim-web-devicons" },
+			lazy = false,
+		},
 		-- MARK: UI
 		{
 			"goolord/alpha-nvim",

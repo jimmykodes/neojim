@@ -11,6 +11,7 @@ local ignore_bufs = {
 	"lazy",
 	"mason",
 	"checkhealth",
+	"oil",
 }
 M.conditions = {
 	treesitter = function()
@@ -55,7 +56,7 @@ M.components = {
 	},
 	lsp = {
 		function()
-			local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
+			local buf_clients = vim.lsp.get_clients { bufnr = 0 }
 			if #buf_clients == 0 then
 				return "LSP Inactive"
 			end
@@ -76,10 +77,11 @@ M.components = {
 			end
 
 			local unique_client_names = vim.fn.uniq(buf_client_names)
-
-			local language_servers = table.concat(unique_client_names, " ")
-
-			return language_servers
+			if unique_client_names ~= 0 then
+				return table.concat(unique_client_names, " ")
+			else
+				return ""
+			end
 		end,
 		cond = M.conditions.lsp,
 		color = { gui = "bold" },
