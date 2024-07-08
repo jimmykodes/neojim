@@ -11,7 +11,6 @@ local source_names = {
 	treesitter = "(TreeSitter)",
 }
 
-
 function M.setup()
 	local cmp = require('cmp')
 
@@ -45,11 +44,11 @@ function M.setup()
 		sources = cmp.config.sources({
 			{ name = "cody" },
 			{ name = "nvim_lsp" },
-			{ name = "path" },
+			{ name = "treesitter" },
 			{ name = "luasnip" },
+			{ name = "path" },
 			{ name = "buffer" },
 			{ name = "calc" },
-			{ name = "treesitter" },
 		}, {
 			{ name = 'buffer' },
 		})

@@ -15,6 +15,9 @@ local M = {
 			"neovim/nvim-lspconfig",
 		},
 		{
+			"davidmh/cspell.nvim", -- imported and used by none-ls
+		},
+		{
 			"nvimtools/none-ls.nvim",
 		},
 		-- MARK: hard mode
@@ -61,7 +64,12 @@ local M = {
 			dependencies = { "friendly-snippets" },
 		},
 		{ "rafamadriz/friendly-snippets" },
-
+		{
+			"sourcegraph/sg.nvim",
+			dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+			opts = {},
+			lazy = false,
+		},
 
 		-- MARK: Functionality
 		{

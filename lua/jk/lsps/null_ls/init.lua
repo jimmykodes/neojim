@@ -1,5 +1,7 @@
 local null_ls = require("null-ls")
 local h = require("null-ls.helpers")
+local cspell = require("cspell")
+
 local FORMATTING = null_ls.methods.FORMATTING
 
 local M = {
@@ -35,13 +37,15 @@ local M = {
 			})
 		},
 		factory = h.generator_factory,
-	})
+	}),
 }
 
 M.opts = {
 	sources = {
 		null_ls.builtins.formatting.goimports,
 		null_ls.builtins.formatting.gofumpt,
+		cspell.diagnostics,
+		cspell.code_actions,
 		M.autopep8,
 		M.flake8,
 	}
