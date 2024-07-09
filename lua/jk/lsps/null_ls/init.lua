@@ -1,6 +1,5 @@
 local null_ls = require("null-ls")
 local h = require("null-ls.helpers")
-local cspell = require("cspell")
 
 local FORMATTING = null_ls.methods.FORMATTING
 
@@ -44,8 +43,6 @@ M.opts = {
 	sources = {
 		null_ls.builtins.formatting.goimports,
 		null_ls.builtins.formatting.gofumpt,
-		cspell.diagnostics,
-		cspell.code_actions,
 		M.autopep8,
 		M.flake8,
 	}
@@ -65,7 +62,19 @@ function M.list_registered_sources(filetype)
 end
 
 function M.setup()
+	local cspell_ok, cspell = pcall(require, "cspell")
+	local cheetah_ok, cheetah = pcall(require, "cheetah")
 	local default_opts = require("jk.lsps.events").get_common_opts()
+
+	if cspell_ok then
+		table.insert(M.opts.sources, cspell.diagnostics)
+		table.insert(M.opts.sources, cspell.code_actions)
+	end
+
+	if cheetah_ok then
+		table.insert(M.opts.sources, cheetah.code_actions)
+	end
+
 	null_ls.setup(vim.tbl_deep_extend("force", default_opts, M.opts))
 end
 

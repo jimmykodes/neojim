@@ -42,7 +42,6 @@ function M.setup()
 			end
 		},
 		sources = cmp.config.sources({
-			{ name = "cody" },
 			{ name = "nvim_lsp" },
 			{ name = "treesitter" },
 			{ name = "luasnip" },

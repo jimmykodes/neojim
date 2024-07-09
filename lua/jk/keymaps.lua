@@ -166,7 +166,6 @@ M.config = {
 				l = { "<cmd>Telescope resume<cr>", "Resume last search" },
 				s = { "<cmd>ScratchFind<cr>", "Scratch" },
 				n = { "<cmd>EpistleFind<cr>", "Notes" },
-				a = { "<cmd>lua require('sg.extensions.telescope').fuzzy_search_results()<cr>", "Search Cody" }
 			},
 			-- MARK: Transforms
 			T = {
@@ -213,12 +212,6 @@ M.config = {
 					k = { ":ToggleTerm 2 direction=float<cr>", "Terminal 2" },
 					l = { ":ToggleTerm 3 direction=float<cr>", "Terminal 3" },
 				},
-			},
-			-- MARK: AI
-			a = {
-				name = "AI",
-				c = { ":CodyChat<cr>", "Chat" },
-				t = { ":CodyToggle<cr>", "Toggle" },
 			},
 		},
 
