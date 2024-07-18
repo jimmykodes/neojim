@@ -27,7 +27,6 @@ local M = {
 			dashboard.button("f", withIcon("Find File", icons.ui.FindFile), "<CMD>Telescope find_files<CR>"),
 			dashboard.button("r", withIcon("Recent files", icons.ui.History), "<CMD>Telescope oldfiles<CR>"),
 			dashboard.button("t", withIcon("Find Text", icons.ui.FindText), "<CMD>Telescope live_grep<CR>"),
-			dashboard.button("p", withIcon("Find Project", icons.ui.Project), "<CMD>Telescope projects<CR>"),
 			dashboard.button("q", withIcon("Quit", icons.ui.Close), "<CMD>quit<CR>"),
 		},
 		opts = {

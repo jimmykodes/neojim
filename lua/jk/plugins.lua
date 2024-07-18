@@ -20,17 +20,6 @@ local M = {
 		{
 			"nvimtools/none-ls.nvim",
 		},
-		-- MARK: hard mode
-		-- {
-		-- 	"m4xshen/hardtime.nvim",
-		-- 	opts = {},
-		-- 	event = { "BufRead", "BufWinEnter", "BufNewFile" },
-		-- },
-		-- {
-		-- 	"tris203/precognition.nvim",
-		-- 	opts = {},
-		-- 	event = { "BufRead", "BufWinEnter", "BufNewFile" },
-		-- },
 		-- MARK: Completions
 		{
 			"hrsh7th/nvim-cmp",
@@ -66,17 +55,11 @@ local M = {
 		{ "rafamadriz/friendly-snippets" },
 		-- MARK: Functionality
 		{
-			"ahmedkhalf/project.nvim",
-			event = "VimEnter",
-			cmd = "Telescope projects",
-			config = function()
-				require('project_nvim').setup({})
-			end
-		},
-		{
 			"akinsho/toggleterm.nvim",
-			-- TODO: add cmd so this can be lazy loaded
-			lazy = false,
+			cmd = "ToggleTerm",
+			keys = {
+				"<C-\\>",
+			},
 			config = function()
 				require("jk.plugins.toggleterm").setup()
 			end

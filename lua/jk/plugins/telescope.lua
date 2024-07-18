@@ -1,9 +1,9 @@
-local M = {}
+local M = {
+	opts = {},
+}
 
 function M.setup()
-	local telescope = require('telescope')
-	telescope.setup({})
-	telescope.load_extension('projects')
+	require('telescope').setup(M.opts)
 end
 
 return M
