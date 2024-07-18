@@ -50,36 +50,41 @@ M.components = {
 	},
 	buffers = {
 		'buffers',
-		show_filename_only = true,     -- Shows shortened relative path when set to false.
-		hide_filename_extension = false, -- Hide filename extension when set to true.
-		show_modified_status = true,   -- Shows indicator when the buffer is modified.
-
-		mode = 0,
-		-- 0: Shows buffer name
-		-- 1: Shows buffer index
-		-- 2: Shows buffer name + buffer index
-		-- 3: Shows buffer number
-		-- 4: Shows buffer name + buffer number
-
-		max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
-		-- it can also be a function that returns
-		-- the value of `max_length` dynamically.
-		filetype_names = {
-			TelescopePrompt = 'Telescope',
-			dashboard = 'Dashboard',
-			packer = 'Packer',
-			fzf = 'FZF',
-			alpha = 'Alpha'
-		}, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
-
-		-- Automatically updates active buffer color to match color of other components (will be overidden if buffers_color is set)
-		use_mode_colors = false,
-
+		max_length = vim.o.columns,
 		symbols = {
-			modified = ' ●', -- Text to show when the buffer is modified
-			alternate_file = '', -- Text to show to identify the alternate file
-			directory = '', -- Text to show when the buffer is a directory
+			modified = icons.git.FileUnstaged,
+			alternate_file = '',
+			directory = icons.ui.FolderOpen,
 		},
+		fmt = function(name, buf)
+			-- create iterator from current buffers
+			local bufs = vim.iter(vim.api.nvim_list_bufs())
+			-- filter to just buffers that are not this current buffer
+			bufs = bufs:filter(function(n) return n ~= buf.bufnr end)
+			-- map and get just the file name from each buffer path
+			bufs = bufs:map(function(n) return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(n), ":t") end)
+
+			-- if there is no buffer with the same name, return then name directly
+			if bufs:find(name) == nil then
+				return name
+			end
+
+			-- we found a buffer with the same name, so lets show one dir up
+			-- this won't be much use if the enclosing folder names also match, but the amount of work that
+			-- will take to resolve seems excessive
+			-- :. -> make path releative to cwd
+			-- :h -> show just the head
+			-- :t -> show just the tail
+			-- these mods are applied left to right, so taking the head then the tail isolates
+			-- just the enclosing folder
+			local dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf.bufnr), [[:.:h:t]])
+			if dir == "." then
+				-- if the dir resolves to cwd just return file name, don't return ./<filename>
+				return name
+			else
+				return dir .. "/" .. name
+			end
+		end
 	},
 	lsp = {
 		function()
