@@ -123,14 +123,6 @@ local M = {
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		},
 		{
-			'akinsho/bufferline.nvim',
-			dependencies = 'nvim-tree/nvim-web-devicons',
-			event = { "BufRead", "BufWinEnter", "BufNewFile" },
-			config = function()
-				require("jk.plugins.bufferline").setup()
-			end
-		},
-		{
 			"lewis6991/gitsigns.nvim",
 			lazy = false,
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
@@ -141,6 +133,10 @@ local M = {
 		},
 		{
 			"nvim-tree/nvim-web-devicons",
+			opts = {},
+		},
+		{
+			'echasnovski/mini.icons',
 			opts = {},
 		},
 		{
@@ -235,10 +231,6 @@ local M = {
 					end
 				end,
 			},
-		},
-		{
-			"folke/which-key.nvim",
-			event = "VeryLazy",
 		},
 		{
 			"ggandor/lightspeed.nvim",

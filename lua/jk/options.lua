@@ -16,7 +16,7 @@ function M.setup()
 	opt.splitright = true
 	opt.swapfile = false
 	opt.termguicolors = true
-	opt.timeoutlen = 300
+	opt.timeoutlen = 800
 	opt.undofile = true
 	opt.updatetime = 300
 	opt.writebackup = false
