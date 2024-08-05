@@ -43,6 +43,7 @@ M.opts = {
 	sources = {
 		null_ls.builtins.formatting.goimports,
 		null_ls.builtins.formatting.gofumpt,
+		null_ls.builtins.diagnostics.codespell,
 		M.autopep8,
 		M.flake8,
 	}
