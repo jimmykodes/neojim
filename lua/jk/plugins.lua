@@ -138,6 +138,13 @@ local M = {
 		{
 			"RRethy/vim-illuminate",
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
+			config = function()
+				require('illuminate').configure({
+					filetypes_denylist = {
+						"NvimTree",
+					}
+				})
+			end
 		},
 		{ "MunifTanjim/nui.nvim" },
 		{
