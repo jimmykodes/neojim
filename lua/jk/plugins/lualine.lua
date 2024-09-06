@@ -48,44 +48,6 @@ M.components = {
 			end
 		end
 	},
-	buffers = {
-		'buffers',
-		max_length = vim.o.columns,
-		symbols = {
-			modified = icons.git.FileUnstaged,
-			alternate_file = '',
-			directory = icons.ui.FolderOpen,
-		},
-		fmt = function(name, buf)
-			-- create iterator from current buffers
-			local bufs = vim.iter(vim.api.nvim_list_bufs())
-			-- filter to just buffers that are not this current buffer
-			bufs = bufs:filter(function(n) return n ~= buf.bufnr end)
-			-- map and get just the file name from each buffer path
-			bufs = bufs:map(function(n) return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(n), ":t") end)
-
-			-- if there is no buffer with the same name, return then name directly
-			if bufs:find(name) == nil then
-				return name
-			end
-
-			-- we found a buffer with the same name, so lets show one dir up
-			-- this won't be much use if the enclosing folder names also match, but the amount of work that
-			-- will take to resolve seems excessive
-			-- :. -> make path releative to cwd
-			-- :h -> show just the head
-			-- :t -> show just the tail
-			-- these mods are applied left to right, so taking the head then the tail isolates
-			-- just the enclosing folder
-			local dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf.bufnr), [[:.:h:t]])
-			if dir == "." then
-				-- if the dir resolves to cwd just return file name, don't return ./<filename>
-				return name
-			else
-				return dir .. "/" .. name
-			end
-		end
-	},
 	lsp = {
 		function()
 			local buf_clients = vim.lsp.get_clients { bufnr = 0 }
@@ -182,7 +144,7 @@ M.opts = {
 		lualine_z = {}
 	},
 	tabline = {
-		lualine_a = { M.components.buffers },
+		lualine_a = { require("jk.plugins.lualine.components.buffers") },
 	},
 	winbar = {},
 	inactive_winbar = {},
