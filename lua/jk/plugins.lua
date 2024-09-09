@@ -286,6 +286,10 @@ local M = {
 				require("nvim-treesitter.install").update({ with_sync = true })()
 			end,
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
+			dependencies = {
+				"nvim-treesitter/nvim-treesitter-context",
+				"nvim-treesitter/nvim-treesitter-textobjects",
+			},
 			config = function()
 				require("jk.plugins.treesitter").setup()
 			end
