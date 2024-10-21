@@ -9,6 +9,7 @@ local source_names = {
 	luasnip = "(Snippet)",
 	buffer = "(Buffer)",
 	treesitter = "(TreeSitter)",
+	copilot = icons.git.Octoface,
 }
 
 function M.setup()
@@ -42,6 +43,7 @@ function M.setup()
 			end
 		},
 		sources = cmp.config.sources({
+			{ name = "copilot" },
 			{ name = "nvim_lsp" },
 			{ name = "treesitter" },
 			{ name = "luasnip" },

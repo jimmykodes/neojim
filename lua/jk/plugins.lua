@@ -34,6 +34,7 @@ local M = {
 				"cmp-cmdline",
 				"cmp_luasnip",
 				"cmp-calc",
+				"copilot-cmp",
 			},
 		},
 		{ "hrsh7th/cmp-nvim-lsp" },
@@ -53,6 +54,28 @@ local M = {
 			dependencies = { "friendly-snippets" },
 		},
 		{ "rafamadriz/friendly-snippets" },
+		{
+			"zbirenbaum/copilot-cmp",
+			config = function()
+				require("copilot_cmp").setup()
+			end,
+			-- event = { "InsertEnter", "LspAttach" },
+			dependencies = {
+				"zbirenbaum/copilot.lua"
+			}
+		},
+
+		-- MARK: AI
+		{
+			"zbirenbaum/copilot.lua",
+			cmd = "Copilot",
+			event = { "InsertEnter" },
+			opts = {
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			},
+		},
+
 		-- MARK: Functionality
 		{
 			"akinsho/toggleterm.nvim",
