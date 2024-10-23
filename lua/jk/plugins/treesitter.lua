@@ -49,7 +49,7 @@ local M = {
 				files = { "src/parser.c" }
 			},
 			used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "helm" },
-		}
+		},
 	}
 }
 
@@ -184,9 +184,17 @@ function M.initFT()
 end
 
 function M.initParsers()
-	local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+	local parsers = require("nvim-treesitter.parsers")
+	local ft_to_lang = parsers.ft_to_lang
+	local parser_config = parsers.get_parser_configs()
 	for parser, conf in pairs(M.parsers) do
-		parser_config[parser] = conf
+		parser_config[parser] = vim.tbl_extend('force', parser_config[parser] or {}, conf)
+	end
+	parsers.ft_to_lang = function(ft)
+		if ft == 'zsh' then
+			return 'bash'
+		end
+		return ft_to_lang(ft)
 	end
 end
 
