@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-	require("gopher").setup()
+	require("gopher").setup({})
 	-- require("which-key").register({
 	-- 	G = {
 	-- 		name = "Go",

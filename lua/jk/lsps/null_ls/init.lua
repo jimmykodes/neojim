@@ -21,7 +21,7 @@ local M = {
 		filetypes = { "python" },
 		generator_opts = {
 			command = "flake8",
-			args = { "-" },
+			args = { "--stdin-display-name", "$FILENAME", "-" },
 			to_stdin = true,
 			format = "line",
 			check_exit_code = function(code)
@@ -30,8 +30,8 @@ local M = {
 			on_output = h.diagnostics.from_patterns({
 				{
 					-- thing.py:2:1: E302 expected 2 blank lines, found 0
-					pattern = [[stdin:(%d+):(%d+): (%w+) (.+)]],
-					groups = { "row", "col", "code", "message" }
+					pattern = [[%f[%w]([^:]+):(%d+):(%d+): (%w+) (.+)]],
+					groups = { "source", "row", "col", "code", "message" }
 				}
 			})
 		},
