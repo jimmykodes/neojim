@@ -71,17 +71,6 @@ local M = {
 				require("jk.plugins.nvim-tree").setup()
 			end
 		},
-		{
-			"lunarvim/bigfile.nvim",
-			event = { "FileReadPre", "BufReadPre" },
-			opts = {},
-		},
-		{
-			'stevearc/oil.nvim',
-			opts = {},
-			dependencies = { "nvim-tree/nvim-web-devicons" },
-			lazy = false,
-		},
 		-- MARK: UI
 		{
 			"goolord/alpha-nvim",
@@ -116,10 +105,6 @@ local M = {
 		},
 		{
 			"nvim-tree/nvim-web-devicons",
-			opts = {},
-		},
-		{
-			'echasnovski/mini.icons',
 			opts = {},
 		},
 		{
@@ -186,7 +171,6 @@ local M = {
 			event = "InsertEnter",
 			opts = {},
 		},
-
 		{
 			"folke/todo-comments.nvim",
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
