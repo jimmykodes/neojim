@@ -20,7 +20,7 @@ local M = {
 		"pyright",
 		"rust_analyzer",
 		"terraformls",
-		"tsserver",
+		"ts_ls",
 		"vimls",
 		"volar",
 		"yamlls",
