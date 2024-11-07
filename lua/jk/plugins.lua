@@ -248,6 +248,15 @@ local M = {
 				"EpistleFind",
 			}
 		},
+		-- MARK: AI
+		{
+			"jimmykodes/chat.nvim",
+			cmd = {
+				"Chat",
+				"ChatWithContext",
+			},
+			opts = {},
+		},
 
 		-- MARK: Telescope
 		{
