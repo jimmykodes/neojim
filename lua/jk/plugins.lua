@@ -146,6 +146,18 @@ local M = {
 				"MunifTanjim/nui.nvim",
 			},
 		},
+		{
+			'stevearc/quicker.nvim',
+			event = "FileType qf",
+			---@module "quicker"
+			---@type quicker.SetupOptions
+			opts = {},
+		},
+		{
+			"chentoast/marks.nvim",
+			event = "VeryLazy",
+			opts = {},
+		},
 		-- MARK: Convenience
 		{
 			"jimmykodes/strman.nvim",
@@ -289,7 +301,7 @@ local M = {
 		},
 		{
 			"nvim-treesitter/nvim-treesitter-context",
-			opts = {},
+			opts = { multiline_threshold = 3 },
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		},
 		-- MARK: DAP
