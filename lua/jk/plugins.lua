@@ -80,7 +80,7 @@ local M = {
 			end
 		},
 		{
-			"jimmykodes/colorschemes",
+			"jimmykodes/colorschemes.nvim",
 			priority = 1000,
 			lazy = false,
 		},
