@@ -51,28 +51,58 @@ M.components = {
 	lsp = {
 		function()
 			local buf_clients = vim.lsp.get_clients { bufnr = 0 }
-			if #buf_clients == 0 then
-				return "LSP Inactive"
-			end
 
 			local buf_client_names = {}
 
 			-- add client
 			for _, client in pairs(buf_clients) do
-				if client.name ~= "null-ls" then
-					table.insert(buf_client_names, client.name)
-				end
+				table.insert(buf_client_names, client.name)
 			end
 
-			local buf_ft = vim.bo.filetype
-			local srcs = require("jk.lsps.null_ls").list_registered_sources(buf_ft)
-			for _, v in pairs(srcs) do
-				vim.list_extend(buf_client_names, v)
+			if #buf_client_names == 0 then
+				buf_client_names = { "Inactive" }
 			end
 
 			local unique_client_names = vim.fn.uniq(buf_client_names)
 			if unique_client_names ~= 0 then
-				return table.concat(unique_client_names, " ")
+				return "LSP: " .. table.concat(unique_client_names, " ")
+			else
+				return ""
+			end
+		end,
+		cond = M.conditions.lsp,
+		color = { gui = "bold" },
+	},
+	formatters = {
+		function()
+			local formatters = require("conform").list_formatters_for_buffer()
+
+
+			if #formatters == 0 then
+				formatters = { "Inactive" }
+			end
+
+			local unique_client_names = vim.fn.uniq(formatters)
+			if unique_client_names ~= 0 then
+				return "Fmt: " .. table.concat(unique_client_names, " ")
+			else
+				return ""
+			end
+		end,
+		cond = M.conditions.lsp,
+		color = { gui = "bold" },
+	},
+	linters = {
+		function()
+			local buf_client_names = require('jk.plugins.nvim-lint').resolve_ft(vim.bo.filetype)
+
+			if #buf_client_names == 0 then
+				buf_client_names = { "Inactive" }
+			end
+
+			local unique_client_names = vim.fn.uniq(buf_client_names)
+			if unique_client_names ~= 0 then
+				return "Lint: " .. table.concat(unique_client_names, " ")
 			else
 				return ""
 			end
@@ -130,7 +160,7 @@ M.opts = {
 		lualine_a = { M.components.mode },
 		lualine_b = { 'branch', 'diff', 'diagnostics' },
 		lualine_c = { M.components.breadcrumbs },
-		lualine_x = { M.components.lsp, M.components.treesitter },
+		lualine_x = { M.components.formatters, M.components.linters, M.components.lsp, M.components.treesitter },
 		lualine_y = { 'filetype' },
 		lualine_z = { 'location' }
 	},

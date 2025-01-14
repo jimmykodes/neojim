@@ -10,15 +10,28 @@ local M = {
 		},
 		{
 			"williamboman/mason-lspconfig.nvim",
+			opts = {},
 		},
 		{
 			"neovim/nvim-lspconfig",
+			dependencies = { "williamboman/mason-lspconfig.nvim" },
 		},
 		{
-			"jimmykodes/cheetah.nvim", -- imported and used by none-ls
+			"mfussenegger/nvim-lint",
 		},
 		{
-			"nvimtools/none-ls.nvim",
+			'stevearc/conform.nvim',
+			event = { "BufRead", "BufWinEnter", "BufNewFile" },
+			opts = {
+				formatters_by_ft = {
+					go = { "goimports", "gofumpt" },
+					python = { "isort", "autopep8" },
+				},
+				format_on_save = {
+					timeout_ms = 500,
+					lsp_format = "fallback",
+				}
+			},
 		},
 		-- MARK: Completions
 		{
@@ -269,7 +282,6 @@ local M = {
 			},
 			opts = {},
 		},
-
 		-- MARK: Telescope
 		{
 			"nvim-telescope/telescope.nvim",

@@ -16,6 +16,17 @@ local M = {
 			}
 		},
 		{
+			events = { "BufWritePost", "BufEnter" },
+			opts = {
+				group = "UserLspConfig",
+				pattern = "*",
+				desc = "try_lint on insert leave",
+				callback = function()
+					require("jk.plugins.nvim-lint").lint()
+				end
+			},
+		},
+		{
 			events = { "TextYankPost" },
 			opts = {
 				group = "_general_settings",
@@ -26,6 +37,22 @@ local M = {
 				end,
 			},
 		},
+		{
+			events = { "LspAttach" },
+			opts = {
+				group = "UserLspConfig",
+				callback = function(ev)
+					local client = vim.lsp.get_client_by_id(ev.data.client_id)
+					if client ~= nil then
+						-- turn off tokens in favor of treesitter
+						client.server_capabilities.semanticTokensProvider = nil
+					end
+					-- Enable completion triggered by <c-x><c-o>
+					vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+				end,
+			}
+		}
+
 	}
 }
 
