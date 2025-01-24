@@ -64,7 +64,6 @@ M.config = {
 
 			-- MARK: Leader
 			["<leader>"] = {
-				[";"] = "<cmd>Alpha<CR>",                                            -- "Dashboard"
 				["/"] = "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", -- "Comment toggle current line"
 
 				w = "<cmd>w!<CR>",                                                   -- "Save"
