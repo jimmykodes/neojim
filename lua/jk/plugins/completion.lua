@@ -46,7 +46,6 @@ function M.setup()
 			{ name = "treesitter" },
 			{ name = "luasnip" },
 			{ name = "path" },
-			{ name = "buffer" },
 			{ name = "calc" },
 		}, {
 			{ name = 'buffer' },
