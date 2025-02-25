@@ -3,6 +3,7 @@ local M = {
 		extension = {
 			tf = "terraform",
 			jk = "joker",
+			http = "http",
 			td = "todo",
 			yaml = function(path, _)
 				local filename = vim.fs.basename(path)

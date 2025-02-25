@@ -26,6 +26,7 @@ local M = {
 				formatters_by_ft = {
 					go = { "goimports", "gofumpt" },
 					python = { "isort", "autopep8" },
+					-- sql = { "sql-formatter" },
 				},
 				format_on_save = {
 					timeout_ms = 500,
