@@ -51,16 +51,8 @@ local M = {
 			},
 			used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "helm" },
 		},
-	}
-}
-
-function M.setup()
-	M.initFT()
-	M.initParsers()
-
-	local configs = require("nvim-treesitter.configs")
-
-	configs.setup({
+	},
+	opts = {
 		ensure_installed = {
 			"bash",
 			"css",
@@ -177,7 +169,19 @@ function M.setup()
 				},
 			},
 		},
-	})
+	}
+}
+
+function M.setup()
+	M.initFT()
+	M.initParsers()
+
+	local configs = require("nvim-treesitter.configs")
+
+	configs.setup(M.opts)
+	vim.opt.foldmethod = "expr"
+	vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+	vim.opt.foldlevelstart = 1
 end
 
 function M.initFT()
