@@ -24,12 +24,12 @@ local M = {
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
 			opts = {
 				formatters_by_ft = {
-					go = { "goimports", "gofumpt" },
+					go = { "gofumpt", "goimports" },
 					python = { "isort", "autopep8" },
 					-- sql = { "sql-formatter" },
 				},
 				format_on_save = {
-					timeout_ms = 500,
+					timeout_ms = 5000,
 					lsp_format = "fallback",
 				}
 			},

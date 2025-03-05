@@ -3,15 +3,16 @@ local icons = require("jk.icons")
 local M = {}
 
 local ignore_bufs = {
-	"lspinfo",
-	"toggleterm",
-	"NvimTree",
-	"TelescopePrompt",
-	"qf",
-	"lazy",
-	"mason",
 	"checkhealth",
+	"DressingInput",
+	"lazy",
+	"lspinfo",
+	"mason",
+	"NvimTree",
 	"oil",
+	"qf",
+	"TelescopePrompt",
+	"toggleterm",
 }
 local function hide_on_ignored_ft()
 	local buf_ft = vim.bo.filetype
