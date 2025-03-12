@@ -278,10 +278,10 @@ local M = {
 		{
 			"jimmykodes/chat.nvim",
 			cmd = {
-				"Chat",
-				"ChatWithContext",
+				"LLMAsk",
+				"LLMChat",
+				"LLMChatWithContext",
 			},
-			opts = {},
 		},
 		-- MARK: Telescope
 		{

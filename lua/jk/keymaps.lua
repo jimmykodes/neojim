@@ -18,12 +18,15 @@ M.config = {
 			[">"] = ">gv",
 			["<leader>"] = {
 				["/"] = "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", -- Comment toggle linewise (visual)
+				a     = {
+					c = ":'<,'>LLMChatWithContext<CR>",
+				},
 				w     = {
-					["'"] = [["pc'<C-r>p'<Esc>]],                                                      --Single Quote
-					['"'] = [["pc"<C-r>p"<Esc>]],                                                      --Double Quote
-					['('] = [["pc(<C-r>p)<Esc>]],                                                      --Parens
-					['{'] = [["pc{<C-r>p}<Esc>]],                                                      --Braces
-					['['] = [["pc[<C-r>p]<Esc>]],                                                      --Brackets
+					["'"] = [["pc'<C-r>p'<Esc>]], --Single Quote
+					['"'] = [["pc"<C-r>p"<Esc>]], --Double Quote
+					['('] = [["pc(<C-r>p)<Esc>]], --Parens
+					['{'] = [["pc{<C-r>p}<Esc>]], --Braces
+					['['] = [["pc[<C-r>p]<Esc>]], --Brackets
 				},
 				t     = {
 					c = ":'<,'>StrmanCamel<cr>",     -- Camel Case
@@ -60,7 +63,11 @@ M.config = {
 				r = "<cmd>lua vim.lsp.buf.references()<cr>", --, "Go to References" },
 				s = "<cmd>lua vim.lsp.buf.signature_help()<cr>", --, "Show Signature help" },
 			},
-			K = "<cmd>lua vim.lsp.buf.hover()<cr>",        -- Hover
+			a = {
+				c = "<CMD>LLMChat<CR>",
+				a = "<CMD>LLMAsk<CR>",
+			},
+			K = "<cmd>lua vim.lsp.buf.hover()<cr>", -- Hover
 
 			-- MARK: Leader
 			["<leader>"] = {
