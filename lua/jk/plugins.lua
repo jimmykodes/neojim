@@ -279,6 +279,8 @@ local M = {
 			"jimmykodes/chat.nvim",
 			cmd = {
 				"LLMAsk",
+				"LLMNew",
+				"LLMSelect",
 				"LLMChat",
 				"LLMChatWithContext",
 			},
