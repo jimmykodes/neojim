@@ -63,11 +63,7 @@ M.config = {
 				r = "<cmd>lua vim.lsp.buf.references()<cr>", --, "Go to References" },
 				s = "<cmd>lua vim.lsp.buf.signature_help()<cr>", --, "Show Signature help" },
 			},
-			a = {
-				c = "<CMD>LLMChat<CR>",
-				a = "<CMD>LLMAsk<CR>",
-			},
-			K = "<cmd>lua vim.lsp.buf.hover()<cr>", -- Hover
+			K = "<cmd>lua vim.lsp.buf.hover()<cr>",        -- Hover
 
 			-- MARK: Leader
 			["<leader>"] = {
@@ -151,6 +147,11 @@ M.config = {
 					l = "<cmd>Telescope resume<cr>",             -- Resume last search
 					s = "<cmd>ScratchFind<cr>",                  -- Scratch
 					n = "<cmd>EpistleFind<cr>",                  -- Notes
+				},
+				-- MARK: LLM
+				a = {
+					c = "<CMD>LLMChat<CR>",
+					a = "<CMD>LLMAsk<CR>",
 				},
 				-- MARK: Transforms
 				T = {
