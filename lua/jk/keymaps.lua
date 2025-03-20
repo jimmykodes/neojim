@@ -1,7 +1,15 @@
 local M = {}
 
+---@class Keymap
+---@field [string] string|Keymap
+
+---@alias KeymapOpts vim.keymap.set.Opts
+
 M.config = {
-	opts = { silent = true },
+	opts = {
+		silent = true,
+		noremap = true,
+	},
 	mappings = {
 		i = {
 			-- Navigate snippets
@@ -194,26 +202,39 @@ M.config = {
 			},
 		},
 	},
-	-- whichkey = {
-	-- 	vmappings = {
-	-- },
 }
 
-local function register(mode, mappings, prefix)
+
+---register mappings for a mod
+---@param mode string
+---@param mappings Keymap
+---@param opts KeymapOpts
+---@param prefix string?
+function M.register(mode, mappings, opts, prefix)
 	prefix = prefix or ""
 	for k, v in pairs(mappings) do
 		if type(v) == "string" then
-			vim.keymap.set(mode, prefix .. k, v, M.config.opts)
+			vim.keymap.set(mode, prefix .. k, v, opts)
 		elseif type(v) == "table" then
-			register(mode, v, prefix .. k)
+			M.register(mode, v, opts, prefix .. k)
 		end
 	end
 end
 
-function M.setup()
-	for mode, mappings in pairs(M.config.mappings) do
-		register(mode, mappings)
+---register key mappings
+---@param mappings Keymap
+---@param opts KeymapOpts?
+function M.register_mappings(mappings, opts)
+	if opts == nil then
+		opts = M.config.opts
 	end
+	for mode, mapping in pairs(mappings) do
+		M.register(mode, mapping, opts)
+	end
+end
+
+function M.setup()
+	M.register_mappings(M.config.mappings, M.config.opts)
 end
 
 return M

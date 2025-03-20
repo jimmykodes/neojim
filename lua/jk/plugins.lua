@@ -26,7 +26,6 @@ local M = {
 				formatters_by_ft = {
 					go = { "gofumpt", "goimports" },
 					python = { "isort", "autopep8" },
-					-- sql = { "sql-formatter" },
 				},
 				format_on_save = {
 					timeout_ms = 5000,
@@ -110,12 +109,8 @@ local M = {
 		},
 		{
 			"lewis6991/gitsigns.nvim",
-			lazy = false,
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
-			cmd = "Gitsigns",
-			config = function()
-				require("jk.plugins.gitsigns").setup()
-			end
+			opts = {},
 		},
 		{
 			"nvim-tree/nvim-web-devicons",
@@ -336,15 +331,12 @@ local M = {
 		{
 			"olexsmir/gopher.nvim",
 			build = ":GoInstallDeps",
-			ft = "go",
-			config = function()
-				require("jk.plugins.gopher").setup()
-			end
 		},
 		{
 			"leoluz/nvim-dap-go",
 			ft = "go",
 		},
+
 		-- Python
 		{
 			"mfussenegger/nvim-dap-python",

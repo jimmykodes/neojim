@@ -4,52 +4,45 @@ local mason_registry = require('mason-registry')
 local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
 		'/node_modules/@vue/language-server'
 
+---@alias LSPEntry string|{[1]: string, opts: table}
+
 local M = {
 	servers = {
-		"bashls",
-		"buf_ls",
-		"cssls",
-		"docker_compose_language_service",
-		"dockerls",
-		"gopls",
-		"helm_ls",
-		"html",
-		"jsonls",
-		"lua_ls",
-		"pyright",
-		"rust_analyzer",
-		"terraformls",
-		"ts_ls",
-		"vimls",
-		"volar",
-		"yamlls",
-		"zls",
-	},
-	opts = {
-		bashls = {
-			filetypes = { 'bash', 'sh', 'zsh' },
-		},
-		tsserver = {
-			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-			init_options = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = vue_language_server_path,
-						languages = { 'vue' },
+		{ "bashls", opts = { filetypes = { 'bash', 'sh', 'zsh' }, } }, --bash
+		{
+			"ts_ls",
+			opts = {
+				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server_path,
+							languages = { 'vue' },
+						},
 					},
 				},
-			},
-		},
-	}
+			}
+		},                               --typescript
+		"buf_ls",                        --protobuf
+		"cssls",                         --css
+		"docker_compose_language_service", --docker compose
+		"dockerls",                      --docker file
+		"helm_ls",                       --helm
+		"html",                          --html
+		"jsonls",                        --json
+		"pyright",                       --python
+		"rust_analyzer",                 --rust
+		"terraformls",                   --terraform
+		"vimls",                         --vim
+		"volar",                         --vue
+		"yamlls",                        --yaml
+		"zls",                           --zig
+	},
 }
 
 function M.setup()
-	for _, svr in ipairs(M.servers) do
-		local opts = M.opts[svr] or {}
-		local default_opts = M.get_common_opts()
-		lspconfig[svr].setup(vim.tbl_deep_extend("force", default_opts, opts))
-	end
+	M.setup_lsps(M.servers)
 end
 
 function M.setup_codelens_refresh(client, bufnr)
@@ -125,6 +118,20 @@ function M.get_common_opts()
 		on_attach = M.common_on_attach,
 		capabilities = M.common_capabilities(),
 	}
+end
+
+---@param lsps LSPEntry[]
+function M.setup_lsps(lsps)
+	for _, svr in ipairs(lsps) do
+		local opts = {}
+		if type(svr) == "table" then
+			opts = svr.opts or {}
+			svr = svr[1]
+		end
+
+		local default_opts = M.get_common_opts()
+		lspconfig[svr].setup(vim.tbl_deep_extend("force", default_opts, opts))
+	end
 end
 
 return M

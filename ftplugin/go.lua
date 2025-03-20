@@ -1,36 +1,62 @@
-vim.g.maplocalleader = ","
-
 local opts = {
 	buffer = true,
 	noremap = true,
 	silent = true,
 }
 
-vim.keymap.set('n', '<localleader>e', ':GoIfErr<CR>')
-vim.keymap.set('n', '<localleader>ta', ':GoTagAdd<CR>')
-vim.keymap.set('n', '<localleader>tr', ':GoTagRm<CR>')
-vim.keymap.set('n', '<localleader>mt', ':GoMod tidy<CR>')
-vim.keymap.set('n', '<localleader>i.', ':!go install .<CR>')
-vim.keymap.set('n', '<localleader>b.', ':!go build  .<CR>')
-vim.keymap.set('n', '<localleader>ic', ':!go install ./cmd/...<CR>')
-vim.keymap.set('n', '<localleader>bc', ':!go build ./cmd/...<CR>')
+local keymap = {
+	n = {
+		["<localleader>"] = {
+			e = ':GoIfErr<CR>',
+			c = ':GoCmt<CR>',
+			t = {
+				a = ':GoTagAdd<CR>',
+				r = ':GoTagRm<CR>',
+			},
+			m = {
+				t = ':GoMod tidy<CR>',
+				i = ':GoMod init<CR>',
+				v = ':GoMod vendor<CR>',
+				d = ':GoMod download<CR>',
+			},
+			i = {
+				['.'] = ':!go install .<CR>',
+				c = ':!go install ./cmd/...<CR>'
+			},
+			b = {
+				['.'] = ':!go build  .<CR>',
+				c = ':!go build ./cmd/...<CR>',
+			},
+		}
+	}
+}
 
-local function setup()
-	-- 	vim.lsp.start({ name = 'llmsp', cmd = { 'llmsp' } })
-	-- local id = vim.lsp.start({ name = 'copilot', cmd = { 'copilot-language-server', "--stdio" } })
-	-- if id == nil then
-	-- 	return
-	-- end
+local lsps = {
+	"gopls"
+}
 
-	-- local client = vim.lsp.get_client_by_id(id)
-	-- if client == nil then
-	-- 	return
-	-- end
-	-- local success = client.request("workspace/executeCommand",
-	-- { command = "github.copilot.activated", arguments = {} })
-end
+-- require("which-key").register({
+-- 	G = {
+-- 		name = "Go",
+-- 		i = { "<cmd>GoInstallDeps<Cr>", "Install Go Dependencies" },
+-- 		t = { "<cmd>GoMod tidy<cr>", "Tidy" },
+-- 		a = { "<cmd>GoTestAdd<Cr>", "Add Test" },
+-- 		A = { "<cmd>GoTestsAll<Cr>", "Add All Tests" },
+-- 		E = { "<cmd>GoTestsExp<Cr>", "Add Exported Tests" },
+-- 		g = { "<cmd>GoGenerate<Cr>", "Go Generate" },
+-- 		f = { "<cmd>GoGenerate %<Cr>", "Go Generate File" },
+-- 		c = { "<cmd>GoCmt<Cr>", "Generate Comment" },
+-- 		e = { "<cmd>GoIfErr<Cr>", "If err" },
+-- 		T = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Test" },
+-- 	},
+-- }, { prefix = "<leader>" })
 
-if not vim.g.llmsp_started then
-	vim.g.llmsp_started = 1
-	setup()
-end
+
+require('jk.ft').setup("go", {
+	lsps = lsps,
+	keymap = keymap,
+	keymap_opts = opts,
+	once = function()
+		require("gopher").setup({})
+	end
+})

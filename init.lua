@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 require("jk.autocmds").setup()
 require("jk.options").setup()
