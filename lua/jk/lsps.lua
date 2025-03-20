@@ -8,7 +8,6 @@ local vue_language_server_path = mason_registry.get_package('vue-language-server
 
 local M = {
 	servers = {
-		{ "bashls", opts = { filetypes = { 'bash', 'sh', 'zsh' }, } }, --bash
 		{
 			"ts_ls",
 			opts = {
@@ -24,8 +23,6 @@ local M = {
 				},
 			}
 		},                               --typescript
-		"buf_ls",                        --protobuf
-		"cssls",                         --css
 		"docker_compose_language_service", --docker compose
 		"dockerls",                      --docker file
 		"helm_ls",                       --helm

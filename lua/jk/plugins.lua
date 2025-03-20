@@ -385,9 +385,9 @@ local M = {
 		},
 		-- Neovim
 		{
-			"folke/neodev.nvim",
+			"folke/lazydev.nvim",
+			ft = "lua",
 			opts = {},
-			lazy = false,
 		},
 	}
 }
