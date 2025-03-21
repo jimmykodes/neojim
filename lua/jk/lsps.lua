@@ -1,34 +1,12 @@
 local lspconfig = require('lspconfig')
-local mason_registry = require('mason-registry')
-
-local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-		'/node_modules/@vue/language-server'
 
 ---@alias LSPEntry string|{[1]: string, opts: table}
 
 local M = {
 	servers = {
-		{
-			"ts_ls",
-			opts = {
-				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-				init_options = {
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = vue_language_server_path,
-							languages = { 'vue' },
-						},
-					},
-				},
-			}
-		},             --typescript
-		"dockerls",    --docker file
-		"helm_ls",     --helm
-		"rust_analyzer", --rust
+		"dockerls",  --docker file
+		"helm_ls",   --helm
 		"terraformls", --terraform
-		"vimls",       --vim
-		"volar",       --vue
 	},
 }
 
