@@ -1,15 +1,17 @@
 local root_files = {
+	"Dockerfile",
 	".git"
 }
 
 local M = {
 	---@type FTOpts
 	opts = {
-		ft = "",
+		ft = "dockerfile",
 		lsp_clients = {
 			{
-				name = "",
-				cmd = {},
+				name = "docker_ls",
+				cmd = { "docker-langserver", "--stdio" },
+				filetypes = { "dockerfile" },
 				root_dir = vim.fs.root(0, root_files)
 			}
 		},

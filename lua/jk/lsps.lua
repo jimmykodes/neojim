@@ -4,7 +4,6 @@ local lspconfig = require('lspconfig')
 
 local M = {
 	servers = {
-		"dockerls",  --docker file
 		"helm_ls",   --helm
 		"terraformls", --terraform
 	},
