@@ -13,7 +13,6 @@ local M = {
 			{
 				name = "gopls",
 				cmd = { 'gopls' },
-				filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
 				root_dir = vim.fs.root(0, root_files),
 			}
 		},

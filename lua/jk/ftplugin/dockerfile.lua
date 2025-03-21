@@ -11,7 +11,6 @@ local M = {
 			{
 				name = "docker_ls",
 				cmd = { "docker-langserver", "--stdio" },
-				filetypes = { "dockerfile" },
 				root_dir = vim.fs.root(0, root_files)
 			}
 		},

@@ -16,7 +16,6 @@ local M = {
 			{
 				name = "pyright",
 				cmd = { 'pyright-langserver', '--stdio' },
-				filetypes = { "python" },
 				root_dir = vim.fs.root(0, root_files),
 				settings = {
 					python = {

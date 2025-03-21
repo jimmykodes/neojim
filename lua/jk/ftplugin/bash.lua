@@ -19,7 +19,6 @@ local M = {
 						globPattern = vim.env.GLOB_PATTERN or '*@(.sh|.inc|.bash|.command|.zsh)',
 					},
 				},
-				filetypes = { 'bash', 'sh', 'zsh' },
 				root_dir = vim.fs.root(0, { '.git' }),
 				-- TODO: what does this do?
 				single_file_support = true,
