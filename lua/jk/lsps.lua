@@ -3,9 +3,7 @@ local lspconfig = require('lspconfig')
 ---@alias LSPEntry string|{[1]: string, opts: table}
 
 local M = {
-	servers = {
-		"helm_ls", --helm
-	},
+	servers = {},
 }
 
 function M.setup()
