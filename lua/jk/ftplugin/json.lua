@@ -5,11 +5,12 @@ local root_files = {
 local M = {
 	---@type FTOpts
 	opts = {
-		ft = "",
+		ft = "json",
 		lsp_clients = {
 			{
-				name = "",
-				cmd = {},
+				name = "json_ls",
+				cmd = { 'vscode-json-language-server', '--stdio' },
+				filetypes = { 'json', 'jsonc' },
 				root_dir = vim.fs.root(0, root_files)
 			}
 		},

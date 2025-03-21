@@ -25,7 +25,6 @@ local M = {
 		},             --typescript
 		"dockerls",    --docker file
 		"helm_ls",     --helm
-		"jsonls",      --json
 		"rust_analyzer", --rust
 		"terraformls", --terraform
 		"vimls",       --vim
