@@ -1,7 +1,7 @@
 local M = {}
 
 ---@class Keymap
----@field [string] string|Keymap
+---@field [string] string|function|Keymap
 
 ---@alias KeymapOpts vim.keymap.set.Opts
 
@@ -213,10 +213,10 @@ M.config = {
 function M.register(mode, mappings, opts, prefix)
 	prefix = prefix or ""
 	for k, v in pairs(mappings) do
-		if type(v) == "string" then
-			vim.keymap.set(mode, prefix .. k, v, opts)
-		elseif type(v) == "table" then
+		if type(v) == "table" then
 			M.register(mode, v, opts, prefix .. k)
+		else
+			vim.keymap.set(mode, prefix .. k, v, opts)
 		end
 	end
 end

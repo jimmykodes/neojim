@@ -39,6 +39,15 @@ local M = {
 						['.'] = ':!go build  .<CR>',
 						c = ':!go build ./cmd/...<CR>',
 					},
+					r = {
+						['.'] = ':!go run .<CR>',
+						m = ':!go run main.go<CR>',
+						f = function()
+							vim.ui.input({ prompt = "File:" }, function(file)
+								vim.cmd(':!go run ' .. file)
+							end)
+						end
+					}
 				}
 			}
 		},
