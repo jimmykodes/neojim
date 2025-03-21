@@ -4,8 +4,7 @@ local lspconfig = require('lspconfig')
 
 local M = {
 	servers = {
-		"helm_ls",   --helm
-		"terraformls", --terraform
+		"helm_ls", --helm
 	},
 }
 

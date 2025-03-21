@@ -1,15 +1,17 @@
 local root_files = {
+	".terraform",
 	".git"
 }
 
 local M = {
 	---@type FTOpts
 	opts = {
-		ft = "",
+		ft = "terraform",
 		lsp_clients = {
 			{
-				name = "",
-				cmd = {},
+				name = "terraform_ls",
+				cmd = { 'terraform-ls', 'serve' },
+				filetypes = { 'terraform' },
 				root_dir = vim.fs.root(0, root_files)
 			}
 		},
