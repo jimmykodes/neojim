@@ -1,16 +1,32 @@
 local root_files = {
-	".git"
+	'pyproject.toml',
+	'setup.py',
+	'setup.cfg',
+	'requirements.txt',
+	'Pipfile',
+	'pyrightconfig.json',
+	'.git',
 }
 
 local M = {
 	---@type FTOpts
 	opts = {
-		ft = "",
+		ft = "python",
 		lsp_clients = {
 			{
-				name = "",
-				cmd = {},
-				root_dir = vim.fs.root(0, root_files)
+				name = "pyright",
+				cmd = { 'pyright-langserver', '--stdio' },
+				filetypes = { "python" },
+				root_dir = vim.fs.root(0, root_files),
+				settings = {
+					python = {
+						analysis = {
+							autoSearchPaths = true,
+							useLibraryCodeForTypes = true,
+							diagnosticMode = 'openFilesOnly',
+						}
+					}
+				}
 			}
 		},
 	}
