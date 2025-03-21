@@ -30,7 +30,7 @@ local M = {
 
 ---@param opts FTOpts?
 function M.setup(opts)
-	require('jk.ft').setup(vim.tbl_extend("force", M.opts, opts or {}))
+	require('jk.ft').setup(M.opts, opts)
 end
 
 return M

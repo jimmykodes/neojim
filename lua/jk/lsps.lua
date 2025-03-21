@@ -22,24 +22,35 @@ local M = {
 					},
 				},
 			}
-		},                               --typescript
-		"docker_compose_language_service", --docker compose
-		"dockerls",                      --docker file
-		"helm_ls",                       --helm
-		"html",                          --html
-		"jsonls",                        --json
-		"pyright",                       --python
-		"rust_analyzer",                 --rust
-		"terraformls",                   --terraform
-		"vimls",                         --vim
-		"volar",                         --vue
-		"yamlls",                        --yaml
-		"zls",                           --zig
+		},             --typescript
+		"dockerls",    --docker file
+		"helm_ls",     --helm
+		"jsonls",      --json
+		"pyright",     --python
+		"rust_analyzer", --rust
+		"terraformls", --terraform
+		"vimls",       --vim
+		"volar",       --vue
 	},
 }
 
 function M.setup()
 	M.setup_lsps(M.servers)
+end
+
+---@param conf vim.lsp.ClientConfig
+function M.start_lsp(conf)
+	local default_conf = M.get_common_opts()
+	local opts = vim.tbl_deep_extend("force", default_conf, conf)
+	local client_id = vim.lsp.start(opts)
+	if client_id == nil then
+		return
+	end
+
+	local client = vim.lsp.get_client_by_id(client_id)
+	if client == nil then
+		return
+	end
 end
 
 function M.setup_codelens_refresh(client, bufnr)
@@ -49,8 +60,12 @@ function M.setup_codelens_refresh(client, bufnr)
 	if not status_ok or not codelens_supported then
 		return
 	end
+
+	-- refresh right away
+	vim.lsp.codelens.refresh({ bufnr = bufnr })
+
 	local group = "lsp_code_lens_refresh"
-	local cl_events = { "BufEnter", "InsertLeave" }
+	local cl_events = { "BufEnter", "InsertLeave", "TextChanged" }
 	local ok, cl_autocmds = pcall(vim.api.nvim_get_autocmds, {
 		group = group,
 		buffer = bufnr,
@@ -76,12 +91,12 @@ function M.setup_document_symbols(client, bufnr)
 	if not symbols_supported then
 		return
 	end
-	local status_ok, navic = pcall(require, "nvim-navic")
-	if status_ok then
+	local navic_ok, navic = pcall(require, "nvim-navic")
+	if navic_ok then
 		navic.attach(client, bufnr)
 	end
-	local status_ok, navbuddy = pcall(require, "nvim-navbuddy")
-	if status_ok then
+	local navbuddy_ok, navbuddy = pcall(require, "nvim-navbuddy")
+	if navbuddy_ok then
 		navbuddy.attach(client, bufnr)
 	end
 end
@@ -113,7 +128,7 @@ end
 function M.get_common_opts()
 	return {
 		on_attach = M.common_on_attach,
-		capabilities = M.common_capabilities(),
+		capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), M.common_capabilities()),
 	}
 end
 

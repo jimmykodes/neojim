@@ -72,9 +72,9 @@ local M = {
 -- }, { prefix = "<leader>" })
 
 
-function M.setup()
-	require("lspconfig")
-	require('jk.ft').setup(M.opts)
+---@param opts FTOpts?
+function M.setup(opts)
+	require('jk.ft').setup(M.opts, opts)
 end
 
 return M
