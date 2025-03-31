@@ -7,7 +7,7 @@ commitlint.args = {
 
 local M = {
 	linters_by_ft = {
-		python = { "ruff", "mypy" },
+		python = { "ruff" },
 		go = { "golangcilint" },
 		gitcommit = { "commitlint" },
 	},

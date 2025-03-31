@@ -9,13 +9,6 @@ local M = {
 	---@type FTOpts
 	opts = {
 		ft = "go",
-		lsp_clients = {
-			{
-				name = "gopls",
-				cmd = { 'gopls' },
-				root_dir = vim.fs.root(0, root_files),
-			}
-		},
 		keymap = {
 			n = {
 				["<localleader>"] = {

@@ -1,22 +1,31 @@
+---@class AutocmdDef
+---@field event string|string[]
+---@field opts vim.api.keyset.create_autocmd
 local M = {
+	---@type AutocmdDef[]
 	cmds = {
 		{
 			-- hide these filetypes from buffer tabs
-			events = { "FileType" },
+			event = "FileType",
 			opts = {
 				group = "_filetype_settings",
-				pattern = {
-					"qf",
-				},
-				callback = function()
-					vim.cmd [[
-		          set nobuflisted
-		        ]]
-				end,
+				pattern = { "qf" },
+				callback = function() vim.cmd("set nobuflisted") end,
 			}
 		},
 		{
-			events = { "BufWritePost", "BufEnter" },
+			event = "TextYankPost",
+			opts = {
+				group = "_general_settings",
+				pattern = "*",
+				desc = "Highlight text on yank",
+				callback = function()
+					vim.highlight.on_yank({ higroup = "Search", timeout = 100 })
+				end,
+			},
+		},
+		{
+			event = { "BufWritePost", "BufEnter" },
 			opts = {
 				group = "UserLspConfig",
 				pattern = "*",
@@ -26,50 +35,25 @@ local M = {
 				end
 			},
 		},
-		{
-			events = { "TextYankPost" },
-			opts = {
-				group = "_general_settings",
-				pattern = "*",
-				desc = "Highlight text on yank",
-				callback = function()
-					vim.highlight.on_yank { higroup = "Search", timeout = 100 }
-				end,
-			},
-		},
-		{
-			events = { "LspAttach" },
-			opts = {
-				group = "UserLspConfig",
-				callback = function(ev)
-					local client = vim.lsp.get_client_by_id(ev.data.client_id)
-					if client ~= nil then
-						-- turn off tokens in favor of treesitter
-						client.server_capabilities.semanticTokensProvider = nil
-					end
-					-- Enable completion triggered by <c-x><c-o>
-					vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-				end,
-			}
-		}
-
 	}
 }
 
 
+---Create autocommands given the provided event and opts.
+---If the provided group is a string and a group with that
+---name does not already exist, one will be created.
+---@param definitions AutocmdDef[]
 function M.define_autocmds(definitions)
-	for _, entry in ipairs(definitions) do
-		local event = entry.events
-		local opts = entry.opts
-
-		if type(opts.group) == "string" and opts.group ~= "" then
-			local ok, _ = pcall(vim.api.nvim_get_autocmds, { group = opts.group })
+	for _, def in ipairs(definitions) do
+		local grp = def.opts.group
+		if type(grp) == "string" and grp ~= "" then
+			local ok, _ = pcall(vim.api.nvim_get_autocmds, { group = grp })
 			if not ok then
-				vim.api.nvim_create_augroup(opts.group, {})
+				vim.api.nvim_create_augroup(grp, {})
 			end
 		end
 
-		vim.api.nvim_create_autocmd(event, opts)
+		vim.api.nvim_create_autocmd(def.event, def.opts)
 	end
 end
 

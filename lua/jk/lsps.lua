@@ -3,13 +3,27 @@ local lspconfig = require('lspconfig')
 ---@alias LSPEntry string|{[1]: string, opts: table}
 
 local M = {
-	servers = {},
+	---@type string[]
+	servers = {
+		"bashls",
+		"gopls",
+		"helmls",
+		"jsonls",
+		"lua_ls",
+		"pyright",
+	},
 }
 
 function M.setup()
-	M.setup_lsps(M.servers)
+	vim.lsp.config("*", {
+		on_attach = M.common_on_attach,
+		capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), M.common_capabilities()),
+		root_markers = { '.git' },
+	})
+	vim.lsp.enable(M.servers)
 end
 
+---start the lsp directly using vim.lsp.start
 ---@param conf vim.lsp.ClientConfig
 function M.start_lsp(conf)
 	local default_conf = M.get_common_opts()
@@ -74,6 +88,11 @@ function M.setup_document_symbols(client, bufnr)
 end
 
 function M.common_on_attach(client, bufnr)
+	-- turn off tokens in favor of treesitter
+	client.server_capabilities.semanticTokensProvider = nil
+	-- Enable completion triggered by <c-x><c-o>
+	vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
 	M.setup_codelens_refresh(client, bufnr)
 	M.setup_document_symbols(client, bufnr)
 end
@@ -100,10 +119,10 @@ end
 function M.get_common_opts()
 	return {
 		on_attach = M.common_on_attach,
-		capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), M.common_capabilities()),
 	}
 end
 
+---start lsps using lspconfig
 ---@param lsps LSPEntry[]
 function M.setup_lsps(lsps)
 	for _, svr in ipairs(lsps) do
