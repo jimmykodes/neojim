@@ -12,15 +12,13 @@ local M = {
 				if match ~= nil then
 					return "yaml.docker-compose"
 				end
-				if vim.fs.root(path, { "Chart.yaml" }) ~= "" then
+				if vim.fs.root(path, { "Chart.yaml" }) ~= nil then
 					return "helm"
 				end
 				return "yaml"
 			end,
 			tpl = function(path, _)
-				local s = vim.split(path, "/")
-				local chartIdx = vim.fn.index(s, "chart")
-				if chartIdx >= 0 and s[chartIdx + 2] == "templates" then
+				if vim.fs.root(path, { "Chart.yaml" }) ~= nil then
 					return "helm"
 				end
 				return "gotmpl"

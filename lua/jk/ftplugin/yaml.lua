@@ -1,4 +1,6 @@
 local root_files = {
+	".yamlrc",
+	".yamlrc.json",
 	".git"
 }
 
@@ -13,9 +15,22 @@ local M = {
 				filetypes = { 'yaml' },
 				root_dir = vim.fs.root(0, root_files),
 				settings = {
-					-- TODO: do i need this?
 					-- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
-					redhat = { telemetry = { enabled = false } }
+					redhat = { telemetry = { enabled = false } },
+					yaml = {
+						schemas = {
+							["schema.json"] = "recipes/*.yaml"
+						},
+						schemaStore = {
+							enable = true,
+							url = "https://www.schemastore.org/api/json/catalog.json",
+						},
+						-- Enable schema search in root directory
+						schemaDownload = { enable = true },
+
+						-- Explicitly tell yamlls to look for these config files
+						schemaStoreLoadFromDisk = true,
+					},
 				}
 			}
 		},
