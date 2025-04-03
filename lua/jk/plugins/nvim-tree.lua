@@ -83,7 +83,7 @@ local M = {
 		},
 		filters = {
 			git_ignored = false,
-			custom = { "\\.cache", "\\.mypy_cache", "__pycache__", ".DS_Store" },
+			custom = { ".cache", ".mypy_cache", "__pycache__", ".DS_Store", "*.bak" },
 		},
 		git = {
 			timeout = 400,
