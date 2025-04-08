@@ -7,6 +7,7 @@ local M = {
 	servers = {
 		"bashls",
 		"gopls",
+		"graphql_ls",
 		"helmls",
 		"jsonls",
 		"lua_ls",
@@ -21,6 +22,8 @@ function M.setup()
 		root_markers = { '.git' },
 	})
 	vim.lsp.enable(M.servers)
+	vim.diagnostic.config({ virtual_text = true })
+	vim.lsp.inlay_hint.enable(true)
 end
 
 ---start the lsp directly using vim.lsp.start
