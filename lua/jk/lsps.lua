@@ -12,6 +12,8 @@ local M = {
 		"jsonls",
 		"lua_ls",
 		"pyright",
+		"tsqueryls",
+		"vimls",
 	},
 }
 

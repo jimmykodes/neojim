@@ -7,10 +7,13 @@ local M = {
 			td = "todo",
 			yaml = function(path, _)
 				local filename = vim.fs.basename(path)
-				local match = string.match(filename, "^docker%-compose[%a.]*%.ya?ml$") or
+				local docker_compose_match = string.match(filename, "^docker%-compose[%a.]*%.ya?ml$") or
 						string.match(filename, "^compose[%a.]*%.ya?ml$")
-				if match ~= nil then
+				if docker_compose_match ~= nil then
 					return "yaml.docker-compose"
+				end
+				if vim.fs.root(path, { ".github/" }) then
+					return "yaml.github"
 				end
 				if vim.fs.root(path, { "Chart.yaml" }) ~= nil then
 					return "helm"
