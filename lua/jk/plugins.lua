@@ -335,6 +335,7 @@ local M = {
 		{
 			"leoluz/nvim-dap-go",
 			ft = "go",
+			opts = {},
 		},
 
 		-- Python

@@ -13,6 +13,7 @@ local M = {
 			n = {
 				["<localleader>"] = {
 					e = ':GoIfErr<CR>',
+					E = [[:GoIfErr<CR>k0wvE"exdd0Ea err := ;<ESC>"eP]],
 					c = ':GoCmt<CR>',
 					t = {
 						a = ':GoTagAdd<CR>',
