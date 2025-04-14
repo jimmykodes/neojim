@@ -53,6 +53,8 @@ M.config = {
 			["<C-k>"] = "<C-w>k",
 			["<C-l>"] = "<C-w>l",
 			["<C-c>"] = "<C-w>c",
+			["+"] = "<C-w>+",
+			["-"] = "<C-w>-",
 
 			-- color pick
 			["<C-p>"] = ":CccPick<CR>",
