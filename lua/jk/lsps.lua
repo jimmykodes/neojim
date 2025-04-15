@@ -37,11 +37,6 @@ function M.start_lsp(conf)
 	if client_id == nil then
 		return
 	end
-
-	local client = vim.lsp.get_client_by_id(client_id)
-	if client == nil then
-		return
-	end
 end
 
 function M.setup_codelens_refresh(client, bufnr)

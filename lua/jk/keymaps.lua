@@ -125,7 +125,7 @@ M.config = {
 					j = "<cmd>lua vim.diagnostic.goto_next()<cr>",         -- Next Diagnostic
 					k = "<cmd>lua vim.diagnostic.goto_prev()<cr>",         -- Prev Diagnostic
 					q = "<cmd>lua vim.diagnostic.setloclist()<cr>",        --Quickfix
-					f = "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", -- Format
+					f = "<cmd>lua require'conform'.format()<cr>",          -- Format
 					d = "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", -- Buffer Diagnostics
 					D = "<cmd>Telescope diagnostics<cr>",                  -- Diagnostics
 					s = "<cmd>Telescope lsp_document_symbols<cr>",         -- Document Symbols

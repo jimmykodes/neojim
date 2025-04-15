@@ -26,6 +26,7 @@ local M = {
 				formatters_by_ft = {
 					go = { "gofumpt", "goimports" },
 					python = { "isort", "autopep8" },
+					json = { "jq" },
 				},
 				format_on_save = {
 					timeout_ms = 5000,
