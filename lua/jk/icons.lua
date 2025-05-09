@@ -115,6 +115,7 @@ return {
 		Project = "",
 		Save = "",
 		Search = "",
+		Server = "",
 		SignIn = "",
 		SignOut = "",
 		Tab = "󰌒",

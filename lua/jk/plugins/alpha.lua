@@ -1,4 +1,5 @@
 local dashboard = require("alpha.themes.dashboard")
+local startify = require("alpha.themes.startify")
 local icons = require("jk.icons")
 
 local function withIcon(str, icon)
@@ -27,6 +28,8 @@ local M = {
 			dashboard.button("f", withIcon("Find File", icons.ui.FindFile), "<CMD>Telescope find_files<CR>"),
 			dashboard.button("r", withIcon("Recent files", icons.ui.History), "<CMD>Telescope oldfiles<CR>"),
 			dashboard.button("t", withIcon("Find Text", icons.ui.FindText), "<CMD>Telescope live_grep<CR>"),
+			dashboard.button("l", withIcon("Lazy", icons.ui.Package), "<CMD>Lazy<CR>"),
+			dashboard.button("m", withIcon("Mason", icons.ui.Server), "<CMD>Mason<CR>"),
 			dashboard.button("q", withIcon("Quit", icons.ui.Close), "<CMD>quit<CR>"),
 		},
 		opts = {
