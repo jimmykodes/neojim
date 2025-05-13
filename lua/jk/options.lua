@@ -38,6 +38,7 @@ function M.setup()
 	opt.iskeyword:append "-"
 	opt.formatoptions:remove { "c", "r", "o" }
 	opt.linebreak = true
+	opt.shada:append({"'500"})
 end
 
 return M

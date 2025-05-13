@@ -40,8 +40,7 @@ end
 ---@param fn string
 ---@return table
 local function file_button(char, fn, opts)
-	return button(string.format("e %s", char), fn, "<CMD>e " .. fn .. "<CR>",
-		vim.tbl_extend('force', { align_shortcut = "right" }, opts or {}))
+	return button(string.format("e %s", char), fn, string.format("<CMD>e %s<CR>", vim.fn.fnameescape(fn)), opts or {})
 end
 
 
@@ -81,12 +80,14 @@ local M = {
 		val = function()
 			local keys = "asdfghjkl;"
 			local max = 0
+
 			local files = {}
-			local val = {}
+
 			local cwd = vim.fn.getcwd()
+
 			for _, _fn in ipairs(vim.v.oldfiles) do
-				if vim.startswith(_fn, cwd .. "/") then
-					local fn = _fn:gsub(cwd, ".")
+				if vim.startswith(_fn, cwd .. "/") and vim.fn.filereadable(_fn) == 1 then
+					local fn = _fn:sub(#cwd + 2)
 					local fn_len = #fn
 					if fn_len > max then
 						max = fn_len
@@ -103,6 +104,7 @@ local M = {
 				max = 50
 			end
 
+			local val = {}
 			for i, fn in ipairs(files) do
 				val[i] = file_button(keys:sub(i, i), fn, { width = max })
 			end
@@ -135,7 +137,7 @@ function M.setup()
 			M.header,
 			{ type = "padding", val = 2 },
 			M.buttons,
-			{ type = "padding", val = 2 },
+			{ type = "padding", val = 1 },
 			M.mru,
 			{ type = "padding", val = 1 },
 			M.footer,
