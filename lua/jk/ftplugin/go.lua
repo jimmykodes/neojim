@@ -1,10 +1,3 @@
-local root_files = {
-	"go.work",
-	"go.mod",
-	"main.go",
-	".git",
-}
-
 local M = {
 	---@type FTOpts
 	opts = {

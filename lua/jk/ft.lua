@@ -8,11 +8,16 @@ local M = {}
 ---@field keymap_opts KeymapOpts?
 ---@field once function?
 ---@field setup function?
+---@field autocmds AutocmdDef[]?
 
 ---@param opts FTOpts
 local function once(opts)
 	if vim.g[opts.ft .. "_setup"] then
 		return
+	end
+
+	if opts.autocmds then
+		require('jk.autocmds').define_autocmds(opts.autocmds)
 	end
 
 	if opts.lsps then

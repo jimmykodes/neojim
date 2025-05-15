@@ -3,6 +3,7 @@ local M = {}
 function M.setup()
 	local opt = vim.opt
 
+	opt.exrc = true
 	opt.clipboard = "unnamedplus"
 	opt.cmdheight = 2
 	opt.fileencoding = "utf-8"
@@ -38,7 +39,7 @@ function M.setup()
 	opt.iskeyword:append "-"
 	opt.formatoptions:remove { "c", "r", "o" }
 	opt.linebreak = true
-	opt.shada:append({"'500"})
+	opt.shada:append({ "'500" })
 end
 
 return M
