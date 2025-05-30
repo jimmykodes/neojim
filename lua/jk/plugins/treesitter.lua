@@ -55,7 +55,6 @@ local M = {
 		ensure_installed = {
 			"bash",
 			"css",
-			"dockerfile",
 			"go",
 			"gomod",
 			"gotmpl",

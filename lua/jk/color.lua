@@ -1,8 +1,7 @@
 local M = {}
 
 function M.setup()
-	-- local color = "system76"
-	local color = "pokemon"
+	local color = "system76"
 	vim.g.colors_name = color
 	vim.cmd("colorscheme " .. color)
 end

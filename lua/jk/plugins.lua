@@ -85,6 +85,30 @@ local M = {
 				require("jk.plugins.nvim-tree").setup()
 			end
 		},
+		{
+			"tamago324/lir.nvim",
+			dependencies = {
+				"nvim-tree/nvim-web-devicons"
+			},
+			lazy = false,
+			config = function()
+				local actions = require('lir.actions')
+				local opts = {
+					ignore = {
+						"*.bak",
+					},
+					devicons = {
+						enable = true,
+						highlight_dirname = true,
+					},
+					mappings = {
+						q = actions.quit,
+						['<CR>'] = actions.edit,
+					}
+				}
+				require('lir').setup(opts)
+			end
+		},
 		-- MARK: UI
 		{
 			"goolord/alpha-nvim",

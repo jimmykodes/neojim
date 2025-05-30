@@ -9,7 +9,7 @@ local M = {
 		ft = "dockerfile",
 		lsp_clients = {
 			{
-				name = "docker_ls",
+				name = "dockerls",
 				cmd = { "docker-langserver", "--stdio" },
 				root_dir = vim.fs.root(0, root_files)
 			}

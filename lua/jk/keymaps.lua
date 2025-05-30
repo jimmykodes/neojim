@@ -15,6 +15,7 @@ M.config = {
 			-- Navigate snippets
 			["<C-m>"] = "<CMD>lua require('luasnip').jump(1)<CR>",
 			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
+			["jj"] = "<ESC>"
 		},
 		s = {
 			-- Navigate snippets
@@ -91,9 +92,9 @@ M.config = {
 				n = "<cmd>Navbuddy<CR>",                                             --"Navbuddy"
 				-- MARK: Apps
 				A = {
-					k = "<cmd>lua require 'jk.plugins.toggleterm'.k9s()<cr>",   -- "k9s" },
+					k = "<cmd>lua require 'jk.plugins.toggleterm'.k9s()<cr>", -- "k9s" },
 					g = "<cmd>lua require 'jk.plugins.toggleterm'.lazygit()<cr>", -- "Git" },
-					d = "<cmd>lua require 'jk.plugins.toggleterm'.lazydocker()<cr>", -- "Docker" },
+					l = "<cmd>lua require 'jk.plugins.toggleterm'.llm()<cr>", -- "Git" },
 				},
 				-- MARK: Buffers
 				b = {

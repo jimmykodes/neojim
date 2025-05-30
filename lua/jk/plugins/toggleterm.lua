@@ -13,6 +13,26 @@ function M.setup()
 	vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-N>]], { noremap = true })
 end
 
+M.llm = function()
+	local Terminal = require("toggleterm.terminal").Terminal
+	vim.ui.input({ prompt = "chat name" }, function(name)
+		local cmd = "llm t chat"
+		if name ~= "" then
+			cmd = string.format("%s --new %s", cmd, name)
+			return
+		end
+		Terminal:new({
+			cmd = cmd,
+			hidden = false,
+			on_open = function(_)
+				vim.cmd "startinsert!"
+			end,
+			on_close = function(_) end,
+			count = 99,
+		}):toggle(20, "horizontal")
+	end)
+end
+
 M.k9s = function()
 	local Terminal = require("toggleterm.terminal").Terminal
 	local term = Terminal:new {
