@@ -71,6 +71,7 @@ local M = {
 			"terraform",
 			"vim",
 			"vimdoc",
+			"vue",
 			"yaml",
 		},
 		modules = {},

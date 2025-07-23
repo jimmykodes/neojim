@@ -1,5 +1,3 @@
-local lspconfig = require('lspconfig')
-
 ---@alias LSPEntry string|{[1]: string, opts: table}
 
 local M = {
@@ -9,11 +7,14 @@ local M = {
 		"gopls",
 		"graphql_ls",
 		"helmls",
+		"journey_lsp",
 		"jsonls",
 		"lua_ls",
 		"pyright",
 		"tsqueryls",
 		"vimls",
+		"vtsls",
+		"vuels",
 	},
 }
 
@@ -124,17 +125,17 @@ end
 
 ---start lsps using lspconfig
 ---@param lsps LSPEntry[]
-function M.setup_lsps(lsps)
-	for _, svr in ipairs(lsps) do
-		local opts = {}
-		if type(svr) == "table" then
-			opts = svr.opts or {}
-			svr = svr[1]
-		end
-
-		local default_opts = M.get_common_opts()
-		lspconfig[svr].setup(vim.tbl_deep_extend("force", default_opts, opts))
-	end
-end
+-- function M.setup_lsps(lsps)
+-- 	for _, svr in ipairs(lsps) do
+-- 		local opts = {}
+-- 		if type(svr) == "table" then
+-- 			opts = svr.opts or {}
+-- 			svr = svr[1]
+-- 		end
+--
+-- 		local default_opts = M.get_common_opts()
+-- 		lspconfig[svr].setup(vim.tbl_deep_extend("force", default_opts, opts))
+-- 	end
+-- end
 
 return M

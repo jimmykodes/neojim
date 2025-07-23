@@ -1,6 +1,13 @@
 local M = {
 	opts = {
 		defaults = {},
+		mappings = {
+			i = {
+				["<C-q>"] = require('telescope.actions').send_to_qflist + require('telescope.actions').open_qflist,
+				["<M-q>"] = require('telescope.actions').send_selected_to_qflist + require('telescope.actions').
+				open_qflist,
+			},
+		},
 		pickers = {
 			find_files = {
 				find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },

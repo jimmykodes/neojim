@@ -11,17 +11,28 @@ M.config = {
 		noremap = true,
 	},
 	mappings = {
+		-- MARK: Insert
 		i = {
 			-- Navigate snippets
 			["<C-m>"] = "<CMD>lua require('luasnip').jump(1)<CR>",
 			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
 			["jj"] = "<ESC>"
 		},
+
+		-- MARK: Visual Line
+		x = {
+			["<a-j>"] = ":m '>+1<CR>gv-gv",
+			["<a-k>"] = ":m '<-2<CR>gv-gv",
+		},
+
+		-- MARK: Visual Block
 		s = {
 			-- Navigate snippets
 			["<C-m>"] = "<CMD>lua require('luasnip').jump(1)<CR>",
 			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
 		},
+
+		-- MARK: Visual
 		v = {
 			["<"] = "<gv",
 			[">"] = ">gv",
@@ -47,6 +58,8 @@ M.config = {
 				},
 			}
 		},
+
+		-- MARK: Normal
 		n = {
 			-- Navigate windows
 			["<C-h>"] = "<C-w>h",
@@ -56,6 +69,9 @@ M.config = {
 			["<C-c>"] = "<C-w>c",
 			["+"] = "<C-w>+",
 			["-"] = "<C-w>-",
+
+			["<a-j>"] = ":m .+1<CR>==",
+			["<a-k>"] = ":m .-2<CR>==",
 
 			-- color pick
 			["<C-p>"] = ":CccPick<CR>",

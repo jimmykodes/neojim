@@ -9,14 +9,6 @@ local M = {
 			lazy = false,
 		},
 		{
-			"williamboman/mason-lspconfig.nvim",
-			opts = {},
-		},
-		{
-			"neovim/nvim-lspconfig",
-			dependencies = { "williamboman/mason-lspconfig.nvim" },
-		},
-		{
 			"mfussenegger/nvim-lint",
 		},
 		{
@@ -376,7 +368,7 @@ local M = {
 					request = "attach",
 					connect = {
 						host = "localhost",
-						port = 5778,
+						port = 5678,
 					},
 					pathMappings = {
 						{
