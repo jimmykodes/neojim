@@ -4,7 +4,6 @@ local M = require("lualine.components.buffers"):extend()
 
 local excluded_bufs = {
 	'quickfix',
-	'terminal',
 	'nofile',
 }
 
@@ -133,6 +132,8 @@ end
 
 function M:update_status()
 	local buffers = self:buffers()
+
+	---@type integer?
 	local current = -2
 
 	-- mark the first, last, current, before current, after current buffers for rendering
@@ -180,7 +181,7 @@ function M:buffers()
 	local buffers = {}
 	M.bufpos2nr = {}
 	for b = 1, vim.fn.bufnr('$') do
-		if vim.fn.buflisted(b) ~= 0 and not vim.list_contains(excluded_bufs, vim.api.nvim_buf_get_option(b, 'buftype')) then
+		if vim.fn.buflisted(b) ~= 0 and not vim.list_contains(excluded_bufs, vim.api.nvim_get_option_value('buftype', { buf = b })) then
 			buffers[#buffers + 1] = self:new_buffer(b, #buffers + 1)
 			M.bufpos2nr[#buffers] = b
 		end
