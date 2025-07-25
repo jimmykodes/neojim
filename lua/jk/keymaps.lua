@@ -111,7 +111,7 @@ M.config = {
 				A = {
 					k = "<cmd>lua require 'jk.plugins.toggleterm'.k9s()<cr>", -- "k9s" },
 					g = "<cmd>lua require 'jk.plugins.toggleterm'.lazygit()<cr>", -- "Git" },
-					l = "<cmd>lua require 'jk.plugins.toggleterm'.llm()<cr>", -- "Git" },
+					-- l = "<cmd>lua require 'jk.plugins.toggleterm'.llm()<cr>", -- "Git" },
 				},
 				-- MARK: Buffers
 				b = {
@@ -161,20 +161,19 @@ M.config = {
 				},
 				-- MARK: Search
 				s = {
-					b = "<cmd>Telescope buffers previewer=false<cr>", -- Find Buffer
-					f = "<cmd>Telescope find_files<cr>",         -- Find File
-					h = "<cmd>Telescope help_tags<cr>",          -- Find Help
-					H = "<cmd>Telescope highlights<cr>",         -- Find highlight groups
-					M = "<cmd>Telescope man_pages<cr>",          -- Man Pages
-					r = "<cmd>Telescope oldfiles<cr>",           -- Open Recent File
-					R = "<cmd>Telescope registers<cr>",          -- Registers
-					t = "<cmd>Telescope live_grep<cr>",          -- Text
-					T = "<cmd>TodoTelescope<cr>",                -- Todos
-					m = "<cmd>TodoTelescope keywords=MARK<cr>",  -- Marks
-					C = "<cmd>Telescope commands<cr>",           -- Commands
-					l = "<cmd>Telescope resume<cr>",             -- Resume last search
-					s = "<cmd>ScratchFind<cr>",                  -- Scratch
-					n = "<cmd>EpistleFind<cr>",                  -- Notes
+					b = "<cmd>Telescope buffers<cr>",      -- Find Buffer
+					f = "<cmd>Telescope find_files<cr>",   -- Find File
+					h = "<cmd>Telescope help_tags<cr>",    -- Find Help
+					H = "<cmd>Telescope highlights<cr>",   -- Find highlight groups
+					M = "<cmd>Telescope man_pages<cr>",    -- Man Pages
+					r = "<cmd>Telescope oldfiles<cr>",     -- Open Recent File
+					R = "<cmd>Telescope registers<cr>",    -- Registers
+					t = "<cmd>Telescope live_grep<cr>",    -- Text
+					T = "<cmd>TodoTelescope<cr>",          -- Todos
+					m = "<cmd>TodoTelescope keywords=MARK<cr>", -- Marks
+					C = "<cmd>Telescope commands<cr>",     -- Commands
+					l = "<cmd>Telescope resume<cr>",       -- Resume last search
+					s = "<cmd>ScratchFind<cr>",            -- Scratch
 				},
 				-- MARK: LLM
 				a = {

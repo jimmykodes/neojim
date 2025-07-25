@@ -2,6 +2,7 @@ local icons = require("jk.icons")
 
 local M = {
 	plugins = {
+
 		-- MARK: LSP
 		{
 			"williamboman/mason.nvim",
@@ -26,6 +27,7 @@ local M = {
 				}
 			},
 		},
+
 		-- MARK: Completions
 		{
 			"hrsh7th/nvim-cmp",
@@ -59,6 +61,7 @@ local M = {
 			dependencies = { "friendly-snippets" },
 		},
 		{ "rafamadriz/friendly-snippets" },
+
 		-- MARK: Functionality
 		{
 			"akinsho/toggleterm.nvim",
@@ -101,6 +104,7 @@ local M = {
 				require('lir').setup(opts)
 			end
 		},
+
 		-- MARK: UI
 		{
 			"goolord/alpha-nvim",
@@ -184,6 +188,7 @@ local M = {
 			event = "VeryLazy",
 			opts = {},
 		},
+
 		-- MARK: Convenience
 		{
 			"jimmykodes/strman.nvim",
@@ -222,13 +227,12 @@ local M = {
 				},
 				highlight = {
 					keyword = "bg",
-					pattern = [[.*<(KEYWORDS)(\(\w*\)|):]],
+					pattern = [[.*<(KEYWORDS)[^:]*:]],
 				},
 				search = {
 					pattern = [[\b(KEYWORDS)(?:\(\w*\)|):]],
 				},
 			},
-
 		},
 		{
 			-- Lazy loaded by Comment.nvim pre_hook
@@ -273,30 +277,7 @@ local M = {
 				"ScratchFind",
 			}
 		},
-		{
-			"jimmykodes/epistle.nvim",
-			opts = {
-				find_prompt_icon = icons.ui.Telescope,
-				dir = "$CODE_DIR/devlog/"
-			},
-			cmd = {
-				"EpistleNewFromSelection",
-				"EpistleOpen",
-				"EpistleToday",
-				"EpistleFind",
-			}
-		},
-		-- MARK: AI
-		{
-			"jimmykodes/chat.nvim",
-			cmd = {
-				"LLMAsk",
-				"LLMNew",
-				"LLMSelect",
-				"LLMChat",
-				"LLMChatWithContext",
-			},
-		},
+
 		-- MARK: Telescope
 		{
 			"nvim-telescope/telescope.nvim",
@@ -331,6 +312,7 @@ local M = {
 			opts = { multiline_threshold = 3 },
 			event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		},
+
 		-- MARK: DAP
 		{
 			"mfussenegger/nvim-dap",
@@ -342,9 +324,8 @@ local M = {
 			opts = {},
 			lazy = false,
 		},
-		-- MARK: Language Specific
 
-		-- Go
+		-- MARK: Go
 		{
 			"olexsmir/gopher.nvim",
 			build = ":GoInstallDeps",
@@ -355,7 +336,7 @@ local M = {
 			opts = {},
 		},
 
-		-- Python
+		-- MARK: Python
 		{
 			"mfussenegger/nvim-dap-python",
 			ft = "python",
@@ -401,7 +382,8 @@ local M = {
 				})
 			end
 		},
-		-- Neovim
+
+		-- MARK: Neovim Dev
 		{
 			"folke/lazydev.nvim",
 			ft = "lua",

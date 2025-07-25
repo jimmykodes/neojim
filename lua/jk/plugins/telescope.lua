@@ -1,11 +1,11 @@
+local actions = require('telescope.actions')
 local M = {
 	opts = {
 		defaults = {},
 		mappings = {
 			i = {
-				["<C-q>"] = require('telescope.actions').send_to_qflist + require('telescope.actions').open_qflist,
-				["<M-q>"] = require('telescope.actions').send_selected_to_qflist + require('telescope.actions').
-				open_qflist,
+				["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+				["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 			},
 		},
 		pickers = {
