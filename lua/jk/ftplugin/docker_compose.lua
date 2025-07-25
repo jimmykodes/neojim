@@ -54,7 +54,7 @@ local M = {
 							args = { "compose", "ps", "--services" },
 							on_exit = function(j, return_val)
 								if return_val ~= 0 then
-									vim.notify("Error from llm\n" .. table.concat(j:result(), "\n"), vim.log.levels.ERROR)
+									vim.notify("Error from docker\n" .. table.concat(j:result(), "\n"), vim.log.levels.ERROR)
 									return
 								end
 								vim.schedule(function()

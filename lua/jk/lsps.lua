@@ -4,6 +4,7 @@ local M = {
 	---@type string[]
 	servers = {
 		"bashls",
+		"dockerls",
 		"gopls",
 		"graphql_ls",
 		"helmls",
@@ -15,6 +16,7 @@ local M = {
 		"vimls",
 		"vtsls",
 		"vuels",
+		"yamlls",
 	},
 }
 

@@ -42,6 +42,7 @@ M.config = {
 					c = ":'<,'>LLMChatWithContext<CR>",
 				},
 				w     = {
+					["`"] = [["pc'<C-r>p`<Esc>]], --Single Quote
 					["'"] = [["pc'<C-r>p'<Esc>]], --Single Quote
 					['"'] = [["pc"<C-r>p"<Esc>]], --Double Quote
 					['('] = [["pc(<C-r>p)<Esc>]], --Parens
