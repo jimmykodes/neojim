@@ -10,7 +10,6 @@ local M = {
 
 function M.setup()
 	require("toggleterm").setup(M.opts)
-	vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-N>]], { noremap = true })
 end
 
 M.llm = function()

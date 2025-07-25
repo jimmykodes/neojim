@@ -18,6 +18,9 @@ M.config = {
 			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
 			["jj"] = "<ESC>"
 		},
+		t = {
+			['<ESC><ESC>'] = [[<C-\><C-N>]],
+		},
 
 		-- MARK: Visual Line
 		x = {
