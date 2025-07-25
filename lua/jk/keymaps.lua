@@ -99,7 +99,6 @@ M.config = {
 			-- MARK: Leader
 			["<leader>"] = {
 				["/"] = "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", -- "Comment toggle current line"
-
 				w = "<cmd>w!<CR>",                                                   -- "Save"
 				W = "<cmd>noautocmd w<cr>",                                          -- "Save without formatting"
 				x = "<cmd>x<CR>",                                                    -- "Save and Quit"
@@ -110,17 +109,20 @@ M.config = {
 				e = "<cmd>NvimTreeToggle<CR>",                                       -- "Explorer"
 				o = "<cmd>NvimTreeFocus<CR>",                                        --"Explorer Focus"
 				n = "<cmd>Navbuddy<CR>",                                             --"Navbuddy"
+
 				-- MARK: Apps
 				A = {
 					k = "<cmd>lua require 'jk.plugins.toggleterm'.k9s()<cr>", -- "k9s" },
 					g = "<cmd>lua require 'jk.plugins.toggleterm'.lazygit()<cr>", -- "Git" },
 					-- l = "<cmd>lua require 'jk.plugins.toggleterm'.llm()<cr>", -- "Git" },
 				},
+
 				-- MARK: Buffers
 				b = {
 					h = "<cmd>lua require 'jk.plugins.buffers'.close_left()<cr>", -- Close all to the left
 					l = "<cmd>lua require 'jk.plugins.buffers'.close_right()<cr>", -- Close all to the right
 				},
+
 				-- MARK: DAP
 				d = {
 					t = "<cmd>lua require'dap'.toggle_breakpoint()<cr>", -- Toggle Breakpoint
@@ -138,6 +140,7 @@ M.config = {
 					q = "<cmd>lua require'dap'.close()<cr>",             -- Quit
 					U = "<cmd>lua require'dapui'.toggle({reset = true})<cr>", -- Toggle UI
 				},
+
 				-- MARK: LSP
 				l = {
 					a = "<cmd>lua vim.lsp.buf.code_action()<cr>",          -- Code Actions
@@ -153,6 +156,7 @@ M.config = {
 					S = "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", -- Workspace Symbols
 					e = "<cmd>Telescope quickfix<cr>",                     -- Telescope Quickfix
 				},
+
 				-- MARK: Git
 				g = {
 					d = "<cmd>lua require 'gitsigns'.diffthis()<cr>",                         -- Diff
@@ -162,6 +166,7 @@ M.config = {
 					r = "<cmd>lua require 'gitsigns'.reset_hunk()<cr>",                       -- Reset Hunk
 					R = "<cmd>lua require 'gitsigns'.reset_buffer()<cr>",                     -- Reset Buffer
 				},
+
 				-- MARK: Search
 				s = {
 					b = "<cmd>Telescope buffers<cr>",      -- Find Buffer
@@ -178,11 +183,13 @@ M.config = {
 					l = "<cmd>Telescope resume<cr>",       -- Resume last search
 					s = "<cmd>ScratchFind<cr>",            -- Scratch
 				},
+
 				-- MARK: LLM
 				a = {
 					c = "<CMD>LLMChat<CR>",
 					a = "<CMD>LLMAsk<CR>",
 				},
+
 				-- MARK: Transforms
 				T = {
 					["'"] = [["pdi"h2xi'<C-r>p'<Esc>]], -- Double -> Single Quote
@@ -200,6 +207,7 @@ M.config = {
 						["{"] = [["pdi[h2xi{<C-r>p}<Esc>]], -- Bracket -> Brace
 					},
 				},
+
 				-- MARK: Terminal
 				t = {
 					j = ":ToggleTerm 1<cr>",
@@ -238,7 +246,11 @@ function M.register(mode, mappings, opts, prefix)
 		if type(v) == "table" then
 			M.register(mode, v, opts, prefix .. k)
 		else
-			vim.keymap.set(mode, prefix .. k, v, opts)
+			if type(k) == "number" then
+				vim.keymap.set(mode, prefix, v, opts)
+			else
+				vim.keymap.set(mode, prefix .. k, v, opts)
+			end
 		end
 	end
 end
