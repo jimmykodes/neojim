@@ -9,6 +9,7 @@ local M = {
 			opts = {},
 			lazy = false,
 		},
+		-- MARK: Formatting
 		{
 			"mfussenegger/nvim-lint",
 		},
@@ -26,6 +27,10 @@ local M = {
 					lsp_format = "fallback",
 				}
 			},
+		},
+		{
+			"tommcdo/vim-lion",
+			event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		},
 
 		-- MARK: Completions

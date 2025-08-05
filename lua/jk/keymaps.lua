@@ -6,8 +6,8 @@ local M = {}
 ---@alias KeymapOpts vim.keymap.set.Opts
 
 M.config = {
-	opts = {
-		silent = true,
+	opts     = {
+		silent  = true,
 		noremap = true,
 	},
 	mappings = {
@@ -16,7 +16,7 @@ M.config = {
 			-- Navigate snippets
 			["<C-m>"] = "<CMD>lua require('luasnip').jump(1)<CR>",
 			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
-			["jj"] = "<ESC>"
+			["jj"]    = "<ESC>"
 		},
 		t = {
 			['<ESC><ESC>'] = [[<C-\><C-N>]],
@@ -37,8 +37,8 @@ M.config = {
 
 		-- MARK: Visual
 		v = {
-			["<"] = "<gv",
-			[">"] = ">gv",
+			["<"]        = "<gv",
+			[">"]        = ">gv",
 			["<leader>"] = {
 				["/"] = "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", -- Comment toggle linewise (visual)
 				a     = {
@@ -66,35 +66,35 @@ M.config = {
 		-- MARK: Normal
 		n = {
 			-- Navigate windows
-			["<C-h>"] = "<C-w>h",
-			["<C-j>"] = "<C-w>j",
-			["<C-k>"] = "<C-w>k",
-			["<C-l>"] = "<C-w>l",
-			["<C-c>"] = "<C-w>c",
-			["+"] = "<C-w>+",
-			["-"] = "<C-w>-",
+			["<C-h>"]    = "<C-w>h",
+			["<C-j>"]    = "<C-w>j",
+			["<C-k>"]    = "<C-w>k",
+			["<C-l>"]    = "<C-w>l",
+			["<C-c>"]    = "<C-w>c",
+			["+"]        = "<C-w>+",
+			["-"]        = "<C-w>-",
 
-			["<a-j>"] = ":m .+1<CR>==",
-			["<a-k>"] = ":m .-2<CR>==",
+			["<a-j>"]    = ":m .+1<CR>==",
+			["<a-k>"]    = ":m .-2<CR>==",
 
 			-- color pick
-			["<C-p>"] = ":CccPick<CR>",
+			["<C-p>"]    = ":CccPick<CR>",
 
 			-- Navigate buffers
-			["<S-l>"] = ":bnext<CR>",
-			["<S-h>"] = ":bprevious<CR>",
-			["<S-TAB>"] = "<C-o>",
-			["<C-q>"] = ":call QuickFixToggle()<CR>",
+			["<S-l>"]    = ":bnext<CR>",
+			["<S-h>"]    = ":bprevious<CR>",
+			["<S-TAB>"]  = "<C-o>",
+			["<C-q>"]    = ":call QuickFixToggle()<CR>",
 
 			-- MARK: GoTo
-			g = {
+			g            = {
 				D = "<cmd>lua vim.lsp.buf.declaration()<cr>", -- "Go to Declarations" },
-				d = "<cmd>lua vim.lsp.buf.definition()<cr>", --, "Go to Definition" },
+				d = "<cmd>lua vim.lsp.buf.definition()<cr>",  --, "Go to Definition" },
 				I = "<cmd>lua vim.lsp.buf.implementation()<cr>", --, "Go to Implementation" },
-				r = "<cmd>lua vim.lsp.buf.references()<cr>", --, "Go to References" },
+				r = "<cmd>lua vim.lsp.buf.references()<cr>",  --, "Go to References" },
 				s = "<cmd>lua vim.lsp.buf.signature_help()<cr>", --, "Show Signature help" },
 			},
-			K = "<cmd>lua vim.lsp.buf.hover()<cr>",        -- Hover
+			K            = "<cmd>lua vim.lsp.buf.hover()<cr>", -- Hover
 
 			-- MARK: Leader
 			["<leader>"] = {
