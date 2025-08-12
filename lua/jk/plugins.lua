@@ -14,6 +14,7 @@ M.plugins = {
 		opts = {
 			install_location = M.lazy_dir() .. "/frecency.nvim/"
 		},
+		lazy = false,
 	},
 	-- MARK: LSP
 	{

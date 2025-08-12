@@ -39,8 +39,9 @@ end
 ---@param char	string
 ---@param fn string
 ---@return table
-local function file_button(char, fn, opts)
-	return button(string.format("e %s", char), fn, string.format("<CMD>e %s<CR>", vim.fn.fnameescape(fn)), opts or {})
+local function file_button(char, fn, icon, opts)
+	return button(string.format("e %s", char), withIcon(fn, icon), string.format("<CMD>e %s<CR>", vim.fn.fnameescape(fn)),
+		opts or {})
 end
 
 
@@ -79,34 +80,40 @@ local M = {
 		type = "group",
 		val = function()
 			local keys = "asdfghjkl;"
-			local max = 0
+			local num_files = 10
 
 			local files = {}
-
 			local cwd = vim.fn.getcwd()
+			local ok, frecency = pcall(require, "frecency")
+			if ok then
+				files = vim.list_slice(frecency.top(vim.fn.fnamemodify(cwd, ":t")), 1, num_files)
+			end
+			local frecency_len = #files
+
 
 			for _, _fn in ipairs(vim.v.oldfiles) do
+				if #files >= num_files then
+					break
+				end
 				if vim.startswith(_fn, cwd .. "/") and vim.fn.filereadable(_fn) == 1 then
 					local fn = _fn:sub(#cwd + 2)
-					local fn_len = #fn
-					if fn_len > max then
-						max = fn_len
-					end
-					files[#files + 1] = fn
-					if #files >= 10 then
-						break
+					if not vim.list_contains(files, fn) then
+						files[#files + 1] = fn
 					end
 				end
 			end
 
-			max = max + 5
-			if max < 50 then
-				max = 50
-			end
+			local max = vim.iter(ipairs(files)):fold(0, function(acc, _, v) return math.max(acc, #v) end)
+			max = math.max(max + 5, 50)
+
 
 			local val = {}
 			for i, fn in ipairs(files) do
-				val[i] = file_button(keys:sub(i, i), fn, { width = max })
+				local icon = icons.misc.Lightning
+				if i > frecency_len then
+					icon = icons.misc.Watch
+				end
+				val[i] = file_button(keys:sub(i, i), fn, icon, { width = max })
 			end
 			return {
 				{ type = "text",    val = "Recently Used Files", opts = { hl = "SpecialComment", position = "center" } },

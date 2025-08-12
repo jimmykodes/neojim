@@ -1,3 +1,5 @@
+-- https://www.nerdfonts.com/cheat-sheet
+
 return {
 	kind = {
 		Array = "",
@@ -152,5 +154,6 @@ return {
 		Smiley = "",
 		Package = "",
 		CircuitBoard = "",
+		Lightning = "󱐋"
 	},
 }
