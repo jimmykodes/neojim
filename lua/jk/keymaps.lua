@@ -165,6 +165,9 @@ M.config = {
 					l = "<cmd>lua require 'gitsigns'.blame_line()<cr>",                       -- Blame
 					r = "<cmd>lua require 'gitsigns'.reset_hunk()<cr>",                       -- Reset Hunk
 					R = "<cmd>lua require 'gitsigns'.reset_buffer()<cr>",                     -- Reset Buffer
+					s = "<cmd>lua require 'gitsigns'.stage_hunk()<cr>",
+					S = "<cmd>lua require 'gitsigns'.stage_buffer()<cr>",
+					q = "<cmd>lua require 'gitsigns'.setqflist()<cr>",
 				},
 
 				-- MARK: Search
