@@ -149,7 +149,9 @@ M.plugins = {
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
-		opts = {},
+		opts = {
+			attach_to_untracked = true,
+		},
 	},
 	{
 		"nvim-tree/nvim-web-devicons",

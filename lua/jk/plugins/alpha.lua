@@ -14,7 +14,8 @@ local function button(shortcut, value, keybind, opts)
 		cursor = 3,
 		width = 50,
 		align_shortcut = "right",
-		hl_shortcut = "Keyword",
+		hl = "DashboardButtonText",
+		hl_shortcut = "DashboardButtonShortcut",
 	}, opts or {})
 
 	if keybind then
@@ -83,14 +84,13 @@ local M = {
 			local num_files = 10
 
 			local files = {}
-			local cwd = vim.fn.getcwd()
 			local ok, frecency = pcall(require, "frecency")
 			if ok then
-				files = vim.list_slice(frecency.top(vim.fn.fnamemodify(cwd, ":t")), 1, num_files)
+				files = vim.list_slice(frecency.top(frecency.get_namespace_name()), 1, num_files)
 			end
 			local frecency_len = #files
 
-
+			local cwd = vim.fn.getcwd()
 			for _, _fn in ipairs(vim.v.oldfiles) do
 				if #files >= num_files then
 					break
@@ -103,17 +103,22 @@ local M = {
 				end
 			end
 
-			local max = vim.iter(ipairs(files)):fold(0, function(acc, _, v) return math.max(acc, #v) end)
-			max = math.max(max + 5, 50)
-
+			local max = vim.iter(ipairs(files)):fold(50, function(acc, _, v) return math.max(acc, #v + 7) end)
 
 			local val = {}
 			for i, fn in ipairs(files) do
+				local opts = {
+					width = max
+				}
+				if i % 2 == 0 then
+					opts.hl = "DashboardButtonTextAlt"
+					opts.hl_shortcut = "DashboardButtonShortcutAlt"
+				end
 				local icon = icons.misc.Lightning
 				if i > frecency_len then
 					icon = icons.misc.Watch
 				end
-				val[i] = file_button(keys:sub(i, i), fn, icon, { width = max })
+				val[i] = file_button(keys:sub(i, i), fn, icon, opts)
 			end
 			return {
 				{ type = "text",    val = "Recently Used Files", opts = { hl = "SpecialComment", position = "center" } },
