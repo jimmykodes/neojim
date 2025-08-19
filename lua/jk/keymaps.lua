@@ -16,7 +16,6 @@ M.config = {
 			-- Navigate snippets
 			["<C-m>"] = "<CMD>lua require('luasnip').jump(1)<CR>",
 			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
-			["jj"]    = "<ESC>"
 		},
 		t = {
 			['<ESC><ESC>'] = [[<C-\><C-N>]],
@@ -41,24 +40,13 @@ M.config = {
 			[">"]        = ">gv",
 			["<leader>"] = {
 				["/"] = "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", -- Comment toggle linewise (visual)
-				a     = {
-					c = ":'<,'>LLMChatWithContext<CR>",
-				},
 				w     = {
-					["`"] = [["pc'<C-r>p`<Esc>]], --Single Quote
-					["'"] = [["pc'<C-r>p'<Esc>]], --Single Quote
-					['"'] = [["pc"<C-r>p"<Esc>]], --Double Quote
-					['('] = [["pc(<C-r>p)<Esc>]], --Parens
-					['{'] = [["pc{<C-r>p}<Esc>]], --Braces
-					['['] = [["pc[<C-r>p]<Esc>]], --Brackets
-				},
-				t     = {
-					c = ":'<,'>StrmanCamel<cr>",     -- Camel Case
-					p = ":'<,'>StrmanPascal<cr>",    -- Pascal Case
-					s = ":'<,'>StrmanSnake<cr>",     -- Snake Case
-					k = ":'<,'>StrmanKebab<cr>",     -- Kebab Case
-					S = ":'<,'>StrmanScreamingSnake<cr>", -- Screaming Snake Case
-					K = ":'<,'>StrmanScreamingKebab<cr>", -- Screaming Kebab Case
+					["`"] = [["pc'<C-r>p`<Esc>]],                                                      --Single Quote
+					["'"] = [["pc'<C-r>p'<Esc>]],                                                      --Single Quote
+					['"'] = [["pc"<C-r>p"<Esc>]],                                                      --Double Quote
+					['('] = [["pc(<C-r>p)<Esc>]],                                                      --Parens
+					['{'] = [["pc{<C-r>p}<Esc>]],                                                      --Braces
+					['['] = [["pc[<C-r>p]<Esc>]],                                                      --Brackets
 				},
 			}
 		},
@@ -71,8 +59,6 @@ M.config = {
 			["<C-k>"]    = "<C-w>k",
 			["<C-l>"]    = "<C-w>l",
 			["<C-c>"]    = "<C-w>c",
-			["+"]        = "<C-w>+",
-			["-"]        = "<C-w>-",
 
 			["<a-j>"]    = ":m .+1<CR>==",
 			["<a-k>"]    = ":m .-2<CR>==",
@@ -86,15 +72,22 @@ M.config = {
 			["<S-TAB>"]  = "<C-o>",
 			["<C-q>"]    = ":call QuickFixToggle()<CR>",
 
-			-- MARK: GoTo
 			g            = {
-				D = "<cmd>lua vim.lsp.buf.declaration()<cr>", -- "Go to Declarations" },
-				d = "<cmd>lua vim.lsp.buf.definition()<cr>",  --, "Go to Definition" },
-				I = "<cmd>lua vim.lsp.buf.implementation()<cr>", --, "Go to Implementation" },
-				r = "<cmd>lua vim.lsp.buf.references()<cr>",  --, "Go to References" },
-				s = "<cmd>lua vim.lsp.buf.signature_help()<cr>", --, "Show Signature help" },
+				-- MARK: LSP
+				r = {
+					-- n rename (vim builtin)
+					-- a code action (vim builtin)
+					-- r references (vim builtin)
+					-- i implementation (vim builtin)
+					-- t type_definition (vim builtin)
+					d = "<cmd>lua vim.lsp.buf.definition()<cr>", -- Go to Definition
+					l = "<cmd>lua vim.lsp.codelens.run()<cr>", -- CodeLens Action
+					j = "<cmd>lua vim.diagnostic.goto_next()<cr>", -- Next Diagnostic
+					k = "<cmd>lua vim.diagnostic.goto_prev()<cr>", -- Prev Diagnostic
+					q = "<cmd>lua vim.diagnostic.setloclist()<cr>", -- Quickfix
+					f = "<cmd>lua require'conform'.format()<cr>", -- Format
+				}
 			},
-			K            = "<cmd>lua vim.lsp.buf.hover()<cr>", -- Hover
 
 			-- MARK: Leader
 			["<leader>"] = {
@@ -109,13 +102,6 @@ M.config = {
 				e = "<cmd>NvimTreeToggle<CR>",                                       -- "Explorer"
 				o = "<cmd>NvimTreeFocus<CR>",                                        --"Explorer Focus"
 				n = "<cmd>Navbuddy<CR>",                                             --"Navbuddy"
-
-				-- MARK: Apps
-				A = {
-					k = "<cmd>lua require 'jk.plugins.toggleterm'.k9s()<cr>", -- "k9s" },
-					g = "<cmd>lua require 'jk.plugins.toggleterm'.lazygit()<cr>", -- "Git" },
-					-- l = "<cmd>lua require 'jk.plugins.toggleterm'.llm()<cr>", -- "Git" },
-				},
 
 				-- MARK: Buffers
 				b = {
@@ -141,22 +127,6 @@ M.config = {
 					U = "<cmd>lua require'dapui'.toggle({reset = true})<cr>", -- Toggle UI
 				},
 
-				-- MARK: LSP
-				l = {
-					a = "<cmd>lua vim.lsp.buf.code_action()<cr>",          -- Code Actions
-					l = "<cmd>lua vim.lsp.codelens.run()<cr>",             -- CodeLens Action
-					r = "<cmd>lua vim.lsp.buf.rename()<cr>",               -- Rename
-					j = "<cmd>lua vim.diagnostic.goto_next()<cr>",         -- Next Diagnostic
-					k = "<cmd>lua vim.diagnostic.goto_prev()<cr>",         -- Prev Diagnostic
-					q = "<cmd>lua vim.diagnostic.setloclist()<cr>",        --Quickfix
-					f = "<cmd>lua require'conform'.format()<cr>",          -- Format
-					d = "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", -- Buffer Diagnostics
-					D = "<cmd>Telescope diagnostics<cr>",                  -- Diagnostics
-					s = "<cmd>Telescope lsp_document_symbols<cr>",         -- Document Symbols
-					S = "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", -- Workspace Symbols
-					e = "<cmd>Telescope quickfix<cr>",                     -- Telescope Quickfix
-				},
-
 				-- MARK: Git
 				g = {
 					d = "<cmd>lua require 'gitsigns'.diffthis()<cr>",                         -- Diff
@@ -172,25 +142,18 @@ M.config = {
 
 				-- MARK: Search
 				s = {
-					b = "<cmd>Telescope buffers<cr>",      -- Find Buffer
-					f = "<cmd>Telescope find_files<cr>",   -- Find File
-					h = "<cmd>Telescope help_tags<cr>",    -- Find Help
-					H = "<cmd>Telescope highlights<cr>",   -- Find highlight groups
-					M = "<cmd>Telescope man_pages<cr>",    -- Man Pages
-					r = "<cmd>Telescope oldfiles<cr>",     -- Open Recent File
-					R = "<cmd>Telescope registers<cr>",    -- Registers
-					t = "<cmd>Telescope live_grep<cr>",    -- Text
-					T = "<cmd>TodoTelescope<cr>",          -- Todos
-					m = "<cmd>TodoTelescope keywords=MARK<cr>", -- Marks
-					C = "<cmd>Telescope commands<cr>",     -- Commands
-					l = "<cmd>Telescope resume<cr>",       -- Resume last search
-					s = "<cmd>ScratchFind<cr>",            -- Scratch
-				},
-
-				-- MARK: LLM
-				a = {
-					c = "<CMD>LLMChat<CR>",
-					a = "<CMD>LLMAsk<CR>",
+					d = "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", -- Buffer Diagnostics
+					D = "<cmd>Telescope diagnostics<cr>",                  -- Diagnostics
+					s = "<cmd>Telescope lsp_document_symbols<cr>",         -- Document Symbols
+					S = "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", -- Workspace Symbols
+					e = "<cmd>Telescope quickfix<cr>",                     -- Telescope Quickfix
+					b = "<cmd>Telescope buffers<cr>",                      -- Find Buffer
+					f = "<cmd>Telescope find_files<cr>",                   -- Find File
+					t = "<cmd>Telescope live_grep<cr>",                    -- Text
+					T = "<cmd>TodoTelescope<cr>",                          -- Todos
+					m = "<cmd>TodoTelescope keywords=MARK<cr>",            -- Marks
+					C = "<cmd>Telescope commands<cr>",                     -- Commands
+					r = "<cmd>Telescope resume<cr>",                       -- Resume last search
 				},
 
 				-- MARK: Transforms
