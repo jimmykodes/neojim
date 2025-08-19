@@ -11,3 +11,5 @@ local M = {
 function M.setup()
 	require("toggleterm").setup(M.opts)
 end
+
+return M
