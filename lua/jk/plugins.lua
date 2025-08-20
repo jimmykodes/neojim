@@ -87,9 +87,13 @@ M.plugins = {
 		keys = {
 			"<C-\\>",
 		},
-		config = function()
-			require("jk.plugins.toggleterm").setup()
-		end
+		opts = {
+			open_mapping = [[<C-\>]],
+			direction = "float",
+			float_opts = {
+				border = "curved",
+			},
+		},
 	},
 	{
 		"kyazdani42/nvim-tree.lua",
@@ -98,31 +102,6 @@ M.plugins = {
 			require("jk.plugins.nvim-tree").setup()
 		end
 	},
-	{
-		"tamago324/lir.nvim",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons"
-		},
-		lazy = false,
-		config = function()
-			local actions = require('lir.actions')
-			local opts = {
-				ignore = {
-					"*.bak",
-				},
-				devicons = {
-					enable = true,
-					highlight_dirname = true,
-				},
-				mappings = {
-					q = actions.quit,
-					['<CR>'] = actions.edit,
-				}
-			}
-			require('lir').setup(opts)
-		end
-	},
-
 	-- MARK: UI
 	{
 		"goolord/alpha-nvim",
@@ -182,25 +161,9 @@ M.plugins = {
 			})
 		end
 	},
-	{ "MunifTanjim/nui.nvim" },
-	{
-		"SmiteshP/nvim-navic",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		opts = {},
-	},
-	{
-		"SmiteshP/nvim-navbuddy",
-		cmd = "Navbuddy",
-		dependencies = {
-			"SmiteshP/nvim-navic",
-			"MunifTanjim/nui.nvim",
-		},
-	},
 	{
 		'stevearc/quicker.nvim',
 		event = "FileType qf",
-		---@module "quicker"
-		---@type quicker.SetupOptions
 		opts = {},
 	},
 	{
@@ -228,11 +191,6 @@ M.plugins = {
 			"IncrInt",
 			"IncrIntBy",
 		}
-	},
-	{
-		'windwp/nvim-autopairs',
-		event = "InsertEnter",
-		opts = {},
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -283,19 +241,6 @@ M.plugins = {
 		opts = {
 			cursor_line_only = true,
 		},
-	},
-
-	-- MARK: Notes
-	{
-		"jimmykodes/scratch.nvim",
-		opts = {
-			find_prompt_icon = icons.ui.Telescope
-		},
-		cmd = {
-			"ScratchNew",
-			"ScratchOpen",
-			"ScratchFind",
-		}
 	},
 
 	-- MARK: Telescope
