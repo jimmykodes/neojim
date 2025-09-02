@@ -40,13 +40,17 @@ M.config = {
 			[">"]        = ">gv",
 			["<leader>"] = {
 				["/"] = "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", -- Comment toggle linewise (visual)
+				g     = {
+					r = ":'<,'>Gitsigns reset_hunk<cr>",
+					s = ":'<,'>Gitsigns stage_hunk<cr>",
+				},
 				w     = {
-					["`"] = [["pc'<C-r>p`<Esc>]],                                                      --Single Quote
-					["'"] = [["pc'<C-r>p'<Esc>]],                                                      --Single Quote
-					['"'] = [["pc"<C-r>p"<Esc>]],                                                      --Double Quote
-					['('] = [["pc(<C-r>p)<Esc>]],                                                      --Parens
-					['{'] = [["pc{<C-r>p}<Esc>]],                                                      --Braces
-					['['] = [["pc[<C-r>p]<Esc>]],                                                      --Brackets
+					["`"] = [["pc'<C-r>p`<Esc>]], --Single Quote
+					["'"] = [["pc'<C-r>p'<Esc>]], --Single Quote
+					['"'] = [["pc"<C-r>p"<Esc>]], --Double Quote
+					['('] = [["pc(<C-r>p)<Esc>]], --Parens
+					['{'] = [["pc{<C-r>p}<Esc>]], --Braces
+					['['] = [["pc[<C-r>p]<Esc>]], --Brackets
 				},
 			}
 		},
