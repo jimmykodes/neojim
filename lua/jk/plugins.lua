@@ -58,7 +58,6 @@ M.plugins = {
 			"cmp-buffer",
 			"cmp-path",
 			"cmp-cmdline",
-			"cmp_luasnip",
 			"cmp-calc",
 		},
 	},
@@ -67,18 +66,6 @@ M.plugins = {
 	{ "hrsh7th/cmp-path" },
 	{ "hrsh7th/cmp-cmdline" },
 	{ "hrsh7th/cmp-calc" },
-	{ "saadparwaiz1/cmp_luasnip" },
-	{
-		"L3MON4D3/LuaSnip",
-		config = function()
-			require("luasnip.loaders.from_lua").lazy_load()
-			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip.loaders.from_snipmate").lazy_load()
-		end,
-		event = "InsertEnter",
-		dependencies = { "friendly-snippets" },
-	},
-	{ "rafamadriz/friendly-snippets" },
 
 	-- MARK: Functionality
 	{

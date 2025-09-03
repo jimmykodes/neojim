@@ -14,8 +14,16 @@ M.config = {
 		-- MARK: Insert
 		i = {
 			-- Navigate snippets
-			["<C-m>"] = "<CMD>lua require('luasnip').jump(1)<CR>",
-			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
+			["<C-l>"] = function()
+				if vim.snippet.active({ direction = 1 }) then
+					vim.snippet.jump(1)
+				end
+			end,
+			["<C-h>"] = function()
+				if vim.snippet.active({ direction = -1 }) then
+					vim.snippet.jump(-1)
+				end
+			end,
 		},
 		t = {
 			['<ESC><ESC>'] = [[<C-\><C-N>]],

@@ -41,6 +41,7 @@ function M.setup()
 	opt.undofile = true
 	opt.updatetime = 300
 	opt.whichwrap:append "<,>,[,],h,l"
+	opt.winborder = 'rounded'
 	opt.writebackup = false
 end
 

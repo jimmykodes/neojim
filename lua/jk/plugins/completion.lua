@@ -1,14 +1,19 @@
 local M = {}
 
-local icons = require("jk.icons")
-
 local source_names = {
 	nvim_lsp = "(LSP)",
 	path = "(Path)",
 	calc = "(Calc)",
-	luasnip = "(Snippet)",
 	buffer = "(Buffer)",
 	treesitter = "(TreeSitter)",
+}
+
+local source_hl = {
+	nvim_lsp = "Special",
+	path = "Keyword",
+	calc = "Boolean",
+	buffer = "String",
+	treesitter = "Number",
 }
 
 function M.setup()
@@ -16,9 +21,8 @@ function M.setup()
 
 	cmp.setup({
 		snippet = {
-			-- REQUIRED - you must specify a snippet engine
 			expand = function(args)
-				require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+				vim.snippet.expand(args.body)
 			end,
 		},
 		window = {
@@ -35,16 +39,15 @@ function M.setup()
 			['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 		}),
 		formatting = {
-			kind_icons = icons.kind,
 			format = function(entry, vim_item)
 				vim_item.menu = source_names[entry.source.name]
+				vim_item.kind_hl_group = source_hl[entry.source.name]
 				return vim_item
 			end
 		},
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "treesitter" },
-			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "calc" },
 		}, {
@@ -52,16 +55,7 @@ function M.setup()
 		})
 	})
 
-	-- Set configuration for specific filetype.
-	cmp.setup.filetype('gitcommit', {
-		sources = cmp.config.sources({
-			{ name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-		}, {
-			{ name = 'buffer' },
-		})
-	})
-
-	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+	-- Use buffer source for `/` and `?`
 	cmp.setup.cmdline({ '/', '?' }, {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = {
@@ -69,7 +63,7 @@ function M.setup()
 		}
 	})
 
-	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+	-- Use cmdline & path source for ':'
 	cmp.setup.cmdline(':', {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({

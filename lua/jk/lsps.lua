@@ -74,30 +74,14 @@ function M.setup_codelens_refresh(client, bufnr)
 	})
 end
 
-function M.setup_document_symbols(client, bufnr)
-	vim.g.navic_silence = false -- can be set to true to suppress error
-	local symbols_supported = client.supports_method "textDocument/documentSymbol"
-	if not symbols_supported then
-		return
-	end
-	local navic_ok, navic = pcall(require, "nvim-navic")
-	if navic_ok then
-		navic.attach(client, bufnr)
-	end
-	local navbuddy_ok, navbuddy = pcall(require, "nvim-navbuddy")
-	if navbuddy_ok then
-		navbuddy.attach(client, bufnr)
-	end
-end
-
 function M.common_on_attach(client, bufnr)
 	-- turn off tokens in favor of treesitter
 	client.server_capabilities.semanticTokensProvider = nil
+
 	-- Enable completion triggered by <c-x><c-o>
 	vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 	M.setup_codelens_refresh(client, bufnr)
-	M.setup_document_symbols(client, bufnr)
 end
 
 function M.common_capabilities()
@@ -124,20 +108,5 @@ function M.get_common_opts()
 		on_attach = M.common_on_attach,
 	}
 end
-
----start lsps using lspconfig
----@param lsps LSPEntry[]
--- function M.setup_lsps(lsps)
--- 	for _, svr in ipairs(lsps) do
--- 		local opts = {}
--- 		if type(svr) == "table" then
--- 			opts = svr.opts or {}
--- 			svr = svr[1]
--- 		end
---
--- 		local default_opts = M.get_common_opts()
--- 		lspconfig[svr].setup(vim.tbl_deep_extend("force", default_opts, opts))
--- 	end
--- end
 
 return M
