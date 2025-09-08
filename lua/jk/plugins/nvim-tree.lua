@@ -5,6 +5,7 @@ local M = {
 		auto_reload_on_write = false,
 		hijack_unnamed_buffer_when_opening = true,
 		root_dirs = {},
+		prefer_startup_root = true,
 		sync_root_with_cwd = true,
 		respect_buf_cwd = true,
 		select_prompts = false,
