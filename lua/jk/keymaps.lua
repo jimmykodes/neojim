@@ -24,6 +24,7 @@ M.config = {
 					vim.snippet.jump(-1)
 				end
 			end,
+			["<C-d>"] = "<esc><cmd>Date<CR>i",
 		},
 		t = {
 			['<ESC><ESC>'] = [[<C-\><C-N>]],
