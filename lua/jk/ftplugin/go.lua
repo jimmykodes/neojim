@@ -1,17 +1,3 @@
----@param input string
----@return string
-local function gofumpt(input)
-	local output = vim.system({ "gofumpt" }, { stdin = input }):wait()
-	return vim.trim(output.stdout)
-end
-
----@param input string
----@return string
-local function goimports(input)
-	local output = vim.system({ "goimports" }, { stdin = input }):wait()
-	return vim.trim(output.stdout)
-end
-
 local function qftests(pkg, test)
 	local text = true
 	local cmd = { "go", "test" }
@@ -130,14 +116,10 @@ local M = {
 		once = function()
 			require("gopher").setup({})
 		end,
-		fmt = function()
-			local input = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
-			local output = goimports(gofumpt(input))
-			if #output == 0 then
-				return
-			end
-			vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(output, "\n"))
-		end,
+		formatters = {
+			{ "gofumpt" },
+			{ "goimports" },
+		},
 	}
 }
 

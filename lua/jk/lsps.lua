@@ -82,7 +82,18 @@ function M.common_on_attach(client, bufnr)
 	vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 	if vim.fn.maparg("grf", "n") == "" then
+		-- we didn't set the keymap to format, which means we didn't set an autocommand either.
 		vim.keymap.set("n", "grf", function() vim.lsp.buf.format() end, { buffer = true, desc = "lsp format" })
+		require('jk.autocmds').define_autocmds({
+			{
+				event = "BufWritePre",
+				opts = {
+					buffer = bufnr,
+					group = "UserFormatOnSave",
+					callback = function() vim.lsp.buf.format() end,
+				}
+			}
+		})
 	end
 
 	M.setup_codelens_refresh(client, bufnr)

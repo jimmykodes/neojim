@@ -8,14 +8,14 @@ end
 
 M.plugins = {
 	-- MARK: exp
-	{
-		"jimmykodes/frecency.nvim",
-		build = "make build",
-		opts = {
-			install_location = M.lazy_dir() .. "/frecency.nvim/"
-		},
-		lazy = false,
-	},
+	-- {
+	-- 	"jimmykodes/frecency.nvim",
+	-- 	build = "make build",
+	-- 	opts = {
+	-- 		install_location = M.lazy_dir() .. "/frecency.nvim/"
+	-- 	},
+	-- 	lazy = false,
+	-- },
 	-- MARK: LSP
 	{
 		"williamboman/mason.nvim",

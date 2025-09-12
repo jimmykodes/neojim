@@ -13,7 +13,28 @@ local M = {}
 ---@field once function?
 ---@field setup function?
 ---@field autocmds AutocmdDef[]?
----@field fmt Fmt|function?
+---@field formatters string[][]?
+
+---@param cmd string[]
+---@param input string
+---@return string
+local function run_format(cmd, input)
+	local output = vim.system(cmd, { stdin = input }):wait()
+	return vim.trim(output.stdout)
+end
+
+local function format(formatters)
+	return function()
+		local data = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
+		for _, fmt in ipairs(formatters) do
+			data = run_format(fmt, data)
+		end
+		if #data == 0 then
+			return
+		end
+		vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(data, "\n"))
+	end
+end
 
 ---@param opts FTOpts
 local function once(opts)
@@ -25,30 +46,14 @@ local function once(opts)
 		require('jk.autocmds').define_autocmds(opts.autocmds)
 	end
 
-	if opts.fmt ~= nil then
-		---@type string
-		local event = "BufWritePre"
-
-		---@type function
-		local callback
-
-		---@type function|Fmt
-		local fmt = opts.fmt
-
-		if type(fmt) == "table" then
-			event = fmt.event
-			callback = fmt.callback
-		elseif type(fmt) == "function" then
-			callback = fmt
-		end
-
+	if opts.formatters ~= nil and #opts.formatters > 0 then
 		require('jk.autocmds').define_autocmds({
 			{
-				event = event,
+				event = "BufWritePre",
 				opts = {
 					pattern = "*." .. opts.ft,
 					group = "UserFormatOnSave",
-					callback = callback,
+					callback = format(opts.formatters),
 				}
 			}
 		})
@@ -84,18 +89,7 @@ local function _setup(opts)
 	end
 	once(opts)
 
-	---@type function
-	local callback
-	local fmt = opts.fmt
-	if fmt == nil then
-		callback = function() vim.lsp.buf.format() end
-	elseif type(fmt) == "table" then
-		callback = fmt.callback
-	elseif type(fmt) == "function" then
-		callback = fmt
-	end
-
-	vim.keymap.set("n", "grf", callback, { buffer = true, desc = "ft format" })
+	vim.keymap.set("n", "grf", format(opts.formatters), { buffer = true, desc = "ft format" })
 end
 
 ---@param opts FTOpts
