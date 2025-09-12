@@ -27,21 +27,6 @@ M.plugins = {
 		"mfussenegger/nvim-lint",
 	},
 	{
-		'stevearc/conform.nvim',
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
-		opts = {
-			formatters_by_ft = {
-				go = { "gofumpt", "goimports" },
-				python = { "isort", "autopep8" },
-				json = { "jq" },
-			},
-			format_on_save = {
-				timeout_ms = 5000,
-				lsp_format = "fallback",
-			}
-		},
-	},
-	{
 		"tommcdo/vim-lion",
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 	},
@@ -162,22 +147,11 @@ M.plugins = {
 	-- MARK: Convenience
 	{
 		"jimmykodes/strman.nvim",
-		cmd = {
-			"StrmanCamel",
-			"StrmanPascal",
-			"StrmanSnake",
-			"StrmanKebab",
-			"StrmanSeparate",
-			"StrmanScreamingSnake",
-			"StrmanScreamingKebab",
-		}
+		lazy = false,
 	},
 	{
 		"jimmykodes/incr.nvim",
-		cmd = {
-			"IncrInt",
-			"IncrIntBy",
-		}
+		lazy = false,
 	},
 	{
 		"folke/todo-comments.nvim",

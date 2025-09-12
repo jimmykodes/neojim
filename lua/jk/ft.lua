@@ -1,5 +1,9 @@
 local M = {}
 
+---@class Fmt
+---@field event string
+---@field callback function
+
 ---@class FTOpts
 ---@field ft string
 ---@field lsps LSPEntry[]?
@@ -9,6 +13,7 @@ local M = {}
 ---@field once function?
 ---@field setup function?
 ---@field autocmds AutocmdDef[]?
+---@field fmt Fmt|function?
 
 ---@param opts FTOpts
 local function once(opts)
@@ -20,14 +25,45 @@ local function once(opts)
 		require('jk.autocmds').define_autocmds(opts.autocmds)
 	end
 
+	if opts.fmt ~= nil then
+		---@type string
+		local event = "BufWritePre"
+
+		---@type function
+		local callback
+
+		---@type function|Fmt
+		local fmt = opts.fmt
+
+		if type(fmt) == "table" then
+			event = fmt.event
+			callback = fmt.callback
+		elseif type(fmt) == "function" then
+			callback = fmt
+		end
+
+		require('jk.autocmds').define_autocmds({
+			{
+				event = event,
+				opts = {
+					pattern = "*." .. opts.ft,
+					group = "UserFormatOnSave",
+					callback = callback,
+				}
+			}
+		})
+	end
+
+
 	if opts.lsps then
 		require('jk.lsps').setup_lsps(opts.lsps)
 	end
 
-	vim.g[opts.ft .. "_setup"] = 1
 	if opts.once ~= nil then
 		opts.once()
 	end
+
+	vim.g[opts.ft .. "_setup"] = 1
 end
 
 
@@ -47,6 +83,19 @@ local function _setup(opts)
 		opts.setup()
 	end
 	once(opts)
+
+	---@type function
+	local callback
+	local fmt = opts.fmt
+	if fmt == nil then
+		callback = function() vim.lsp.buf.format() end
+	elseif type(fmt) == "table" then
+		callback = fmt.callback
+	elseif type(fmt) == "function" then
+		callback = fmt
+	end
+
+	vim.keymap.set("n", "grf", callback, { buffer = true, desc = "ft format" })
 end
 
 ---@param opts FTOpts

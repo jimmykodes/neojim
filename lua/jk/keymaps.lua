@@ -32,16 +32,13 @@ M.config = {
 
 		-- MARK: Visual Line
 		x = {
+			-- Move groups of lines
 			["<a-j>"] = ":m '>+1<CR>gv-gv",
 			["<a-k>"] = ":m '<-2<CR>gv-gv",
 		},
 
 		-- MARK: Visual Block
-		s = {
-			-- Navigate snippets
-			["<C-m>"] = "<CMD>lua require('luasnip').jump(1)<CR>",
-			["<C-,>"] = "<CMD>lua require('luasnip').jump(-1)<CR>",
-		},
+		s = {},
 
 		-- MARK: Visual
 		v = {
@@ -82,7 +79,6 @@ M.config = {
 			-- Navigate buffers
 			["<S-l>"]    = ":bnext<CR>",
 			["<S-h>"]    = ":bprevious<CR>",
-			["<S-TAB>"]  = "<C-o>",
 			["<C-q>"]    = ":call QuickFixToggle()<CR>",
 
 			g            = {
@@ -98,7 +94,6 @@ M.config = {
 					j = "<cmd>lua vim.diagnostic.goto_next()<cr>", -- Next Diagnostic
 					k = "<cmd>lua vim.diagnostic.goto_prev()<cr>", -- Prev Diagnostic
 					q = "<cmd>lua vim.diagnostic.setloclist()<cr>", -- Quickfix
-					f = "<cmd>lua require'conform'.format()<cr>", -- Format
 				}
 			},
 

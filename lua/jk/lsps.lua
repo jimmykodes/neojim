@@ -81,6 +81,10 @@ function M.common_on_attach(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
+	if vim.fn.maparg("grf", "n") == "" then
+		vim.keymap.set("n", "grf", function() vim.lsp.buf.format() end, { buffer = true, desc = "lsp format" })
+	end
+
 	M.setup_codelens_refresh(client, bufnr)
 end
 
