@@ -1,3 +1,94 @@
+local M = {}
+
+local severities = {
+	error = vim.diagnostic.severity.ERROR,
+	warning = vim.diagnostic.severity.WARN,
+	refactor = vim.diagnostic.severity.INFO,
+	convention = vim.diagnostic.severity.HINT,
+}
+
+---parse string output to vim diagnostics
+---@type Parser
+function M.parser(output, filename, cwd)
+	if output == '' then
+		vim.schedule(function()
+			vim.notify("no output to parse")
+		end)
+		return {}
+	end
+	local decoded = vim.json.decode(output)
+	if decoded["Issues"] == nil or type(decoded["Issues"]) == 'userdata' then
+		vim.schedule(function()
+			vim.notify("no issues to parse")
+		end)
+		return {}
+	end
+	local diagnostics = {}
+
+	vim.schedule(function()
+		vim.notify(string.format("%d issues to parse", #decoded["Issues"]))
+	end)
+	for _, item in ipairs(decoded["Issues"]) do
+		-- normalize the absolute path to the filename
+		local filename_norm = vim.fs.normalize(vim.fn.fnamemodify(filename, ":p"))
+
+		-- append the item filename to cwd and get the abspath
+		local lintedfile_abs = vim.fn.fnamemodify(cwd .. "/" .. item.Pos.Filename, ":p")
+		-- normalize the above abspath
+		local lintedfile_norm = vim.fs.normalize(lintedfile_abs)
+
+		-- check if the normalized filename matches the filename in the warning,
+		-- or if that normalized filename matches the item position file relative
+		-- to cwd.
+		if filename_norm == item.Pos.Filename or filename_norm == lintedfile_norm then
+			-- only publish if those are the current file diagnostics
+			local sv = severities[item.Severity] or severities.warning
+			table.insert(diagnostics, {
+				lnum = item.Pos.Line > 0 and item.Pos.Line - 1 or 0,
+				col = item.Pos.Column > 0 and item.Pos.Column - 1 or 0,
+				end_lnum = item.Pos.Line > 0 and item.Pos.Line - 1 or 0,
+				end_col = item.Pos.Column > 0 and item.Pos.Column - 1 or 0,
+				severity = sv,
+				source = item.FromLinter,
+				message = item.Text,
+			})
+		end
+	end
+	return diagnostics
+end
+
+--- Run golangci-lint on the file
+---@type Linter
+function M.golangcilint(bufnr)
+	local filename = vim.fn.bufname(bufnr)
+	local cwd = vim.fn.fnamemodify(filename, ":h")
+
+	local cmd = "golanci-lint"
+	if vim.g.golangci_lint_override then
+		-- allow local ftplugins to point to a different
+		-- golangci-lint path
+		cmd = vim.g.golangci_lint_override
+	end
+
+	return {
+		cmd,
+		'run',
+		'--output.json.path=stdout',
+		-- Overwrite values possibly set in .golangci.yml
+		'--output.text.path=',
+		'--output.tab.path=',
+		'--output.html.path=',
+		'--output.checkstyle.path=',
+		'--output.code-climate.path=',
+		'--output.junit-xml.path=',
+		'--output.teamcity.path=',
+		'--output.sarif.path=',
+		'--issues-exit-code=0',
+		'--show-stats=false',
+		cwd,
+	}
+end
+
 local function qftests(pkg, test)
 	local text = true
 	local cmd = { "go", "test" }
@@ -55,73 +146,77 @@ local function qftests(pkg, test)
 	end
 end
 
-local M = {
-	---@type FTOpts
-	opts = {
-		ft = "go",
-		keymap = {
-			n = {
-				["<localleader>"] = {
-					e = ':GoIfErr<CR>',
-					E = [[:GoIfErr<CR>k_vg_"exdd0Ea err := ;<ESC>"eP]],
-					I = [[yiwO = (*<C-r>")(nil)<ESC>0ivar _ ]],
-					c = ':GoCmt<CR>',
-					t = {
-						a = ':GoTagAdd<CR>',
-						r = ':GoTagRm<CR>',
-						c = function()
-							vim.ui.input({ prompt = "Tag Name" }, function(input)
-								require("gopher.struct_tags").add(input)
-							end)
-						end,
-						C = function()
-							vim.ui.input({ prompt = "Tag Name" }, function(input)
-								require("gopher.struct_tags").remove(input)
-							end)
-						end
+---@type FTOpts
+M.opts = {
+	ft = "go",
+	keymap = {
+		n = {
+			["<localleader>"] = {
+				e = ':GoIfErr<CR>',
+				E = [[:GoIfErr<CR>k_vg_"exdd0Ea err := ;<ESC>"eP]],
+				I = [[yiwO = (*<C-r>")(nil)<ESC>0ivar _ ]],
+				c = ':GoCmt<CR>',
+				t = {
+					a = ':GoTagAdd<CR>',
+					r = ':GoTagRm<CR>',
+					c = function()
+						vim.ui.input({ prompt = "Tag Name" }, function(input)
+							require("gopher.struct_tags").add(input)
+						end)
+					end,
+					C = function()
+						vim.ui.input({ prompt = "Tag Name" }, function(input)
+							require("gopher.struct_tags").remove(input)
+						end)
+					end
 
-					},
-					T = qftests,
-					m = {
-						t = ':GoMod tidy<CR>',
-						i = ':GoMod init<CR>',
-						v = ':GoMod vendor<CR>',
-						d = ':GoMod download<CR>',
-					},
-					i = {
-						['.'] = ':!go install .<CR>',
-						c = ':!go install ./cmd/...<CR>'
-					},
-					b = {
-						['.'] = ':!go build  .<CR>',
-						c = ':!go build ./cmd/...<CR>',
-					},
-					r = {
-						['.'] = ':!go run .<CR>',
-						m = ':!go run main.go<CR>',
-						f = function()
-							vim.ui.input({ prompt = "File:" }, function(file)
-								vim.cmd(':!go run ' .. file)
-							end)
-						end
-					}
+				},
+				T = qftests,
+				m = {
+					t = ':GoMod tidy<CR>',
+					i = ':GoMod init<CR>',
+					v = ':GoMod vendor<CR>',
+					d = ':GoMod download<CR>',
+				},
+				i = {
+					['.'] = ':!go install .<CR>',
+					c = ':!go install ./cmd/...<CR>'
+				},
+				b = {
+					['.'] = ':!go build  .<CR>',
+					c = ':!go build ./cmd/...<CR>',
+				},
+				r = {
+					['.'] = ':!go run .<CR>',
+					m = ':!go run main.go<CR>',
+					f = function()
+						vim.ui.input({ prompt = "File:" }, function(file)
+							vim.cmd(':!go run ' .. file)
+						end)
+					end
 				}
 			}
-		},
-		keymap_opts = {
-			buffer = true,
-			noremap = true,
-			silent = true,
-		},
-		once = function()
-			require("gopher").setup({})
-		end,
-		formatters = {
-			{ "gofumpt" },
-			{ "goimports" },
-		},
+		}
+	},
+	keymap_opts = {
+		buffer = true,
+		noremap = true,
+		silent = true,
+	},
+	once = function()
+		require("gopher").setup({})
+	end,
+	formatters = {
+		{ "gofumpt" },
+		{ "goimports" },
+	},
+	lint = {
+		name = "golangci-lint",
+		parser = M.parser,
+		cmd = M.golangcilint
 	}
 }
+
 
 ---@param opts FTOpts?
 function M.setup(opts)

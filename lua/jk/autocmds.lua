@@ -24,17 +24,6 @@ local M = {
 				end,
 			},
 		},
-		{
-			event = { "BufWritePost", "BufEnter" },
-			opts = {
-				group = "UserLspConfig",
-				pattern = "*",
-				desc = "try_lint on insert leave",
-				callback = function()
-					require("jk.plugins.nvim-lint").lint()
-				end
-			},
-		},
 	}
 }
 

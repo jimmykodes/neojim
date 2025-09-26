@@ -14,6 +14,7 @@ local M = {}
 ---@field setup function?
 ---@field autocmds AutocmdDef[]?
 ---@field formatters string[][]?
+---@field lint Lint?
 
 ---@param cmd string[]
 ---@param input string
@@ -56,6 +57,22 @@ local function once(opts)
 					callback = format(opts.formatters),
 				}
 			}
+		})
+	end
+
+	if opts.lint ~= nil then
+		local ns_id = vim.api.nvim_create_namespace(opts.lint.name)
+		require('jk.autocmds').define_autocmds({
+			{
+				event = "BufWritePost",
+				opts = {
+					pattern = "*." .. opts.ft,
+					group = "UserLint",
+					callback = function(args)
+						require('jk.lint').lint(ns_id, opts.lint, args)
+					end,
+				},
+			},
 		})
 	end
 

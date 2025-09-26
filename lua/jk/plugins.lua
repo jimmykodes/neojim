@@ -24,9 +24,6 @@ M.plugins = {
 	},
 	-- MARK: Formatting
 	{
-		"mfussenegger/nvim-lint",
-	},
-	{
 		"tommcdo/vim-lion",
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 	},
