@@ -63,7 +63,7 @@ function M.golangcilint(bufnr)
 	local filename = vim.fn.bufname(bufnr)
 	local cwd = vim.fn.fnamemodify(filename, ":h")
 
-	local cmd = "golanci-lint"
+	local cmd = "golangci-lint"
 	if vim.g.golangci_lint_override then
 		-- allow local ftplugins to point to a different
 		-- golangci-lint path
