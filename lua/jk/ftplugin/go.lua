@@ -25,9 +25,6 @@ function M.parser(output, filename, cwd)
 	end
 	local diagnostics = {}
 
-	vim.schedule(function()
-		vim.notify(string.format("%d issues to parse", #decoded["Issues"]))
-	end)
 	for _, item in ipairs(decoded["Issues"]) do
 		-- normalize the absolute path to the filename
 		local filename_norm = vim.fs.normalize(vim.fn.fnamemodify(filename, ":p"))

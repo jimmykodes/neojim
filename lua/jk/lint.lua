@@ -32,7 +32,6 @@ function M.lint(ns_id, lint, args)
 		end
 		local diags = lint.parser(out.stdout, filename, cwd)
 		vim.schedule(function()
-			vim.notify("setting " .. #diags .. " diags")
 			vim.diagnostic.set(ns_id, args.buf, diags, {
 				virtual_text = true,  -- show virtual text
 				signs = true,         -- show signs in sign column
