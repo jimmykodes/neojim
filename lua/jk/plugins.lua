@@ -151,6 +151,10 @@ M.plugins = {
 		lazy = false,
 	},
 	{
+		"jimmykodes/expand.nvim",
+		lazy = false,
+	},
+	{
 		"folke/todo-comments.nvim",
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		dependencies = { "nvim-lua/plenary.nvim" },
