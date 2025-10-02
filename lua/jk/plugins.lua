@@ -200,7 +200,7 @@ M.plugins = {
 	-- MARK: Telescope
 	{
 		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
+		branch = "master",
 		cmd = "Telescope",
 		config = function()
 			require('jk.plugins.telescope').setup()
@@ -259,7 +259,7 @@ M.plugins = {
 		"mfussenegger/nvim-dap-python",
 		ft = "python",
 		config = function()
-			require('dap-python').setup("/Users/jimmykeith/.venv/dap/bin/python")
+			require('dap-python').setup("uv")
 
 			table.insert(require('dap').configurations.python or {}, {
 				name = "Remote Airflow",
@@ -328,6 +328,7 @@ function M.setup()
 
 	require("lazy").setup(M.plugins, {
 		defaults = { lazy = true },
+		rocks = { enabled = false },
 	})
 end
 
