@@ -197,14 +197,6 @@ M.plugins = {
 		"nvim-lua/plenary.nvim",
 		cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" },
 	},
-	{
-		"code-biscuits/nvim-biscuits",
-		event = "BufRead",
-		opts = {
-			cursor_line_only = true,
-		},
-	},
-
 	-- MARK: Telescope
 	{
 		"nvim-telescope/telescope.nvim",
@@ -222,19 +214,18 @@ M.plugins = {
 	-- MARK: Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		build = function()
-			require("nvim-treesitter.install").update({ with_sync = true })()
-		end,
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
+		lazy = false,
+		branch = "main",
+		build = ":TSUpdate",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-context",
-			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
-		config = function()
-			require("jk.plugins.treesitter").setup()
-		end
 	},
 	{
+		-- This plugin pins lines to the top of the buffer
+		-- to see the context of the current line
+		-- this could be function name, markdown headings,
+		-- class name, etc.
 		"nvim-treesitter/nvim-treesitter-context",
 		opts = { multiline_threshold = 3 },
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
