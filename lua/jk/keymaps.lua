@@ -81,6 +81,13 @@ M.config = {
 			["<S-h>"]    = ":bprevious<CR>",
 			["<C-q>"]    = ":call QuickFixToggle()<CR>",
 
+			["]"]        = {
+				h = "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>", -- Next Hunk
+			},
+			["["]        = {
+				h = "<cmd>lua require 'gitsigns'.prev_hunk({navigation_message = false})<cr>", -- Prev Hunk
+			},
+
 			g            = {
 				-- MARK: LSP
 				r = {
@@ -91,8 +98,6 @@ M.config = {
 					-- t type_definition (vim builtin)
 					d = "<cmd>lua vim.lsp.buf.definition()<cr>", -- Go to Definition
 					l = "<cmd>lua vim.lsp.codelens.run()<cr>", -- CodeLens Action
-					j = "<cmd>lua vim.diagnostic.goto_next()<cr>", -- Next Diagnostic
-					k = "<cmd>lua vim.diagnostic.goto_prev()<cr>", -- Prev Diagnostic
 					q = "<cmd>lua vim.diagnostic.setloclist()<cr>", -- Quickfix
 				}
 			},
@@ -109,7 +114,6 @@ M.config = {
 				h = "<cmd>nohlsearch<CR>",                                           --"No Highlight"
 				e = "<cmd>NvimTreeToggle<CR>",                                       -- "Explorer"
 				o = "<cmd>NvimTreeFocus<CR>",                                        --"Explorer Focus"
-				n = "<cmd>Navbuddy<CR>",                                             --"Navbuddy"
 
 				-- MARK: Buffers
 				b = {
