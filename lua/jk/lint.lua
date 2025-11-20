@@ -6,6 +6,7 @@
 ---@field name string
 ---@field parser Parser
 ---@field cmd Linter
+---@field expectedCode integer?
 
 local M = {}
 
@@ -16,8 +17,9 @@ function M.lint(ns_id, lint, args)
 	local cmd = lint.cmd(args.buf)
 	local filename = vim.fn.bufname(args.buf)
 	local cwd = vim.fn.getcwd()
+	local expectedCode = lint.expectedCode or 0
 	vim.system(cmd, { text = true }, function(out)
-		if out.code ~= 0 then
+		if out.code ~= expectedCode then
 			vim.schedule(function()
 				vim.notify(
 					string.format(

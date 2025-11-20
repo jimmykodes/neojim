@@ -150,20 +150,20 @@ M.opts = {
 		n = {
 			["<localleader>"] = {
 				e = ':GoIfErr<CR>',
-				E = [[:GoIfErr<CR>k_vg_"exdd0Ea err := ;<ESC>"eP]],
-				I = [[yiwO = (*<C-r>")(nil)<ESC>0ivar _ ]],
+				E = [[:GoIfErr<CR>k_vg_"exdd0Ea err := ;<ESC>"eP]], -- if _, err := call(..); err != nil
+				I = [[yiwO = (*<C-r>")(nil)<ESC>0ivar _ ]],     -- var _ {cursor} = (*{struct ident})(nil)
 				c = ':GoCmt<CR>',
 				t = {
 					a = ':GoTagAdd<CR>',
 					r = ':GoTagRm<CR>',
 					c = function()
-						vim.ui.input({ prompt = "Tag Name" }, function(input)
-							require("gopher.struct_tags").add(input)
+						vim.ui.input({ prompt = "Add Tag Name" }, function(input)
+							require("gopher.struct_tags").add({ tags = { input } })
 						end)
 					end,
 					C = function()
-						vim.ui.input({ prompt = "Tag Name" }, function(input)
-							require("gopher.struct_tags").remove(input)
+						vim.ui.input({ prompt = "Remove Tag Name" }, function(input)
+							require("gopher.struct_tags").remove({ tags = { input } })
 						end)
 					end
 
