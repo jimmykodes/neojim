@@ -11,7 +11,6 @@ local ignore_bufs = {
 	"NvimTree",
 	"oil",
 	"qf",
-	"TelescopePrompt",
 	"toggleterm",
 }
 local function hide_on_ignored_ft()

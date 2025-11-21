@@ -65,9 +65,9 @@ local M = {
 		type = "group",
 		val = {
 			button("n", withIcon("New File", icons.ui.NewFile), "<CMD>ene!<CR>"),
-			button("f", withIcon("Find File", icons.ui.FindFile), "<CMD>Telescope find_files<CR>"),
-			button("r", withIcon("Recent files", icons.ui.History), "<CMD>Telescope oldfiles<CR>"),
-			button("t", withIcon("Find Text", icons.ui.FindText), "<CMD>Telescope live_grep<CR>"),
+			button("f", withIcon("Find File", icons.ui.FindFile), require("jk.fzf").files),
+			button("r", withIcon("Recent files", icons.ui.History), require("jk.fzf").oldfiles),
+			button("t", withIcon("Find Text", icons.ui.FindText), require("jk.fzf").find_text),
 			button("l", withIcon("Lazy", icons.ui.Package), "<CMD>Lazy<CR>"),
 			button("m", withIcon("Mason", icons.ui.Server), "<CMD>Mason<CR>"),
 			button("q", withIcon("Quit", icons.ui.Close), "<CMD>quit<CR>"),

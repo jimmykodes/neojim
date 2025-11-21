@@ -7,15 +7,6 @@ function M.lazy_dir()
 end
 
 M.plugins = {
-	-- MARK: exp
-	-- {
-	-- 	"jimmykodes/frecency.nvim",
-	-- 	build = "make build",
-	-- 	opts = {
-	-- 		install_location = M.lazy_dir() .. "/frecency.nvim/"
-	-- 	},
-	-- 	lazy = false,
-	-- },
 	-- MARK: LSP
 	{
 		"williamboman/mason.nvim",
@@ -197,18 +188,15 @@ M.plugins = {
 		"nvim-lua/plenary.nvim",
 		cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" },
 	},
-	-- MARK: Telescope
+	-- MARK: fzf
 	{
-		"nvim-telescope/telescope.nvim",
-		branch = "master",
-		cmd = "Telescope",
-		config = function()
-			require('jk.plugins.telescope').setup()
-		end
-	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		-- or if using mini.icons/mini.nvim
+		-- dependencies = { "nvim-mini/mini.icons" },
+		opts = {},
+		lazy = false,
 	},
 
 	-- MARK: Treesitter

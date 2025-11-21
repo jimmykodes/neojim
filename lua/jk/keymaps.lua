@@ -110,7 +110,7 @@ M.config = {
 				x = "<cmd>x<CR>",                                                    -- "Save and Quit"
 				q = "<cmd>confirm q<CR>",                                            -- "Quit"
 				c = "<cmd>bd<CR>",                                                   -- "Close Buffer"
-				f = "<cmd>Telescope find_files<cr>",                                 --"Find File"
+				f = require("jk.fzf").files,                                         --"Find File"
 				h = "<cmd>nohlsearch<CR>",                                           --"No Highlight"
 				e = "<cmd>NvimTreeToggle<CR>",                                       -- "Explorer"
 				o = "<cmd>NvimTreeFocus<CR>",                                        --"Explorer Focus"
@@ -154,18 +154,13 @@ M.config = {
 
 				-- MARK: Search
 				s = {
-					d = "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", -- Buffer Diagnostics
-					D = "<cmd>Telescope diagnostics<cr>",                  -- Diagnostics
-					s = "<cmd>Telescope lsp_document_symbols<cr>",         -- Document Symbols
-					S = "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", -- Workspace Symbols
-					e = "<cmd>Telescope quickfix<cr>",                     -- Telescope Quickfix
-					b = "<cmd>Telescope buffers<cr>",                      -- Find Buffer
-					f = "<cmd>Telescope find_files<cr>",                   -- Find File
-					t = "<cmd>Telescope live_grep<cr>",                    -- Text
-					T = "<cmd>TodoTelescope<cr>",                          -- Todos
-					m = "<cmd>TodoTelescope keywords=MARK<cr>",            -- Marks
-					C = "<cmd>Telescope commands<cr>",                     -- Commands
-					r = "<cmd>Telescope resume<cr>",                       -- Resume last search
+					d = require("jk.fzf").diag_doc,        -- Buffer Diagnostics
+					D = require("jk.fzf").diag_work,       -- Diagnostics
+					s = require("jk.fzf").lsp_document_symbols, -- Document Symbols
+					b = require("jk.fzf").buffers,         -- Find Buffer
+					f = require("jk.fzf").files,           -- Find File
+					t = require("jk.fzf").find_text,       -- Text
+					r = require("jk.fzf").resume,          -- Resume last search
 				},
 
 				-- MARK: Transforms
