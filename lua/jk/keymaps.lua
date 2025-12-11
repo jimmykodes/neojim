@@ -208,6 +208,36 @@ M.config = {
 }
 
 
+
+local function selection_to_quickfix()
+	local start_pos = vim.fn.getpos(".")
+	local end_pos = vim.fn.getpos("v")
+	local start_line = start_pos[2]
+	local end_line = end_pos[2]
+	if end_line < start_line then
+		start_line, end_line = end_line, start_line
+	end
+
+	local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+	local qf_list = {}
+	for i, line in ipairs(lines) do
+		---@type vim.quickfix.entry
+		local entry = {
+			bufnr = vim.fn.bufnr('%'),
+			lnum = start_pos[2] + i - 1,
+			col = i == 1 and start_pos[3] or 1,
+			text = line
+		}
+		table.insert(qf_list, entry)
+	end
+
+	vim.fn.setqflist(qf_list)
+	vim.cmd('copen')
+end
+
+vim.keymap.set('v', '<leader>l', selection_to_quickfix, { desc = 'Selection to quickfix' })
+
 ---register mappings for a mod
 ---@param mode string
 ---@param mappings Keymap
