@@ -11,12 +11,10 @@ M.plugins = {
 	{
 		"williamboman/mason.nvim",
 		opts = {},
-		lazy = false,
 	},
 	-- MARK: Formatting
 	{
 		"tommcdo/vim-lion",
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 	},
 
 	-- MARK: Completions
@@ -43,10 +41,6 @@ M.plugins = {
 	-- MARK: Functionality
 	{
 		"akinsho/toggleterm.nvim",
-		cmd = "ToggleTerm",
-		keys = {
-			"<C-\\>",
-		},
 		opts = {
 			open_mapping = [[<C-\>]],
 			direction = "float",
@@ -57,7 +51,6 @@ M.plugins = {
 	},
 	{
 		"kyazdani42/nvim-tree.lua",
-		event = "VimEnter",
 		config = function()
 			require("plugins.nvim-tree").setup()
 		end
@@ -65,7 +58,6 @@ M.plugins = {
 	-- MARK: UI
 	{
 		"goolord/alpha-nvim",
-		event = "VimEnter",
 		config = function()
 			require("plugins.alpha").setup()
 		end
@@ -73,7 +65,6 @@ M.plugins = {
 	{
 		"jimmykodes/colorschemes.nvim",
 		priority = 1000,
-		lazy = false,
 	},
 	{
 		"uga-rosa/ccc.nvim",
@@ -83,11 +74,9 @@ M.plugins = {
 				lsp = true,
 			},
 		},
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		opts = {
 			attach_to_untracked = true,
 		},
@@ -99,19 +88,16 @@ M.plugins = {
 	{
 		"stevearc/dressing.nvim",
 		opts = {},
-		event = "VeryLazy"
 	},
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
-		event = "VimEnter",
 		config = function()
 			require("plugins.lualine").setup()
 		end,
 	},
 	{
 		"RRethy/vim-illuminate",
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		config = function()
 			require('illuminate').configure({
 				filetypes_denylist = {
@@ -123,31 +109,25 @@ M.plugins = {
 	},
 	{
 		'stevearc/quicker.nvim',
-		event = "FileType qf",
 		opts = {},
 	},
 	{
 		"chentoast/marks.nvim",
-		event = "VeryLazy",
 		opts = {},
 	},
 
 	-- MARK: Convenience
 	{
 		"jimmykodes/strman.nvim",
-		lazy = false,
 	},
 	{
 		"jimmykodes/incr.nvim",
-		lazy = false,
 	},
 	{
 		"jimmykodes/expand.nvim",
-		lazy = false,
 	},
 	{
 		"folke/todo-comments.nvim",
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			keywords = {
@@ -182,11 +162,9 @@ M.plugins = {
 	},
 	{
 		"ggandor/lightspeed.nvim",
-		event = "BufRead"
 	},
 	{
 		"nvim-lua/plenary.nvim",
-		cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" },
 	},
 	-- MARK: fzf
 	{
@@ -196,13 +174,11 @@ M.plugins = {
 		-- or if using mini.icons/mini.nvim
 		-- dependencies = { "nvim-mini/mini.icons" },
 		opts = {},
-		lazy = false,
 	},
 
 	-- MARK: Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
 		branch = "main",
 		build = ":TSUpdate",
 		dependencies = {
@@ -222,13 +198,11 @@ M.plugins = {
 	-- MARK: DAP
 	{
 		"mfussenegger/nvim-dap",
-		lazy = false,
 	},
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 		opts = {},
-		lazy = false,
 	},
 
 	-- MARK: Go
@@ -315,7 +289,6 @@ function M.setup()
 	vim.opt.rtp:prepend(lazypath)
 
 	require("lazy").setup(M.plugins, {
-		defaults = { lazy = true },
 		rocks = { enabled = false },
 	})
 end
