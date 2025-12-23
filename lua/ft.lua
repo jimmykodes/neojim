@@ -44,11 +44,11 @@ local function once(opts)
 	end
 
 	if opts.autocmds then
-		require('jk.autocmds').define_autocmds(opts.autocmds)
+		require('autocmds').define_autocmds(opts.autocmds)
 	end
 
 	if opts.formatters ~= nil and #opts.formatters > 0 then
-		require('jk.autocmds').define_autocmds({
+		require('autocmds').define_autocmds({
 			{
 				event = "BufWritePre",
 				opts = {
@@ -62,14 +62,14 @@ local function once(opts)
 
 	if opts.lint ~= nil then
 		local ns_id = vim.api.nvim_create_namespace(opts.lint.name)
-		require('jk.autocmds').define_autocmds({
+		require('autocmds').define_autocmds({
 			{
 				event = "BufWritePost",
 				opts = {
 					pattern = "*." .. opts.ft,
 					group = "UserLint",
 					callback = function(args)
-						require('jk.lint').lint(ns_id, opts.lint, args)
+						require('lint').lint(ns_id, opts.lint, args)
 					end,
 				},
 			},
@@ -78,7 +78,7 @@ local function once(opts)
 
 
 	if opts.lsps then
-		require('jk.lsps').setup_lsps(opts.lsps)
+		require('lsps').setup_lsps(opts.lsps)
 	end
 
 	if opts.once ~= nil then
@@ -92,12 +92,12 @@ end
 ---@param opts FTOpts
 local function _setup(opts)
 	if opts.keymap ~= nil then
-		require("jk.keymaps").register_mappings(opts.keymap, opts.keymap_opts)
+		require("keymaps").register_mappings(opts.keymap, opts.keymap_opts)
 	end
 
 	if opts.lsp_clients then
 		for _, conf in ipairs(opts.lsp_clients) do
-			require("jk.lsps").start_lsp(conf)
+			require("lsps").start_lsp(conf)
 		end
 	end
 

@@ -1,1 +1,1 @@
-require("jk.ftplugin.json").setup()
+require("ftplugin.json").setup()

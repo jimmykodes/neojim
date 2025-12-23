@@ -110,15 +110,15 @@ M.config = {
 				x = "<cmd>x<CR>",                                                    -- "Save and Quit"
 				q = "<cmd>confirm q<CR>",                                            -- "Quit"
 				c = "<cmd>bd<CR>",                                                   -- "Close Buffer"
-				f = require("jk.fzf").files,                                         --"Find File"
+				f = require("fzf").files,                                         --"Find File"
 				h = "<cmd>nohlsearch<CR>",                                           --"No Highlight"
 				e = "<cmd>NvimTreeToggle<CR>",                                       -- "Explorer"
 				o = "<cmd>NvimTreeFocus<CR>",                                        --"Explorer Focus"
 
 				-- MARK: Buffers
 				b = {
-					h = "<cmd>lua require 'jk.plugins.buffers'.close_left()<cr>", -- Close all to the left
-					l = "<cmd>lua require 'jk.plugins.buffers'.close_right()<cr>", -- Close all to the right
+					h = "<cmd>lua require 'plugins.buffers'.close_left()<cr>", -- Close all to the left
+					l = "<cmd>lua require 'plugins.buffers'.close_right()<cr>", -- Close all to the right
 				},
 
 				-- MARK: DAP
@@ -154,13 +154,13 @@ M.config = {
 
 				-- MARK: Search
 				s = {
-					d = require("jk.fzf").diag_doc,        -- Buffer Diagnostics
-					D = require("jk.fzf").diag_work,       -- Diagnostics
-					s = require("jk.fzf").lsp_document_symbols, -- Document Symbols
-					b = require("jk.fzf").buffers,         -- Find Buffer
-					f = require("jk.fzf").files,           -- Find File
-					t = require("jk.fzf").find_text,       -- Text
-					r = require("jk.fzf").resume,          -- Resume last search
+					d = require("fzf").diag_doc,        -- Buffer Diagnostics
+					D = require("fzf").diag_work,       -- Diagnostics
+					s = require("fzf").lsp_document_symbols, -- Document Symbols
+					b = require("fzf").buffers,         -- Find Buffer
+					f = require("fzf").files,           -- Find File
+					t = require("fzf").find_text,       -- Text
+					r = require("fzf").resume,          -- Resume last search
 				},
 
 				-- MARK: Transforms

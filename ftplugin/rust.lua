@@ -1,1 +1,1 @@
-require("jk.ftplugin.rust").setup()
+require("ftplugin.rust").setup()

@@ -1,4 +1,4 @@
-local icons = require("jk.icons")
+local icons = require("icons")
 
 local M = {}
 
@@ -94,7 +94,7 @@ M.components = {
 	},
 	linters = {
 		function()
-			local buf_client_names = require('jk.plugins.nvim-lint').resolve_ft(vim.bo.filetype)
+			local buf_client_names = require('plugins.nvim-lint').resolve_ft(vim.bo.filetype)
 
 			if #buf_client_names == 0 then
 				buf_client_names = { "Inactive" }
@@ -173,7 +173,7 @@ M.opts = {
 		lualine_z = {}
 	},
 	tabline = {
-		lualine_a = { require("jk.plugins.lualine.components.buffers") },
+		lualine_a = { require("plugins.lualine.components.buffers") },
 	},
 	winbar = {},
 	inactive_winbar = {},

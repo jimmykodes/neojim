@@ -1,1 +1,1 @@
-require("jk.ftplugin.python").setup()
+require("ftplugin.python").setup()

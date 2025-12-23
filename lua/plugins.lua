@@ -1,4 +1,4 @@
-local icons = require("jk.icons")
+local icons = require("icons")
 
 local M = {}
 
@@ -23,7 +23,7 @@ M.plugins = {
 	{
 		"hrsh7th/nvim-cmp",
 		config = function()
-			require("jk.plugins.completion").setup()
+			require("plugins.completion").setup()
 		end,
 		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
@@ -59,7 +59,7 @@ M.plugins = {
 		"kyazdani42/nvim-tree.lua",
 		event = "VimEnter",
 		config = function()
-			require("jk.plugins.nvim-tree").setup()
+			require("plugins.nvim-tree").setup()
 		end
 	},
 	-- MARK: UI
@@ -67,7 +67,7 @@ M.plugins = {
 		"goolord/alpha-nvim",
 		event = "VimEnter",
 		config = function()
-			require("jk.plugins.alpha").setup()
+			require("plugins.alpha").setup()
 		end
 	},
 	{
@@ -106,7 +106,7 @@ M.plugins = {
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		event = "VimEnter",
 		config = function()
-			require("jk.plugins.lualine").setup()
+			require("plugins.lualine").setup()
 		end,
 	},
 	{

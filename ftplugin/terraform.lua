@@ -1,1 +1,1 @@
-require('jk.ftplugin.terraform').setup()
+require('ftplugin.terraform').setup()

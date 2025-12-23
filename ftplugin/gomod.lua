@@ -1,1 +1,1 @@
-require("jk.ftplugin.go").setup()
+require("ftplugin.go").setup()

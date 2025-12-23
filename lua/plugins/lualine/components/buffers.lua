@@ -1,4 +1,4 @@
-local icons = require("jk.icons")
+local icons = require("icons")
 
 local M = require("lualine.components.buffers"):extend()
 

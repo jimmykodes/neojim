@@ -4,12 +4,12 @@ vim.g.maplocalleader = ","
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("jk.autocmds").setup()
-require("jk.options").setup()
-require("jk.commands").setup()
-require("jk.plugins").setup()
-require("jk.filtetypes").setup()
-require("jk.treesitter").setup()
-require("jk.keymaps").setup()
-require("jk.lsps").setup()
-require("jk.color").setup()
+require("autocmds").setup()
+require("options").setup()
+require("commands").setup()
+require("plugins").setup()
+require("filtetypes").setup()
+require("treesitter").setup()
+require("keymaps").setup()
+require("lsps").setup()
+require("color").setup()

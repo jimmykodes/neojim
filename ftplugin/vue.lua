@@ -1,1 +1,1 @@
-require('jk.ftplugin.typescript').setup()
+require('ftplugin.typescript').setup()
