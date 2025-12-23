@@ -79,7 +79,6 @@ M.config = {
 			-- Navigate buffers
 			["<S-l>"]    = ":bnext<CR>",
 			["<S-h>"]    = ":bprevious<CR>",
-			["<C-q>"]    = ":call QuickFixToggle()<CR>",
 
 			["]"]        = {
 				h = "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>", -- Next Hunk
@@ -110,7 +109,7 @@ M.config = {
 				x = "<cmd>x<CR>",                                                    -- "Save and Quit"
 				q = "<cmd>confirm q<CR>",                                            -- "Quit"
 				c = "<cmd>bd<CR>",                                                   -- "Close Buffer"
-				f = require("fzf").files,                                         --"Find File"
+				f = require("fzf").files,                                            --"Find File"
 				h = "<cmd>nohlsearch<CR>",                                           --"No Highlight"
 				e = "<cmd>NvimTreeToggle<CR>",                                       -- "Explorer"
 				o = "<cmd>NvimTreeFocus<CR>",                                        --"Explorer Focus"
@@ -236,8 +235,6 @@ local function selection_to_quickfix()
 	vim.cmd('copen')
 end
 
-vim.keymap.set('v', '<leader>l', selection_to_quickfix, { desc = 'Selection to quickfix' })
-
 ---register mappings for a mod
 ---@param mode string
 ---@param mappings Keymap
@@ -271,6 +268,7 @@ function M.register_mappings(mappings, opts)
 end
 
 function M.setup()
+	vim.keymap.set('v', '<leader>l', selection_to_quickfix, { desc = 'Selection to quickfix' })
 	M.register_mappings(M.config.mappings, M.config.opts)
 end
 

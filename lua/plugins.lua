@@ -290,6 +290,15 @@ function M.setup()
 
 	require("lazy").setup(M.plugins, {
 		rocks = { enabled = false },
+		performance = {
+			rtp = {
+				disabled_plugins = {
+					'netrwPlugin',
+					'tohtml',
+					'tutor',
+				}
+			}
+		}
 	})
 end
 

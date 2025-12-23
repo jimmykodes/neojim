@@ -17,22 +17,16 @@ local function yaml(path, _)
 	return "yaml"
 end
 
-local M = {
-	opts = {
-		extension = {
-			tf = "terraform",
-			jk = "joker",
-			http = "http",
-			td = "todo",
-			tpl = "gotmpl",
-			yaml = yaml,
-			yml = yaml,
-		},
+local opts = {
+	extension = {
+		tf = "terraform",
+		jk = "joker",
+		http = "http",
+		td = "todo",
+		tpl = "gotmpl",
+		yaml = yaml,
+		yml = yaml,
 	},
 }
 
-function M.setup()
-	vim.filetype.add(M.opts)
-end
-
-return M
+vim.filetype.add(opts)

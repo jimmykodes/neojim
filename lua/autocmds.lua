@@ -9,9 +9,27 @@ local M = {
 			event = "FileType",
 			opts = {
 				group = "_filetype_settings",
-				pattern = { "qf" },
+				desc = "make buffers unlisted",
+				pattern = { "qf", "scratch" },
 				callback = function() vim.cmd("set nobuflisted") end,
 			}
+		},
+		{
+			event = "FileType",
+			opts = {
+				group    = "_filetype_settings",
+				desc     = "close files with q",
+				pattern  = {
+					"qf",
+					"help",
+					"scratch",
+				},
+				callback = function(args)
+					if args.match ~= 'help' or not vim.bo[args.buf].modifiable then
+						vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = args.buf })
+					end
+				end
+			},
 		},
 		{
 			event = "TextYankPost",
