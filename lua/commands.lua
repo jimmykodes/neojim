@@ -67,7 +67,7 @@ local cmds = {
 				if commit_resp.code == 0 then
 					vim.notify("Committed", vim.log.levels.INFO)
 					-- Close the buffer
-					vim.cmd('q')
+					vim.cmd('bd')
 				else
 					vim.notify("Error commiting: " .. commit_resp.stderr)
 				end
