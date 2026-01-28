@@ -1,12 +1,7 @@
 local icons = require("icons")
 
-local M = {}
 
-function M.lazy_dir()
-	return vim.fn.stdpath("data") .. "/lazy"
-end
-
-M.plugins = {
+local plugins = {
 	-- MARK: LSP
 	{
 		"williamboman/mason.nvim",
@@ -271,35 +266,29 @@ M.plugins = {
 	},
 }
 
-
-
-function M.setup()
-	local lazypath = M.lazy_dir() .. "/lazy.nvim"
-	if not vim.loop.fs_stat(lazypath) then
-		vim.fn.system({
-			"git",
-			"clone",
-			"--filter=blob:none",
-			"https://github.com/folke/lazy.nvim.git",
-			"--branch=stable",
-			lazypath
-		})
-	end
-
-	vim.opt.rtp:prepend(lazypath)
-
-	require("lazy").setup(M.plugins, {
-		rocks = { enabled = false },
-		performance = {
-			rtp = {
-				disabled_plugins = {
-					'netrwPlugin',
-					'tohtml',
-					'tutor',
-				}
-			}
-		}
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath
 	})
 end
 
-return M
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup(plugins, {
+	rocks = { enabled = false },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				'netrwPlugin',
+				'tohtml',
+				'tutor',
+			}
+		}
+	}
+})

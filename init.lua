@@ -7,10 +7,12 @@ vim.g.loaded_netrwPlugin = 1
 require("options")
 require("commands")
 require("filtetypes")
+require("plugins")
+require("treesitter")
 
+-- Goal: eventually refactor this to get rid of the need
+-- for a setup function
 require("autocmds").setup()
-require("plugins").setup()
-require("treesitter").setup()
 require("keymaps").setup()
 require("lsps").setup()
 

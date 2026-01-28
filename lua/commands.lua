@@ -57,7 +57,7 @@ local cmds = {
 			vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 			local commit = function()
 				local buf_lines = vim.iter(vim.api.nvim_buf_get_lines(buf, 0, -1, false))
-				buf_lines:filter(function(line) return not vim.startswith(line, "#") end):totable()
+				buf_lines = buf_lines:filter(function(line) return not vim.startswith(line, "#") end):totable()
 
 				local commit_msg = table.concat(buf_lines, '\n')
 
