@@ -149,6 +149,7 @@ M.config = {
 					s = "<cmd>lua require 'gitsigns'.stage_hunk()<cr>",
 					S = "<cmd>lua require 'gitsigns'.stage_buffer()<cr>",
 					q = "<cmd>lua require 'gitsigns'.setqflist()<cr>",
+					c = "<cmd>GitCommitMsg<cr>",
 				},
 
 				-- MARK: Search

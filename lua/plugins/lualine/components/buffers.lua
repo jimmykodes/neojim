@@ -4,7 +4,7 @@ local M = require("lualine.components.buffers"):extend()
 
 local excluded_bufs = {
 	'quickfix',
-	'nofile',
+	-- 'nofile',
 }
 
 function M:init(options)
