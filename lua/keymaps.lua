@@ -163,6 +163,14 @@ M.config = {
 					r = require("fzf").resume,          -- Resume last search
 				},
 
+				-- MARK: LLiMa
+				l = {
+					o = "<Plug>LlimaOpen",
+					s = "<Plug>LlimaSend",
+					c = "<Plug>LlimaClose",
+					t = "<Plug>LlimaUseTool",
+				},
+
 				-- MARK: Transforms
 				T = {
 					["'"] = [["pdi"h2xi'<C-r>p'<Esc>]], -- Double -> Single Quote
