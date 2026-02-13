@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
 	name = "vtsls",
 	cmd = { "vtsls", "--stdio" },
@@ -10,7 +11,7 @@ return {
 		'typescript.tsx',
 		"vue",
 	},
-	rootmarkers = { "tsconfig.json", "package.json" },
+	root_markers = { "tsconfig.json", "package.json" },
 	settings = {
 		vtsls = {
 			tsserver = {

@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
 	name = "tsqueryls",
 	cmd = { "ts_query_ls" },

@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
 	name = "bashls",
 	cmd = { "bash-language-server", "start" },

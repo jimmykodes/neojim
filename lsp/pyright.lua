@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
 	name = "pyright",
 	cmd = { 'pyright-langserver', '--stdio' },

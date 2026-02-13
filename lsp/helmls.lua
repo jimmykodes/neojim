@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
 	name = "helmls",
 	cmd = { "helm_ls", "serve" },

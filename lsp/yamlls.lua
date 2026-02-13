@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
 	name = "yamlls",
 	cmd = { "yaml-language-server", "--stdio" },

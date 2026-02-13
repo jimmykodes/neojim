@@ -1,4 +1,4 @@
----@type vim.lsp.ClientConfig
+---@type vim.lsp.Config
 local M = {
 	name = "vuels",
 	cmd = { "vue-language-server", "--stdio" },

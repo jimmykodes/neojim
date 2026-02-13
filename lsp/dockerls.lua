@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
 	name = "dockerls",
 	cmd = { "docker-langserver", "--stdio" },
