@@ -44,14 +44,14 @@ local function gitFiles(cwd)
 	end
 	local topLevelDir = vim.trim(topLevelResp.stdout)
 
-	---@param cmd string[]
+	---@param cmd vim.SystemObj
 	---@param icon string
 	---@param process function?
 	---@return RUFile[]
 	local function getFiles(cmd, icon, process)
 		---@type RUFile[]
 		local files = {}
-		local resp = vim.system(cmd):wait()
+		local resp = cmd:wait()
 		if resp.code == 0 then
 			for _, fpath in ipairs(vim.split(vim.trim(resp.stdout), "\n")) do
 				local func = function(s) return s end
@@ -65,11 +65,16 @@ local function gitFiles(cwd)
 		return files
 	end
 
+	local upstream = vim.system({ "git", "diff", "--name-only", "@{upstream}..." })
+	local unstaged = vim.system({ "git", "diff", "--name-only" })
+	local staged = vim.system({ "git", "diff", "--name-only", "--staged" })
+	local modified = vim.system({ "git", "status", "--porcelain" })
+
 	return vim.iter({
-		getFiles({ "git", "diff", "--name-only", "@{upstream}..." }, icons.git.Diff),
-		getFiles({ "git", "diff", "--name-only" }, icons.git.FileUnstaged),
-		getFiles({ "git", "diff", "--name-only", "--staged" }, icons.git.FileStaged),
-		getFiles({ "git", "status", "--porcelain" }, icons.git.FileUntracked, function(s) return s:sub(4) end)
+		getFiles(upstream, icons.git.Diff),
+		getFiles(unstaged, icons.git.FileUnstaged),
+		getFiles(staged, icons.git.FileStaged),
+		getFiles(modified, icons.git.FileUntracked, function(s) return s:sub(4) end)
 	}):flatten(1):totable()
 end
 
