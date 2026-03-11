@@ -1,93 +1,9 @@
 local icons = require("icons")
 
+local fileHandlers = require("files")
+
 local function withIcon(str, icon)
 	return icon .. "  " .. str
-end
-
----@class RUFile
----@field icon string
----@field path string
-
----@param fn string absolute path to file
----@param cwd string absolute path to current working dir
----@return string?
-local function truncateWD(fn, cwd)
-	if vim.startswith(fn, cwd .. "/") and vim.fn.filereadable(fn) == 1 then
-		return fn:sub(#cwd + 2)
-	end
-end
-
----@param cwd string
----@param num_files integer
----@return RUFile[]
-local function oldfile(cwd, num_files)
-	---@type RUFile[]
-	local files = {}
-	for _, _fn in ipairs(vim.v.oldfiles) do
-		if #files >= num_files then
-			break
-		end
-		local fn = truncateWD(_fn, cwd)
-		if fn ~= nil and not vim.list_contains(files, fn) then
-			files[#files + 1] = { icon = icons.misc.Watch, path = fn }
-		end
-	end
-	return files
-end
-
----@return RUFile[]
-local function gitFiles(cwd)
-	local topLevelResp = vim.system({ "git", "rev-parse", "--show-toplevel" }):wait()
-	if topLevelResp.code ~= 0 then
-		-- not a git dir
-		return {}
-	end
-	local topLevelDir = vim.trim(topLevelResp.stdout)
-
-	---@param cmd vim.SystemObj
-	---@param icon string
-	---@param process function?
-	---@return RUFile[]
-	local function getFiles(cmd, icon, process)
-		---@type RUFile[]
-		local files = {}
-		local resp = cmd:wait()
-		if resp.code == 0 then
-			for _, fpath in ipairs(vim.split(vim.trim(resp.stdout), "\n")) do
-				local func = function(s) return s end
-				if process ~= nil then func = process end
-				local fname = truncateWD(topLevelDir .. "/" .. func(fpath), cwd)
-				if fname ~= nil then
-					files[#files + 1] = { icon = icon, path = fname }
-				end
-			end
-		end
-		return files
-	end
-
-	local upstream = vim.system({ "git", "diff", "--name-only", "@{upstream}..." })
-	local unstaged = vim.system({ "git", "diff", "--name-only" })
-	local staged = vim.system({ "git", "diff", "--name-only", "--staged" })
-	local modified = vim.system({ "git", "status", "--porcelain" })
-
-	return vim.iter({
-		getFiles(upstream, icons.git.Diff),
-		getFiles(unstaged, icons.git.FileUnstaged),
-		getFiles(staged, icons.git.FileStaged),
-		getFiles(modified, icons.git.FileUntracked, function(s) return s:sub(4) end)
-	}):flatten(1):totable()
-end
-
----@param files RUFile[]
----@param file RUFile
----@return boolean
-local function containsPath(files, file)
-	for _, f in ipairs(files) do
-		if f.path == file.path then
-			return true
-		end
-	end
-	return false
 end
 
 local function button(shortcut, value, keybind, opts)
@@ -169,15 +85,7 @@ local M = {
 			local keys = "asdfghjkl;"
 			local num_files = 10
 
-			local cwd = vim.fn.getcwd()
-
-			local files = gitFiles(cwd)
-
-			for _, file in ipairs(oldfile(cwd, num_files * 2)) do
-				if #files < num_files and not containsPath(files, file) then
-					files[#files + 1] = file
-				end
-			end
+			local files = fileHandlers.uniqueFiles(num_files)
 
 			local max = vim.iter(ipairs(files)):fold(50, function(acc, _, v) return math.max(acc, #v.path + 7) end)
 
