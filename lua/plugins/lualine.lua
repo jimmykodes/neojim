@@ -73,43 +73,6 @@ M.components = {
 		cond = M.conditions.lsp,
 		color = { gui = "bold" },
 	},
-	formatters = {
-		function()
-			local formatters = require("conform").list_formatters_for_buffer()
-
-
-			if #formatters == 0 then
-				formatters = { "Inactive" }
-			end
-
-			local unique_client_names = vim.fn.uniq(formatters)
-			if unique_client_names ~= 0 then
-				return "Fmt: " .. table.concat(unique_client_names, " ")
-			else
-				return ""
-			end
-		end,
-		cond = M.conditions.lsp,
-		color = { gui = "bold" },
-	},
-	linters = {
-		function()
-			local buf_client_names = require('plugins.nvim-lint').resolve_ft(vim.bo.filetype)
-
-			if #buf_client_names == 0 then
-				buf_client_names = { "Inactive" }
-			end
-
-			local unique_client_names = vim.fn.uniq(buf_client_names)
-			if unique_client_names ~= 0 then
-				return "Lint: " .. table.concat(unique_client_names, " ")
-			else
-				return ""
-			end
-		end,
-		cond = M.conditions.lsp,
-		color = { gui = "bold" },
-	},
 	treesitter = {
 		-- green if treesitter installed for buffer type, otherwise red.
 		-- useful for determining when I'll need to run `:TSInstall` since
@@ -127,13 +90,7 @@ M.components = {
 		end,
 		cond = M.conditions.treesitter,
 	},
-	breadcrumbs = {
-		function()
-			local status_ok, navic = pcall(require, "nvim-navic")
-			return status_ok and navic.get_location() or ""
-		end,
-		cond = M.conditions.breadcrumbs,
-	}
+	usage = require("plugins.lualine.components.llm_usage")
 }
 
 
@@ -159,8 +116,8 @@ M.opts = {
 	sections = {
 		lualine_a = { M.components.mode },
 		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { M.components.breadcrumbs },
-		lualine_x = { M.components.formatters, M.components.linters, M.components.lsp, M.components.treesitter },
+		lualine_c = { M.components.usage },
+		lualine_x = { M.components.lsp, M.components.treesitter },
 		lualine_y = { 'filetype' },
 		lualine_z = { 'location' }
 	},
