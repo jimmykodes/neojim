@@ -166,9 +166,14 @@ M.config = {
 				-- MARK: LLiMa
 				l = {
 					o = "<Plug>LlimaOpen",
+					n = "<Plug>LlimaNew",
 					s = "<Plug>LlimaSend",
+					l = "<Plug>LlimaSelect",
 					c = "<Plug>LlimaClose",
 					t = "<Plug>LlimaUseTool",
+					w = "<Plug>LlimaSave",
+					a = "<Plug>LlimaApproveTool",
+					d = "<Plug>LlimaDenyTool",
 				},
 
 				-- MARK: Transforms

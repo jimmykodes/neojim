@@ -114,6 +114,7 @@ local plugins = {
 	-- MARK: Convenience
 	{
 		"jimmykodes/llima.nvim",
+		opts = {}
 	},
 	{
 		"jimmykodes/strman.nvim",

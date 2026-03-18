@@ -29,9 +29,6 @@ function M.mypyParse(output, filename)
 		local item = vim.json.decode(line)
 
 		if item.file ~= filename then
-			vim.schedule(function()
-				vim.notify(item.file .. " != " .. filename)
-			end)
 			return nil
 		end
 
