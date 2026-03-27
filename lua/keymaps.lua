@@ -63,13 +63,7 @@ M.config = {
 
 		-- MARK: Normal
 		n = {
-			-- Navigate windows
-			["<C-h>"]    = "<C-w>h",
-			["<C-j>"]    = "<C-w>j",
-			["<C-k>"]    = "<C-w>k",
-			["<C-l>"]    = "<C-w>l",
-			["<C-c>"]    = "<C-w>c",
-
+			-- move lines
 			["<a-j>"]    = ":m .+1<CR>==",
 			["<a-k>"]    = ":m .-2<CR>==",
 
@@ -80,11 +74,17 @@ M.config = {
 			["<S-l>"]    = ":bnext<CR>",
 			["<S-h>"]    = ":bprevious<CR>",
 
+			-- Navigate tabs
+			["<C-l>"]    = ":tabnext<CR>",
+			["<C-h>"]    = ":tabprevious<CR>",
+
 			["]"]        = {
 				h = "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>", -- Next Hunk
+				d = function() vim.diagnostic.jump({ count = 1, float = true }) end
 			},
 			["["]        = {
 				h = "<cmd>lua require 'gitsigns'.prev_hunk({navigation_message = false})<cr>", -- Prev Hunk
+				d = function() vim.diagnostic.jump({ count = -1, float = true }) end,
 			},
 
 			g            = {
@@ -108,7 +108,6 @@ M.config = {
 				W = "<cmd>noautocmd w<cr>",                                          -- "Save without formatting"
 				x = "<cmd>x<CR>",                                                    -- "Save and Quit"
 				q = "<cmd>confirm q<CR>",                                            -- "Quit"
-				c = "<cmd>bd<CR>",                                                   -- "Close Buffer"
 				f = require("fzf").files,                                            --"Find File"
 				h = "<cmd>nohlsearch<CR>",                                           --"No Highlight"
 				e = "<cmd>NvimTreeToggle<CR>",                                       -- "Explorer"
@@ -116,8 +115,24 @@ M.config = {
 
 				-- MARK: Buffers
 				b = {
-					h = "<cmd>lua require 'plugins.buffers'.close_left()<cr>", -- Close all to the left
-					l = "<cmd>lua require 'plugins.buffers'.close_right()<cr>", -- Close all to the right
+					-- h = "<cmd>lua require 'plugins.buffers'.close_left()<cr>", -- Close all to the left
+					-- l = "<cmd>lua require 'plugins.buffers'.close_right()<cr>", -- Close all to the right
+					n = "<cmd>bn<cr>",
+					p = "<cmd>bp<cr>",
+					c = "<cmd>bd<CR>", -- "Close Buffer"
+					f = function()
+						vim.cmd("set nobuflisted")
+						vim.cmd("set winfixbuf")
+					end,
+				},
+
+				-- MARK: Tabs
+				t = {
+					n = "<cmd>tabn<cr>",
+					p = "<cmd>tabp<cr>",
+					c = "<cmd>tabclose<cr>",
+					e = "<cmd>tab split<cr>",
+					N = "<cmd>tabnew<cr>",
 				},
 
 				-- MARK: DAP
@@ -177,44 +192,44 @@ M.config = {
 				},
 
 				-- MARK: Transforms
-				T = {
-					["'"] = [["pdi"h2xi'<C-r>p'<Esc>]], -- Double -> Single Quote
-					['"'] = [["pdi'h2xi"<C-r>p"<Esc>]], -- Single -> Double Quote
-					["("] = {
-						["{"] = [["pdi(h2xi{<C-r>p}<Esc>]], -- Paren -> Brace
-						["["] = [["pdi(h2xi[<C-r>p]<Esc>]], -- Paren -> Bracket
-					},
-					["{"] = {
-						["("] = [["pdi{h2xi(<C-r>p)<Esc>]], -- Brace -> Paren
-						["["] = [["pdi{h2xi[<C-r>p]<Esc>]], -- Brace -> Bracket
-					},
-					["["] = {
-						["("] = [["pdi[h2xi(<C-r>p)<Esc>]], -- Bracket -> Paren
-						["{"] = [["pdi[h2xi{<C-r>p}<Esc>]], -- Bracket -> Brace
-					},
-				},
+				-- T = {
+				-- 	["'"] = [["pdi"h2xi'<C-r>p'<Esc>]], -- Double -> Single Quote
+				-- 	['"'] = [["pdi'h2xi"<C-r>p"<Esc>]], -- Single -> Double Quote
+				-- 	["("] = {
+				-- 		["{"] = [["pdi(h2xi{<C-r>p}<Esc>]], -- Paren -> Brace
+				-- 		["["] = [["pdi(h2xi[<C-r>p]<Esc>]], -- Paren -> Bracket
+				-- 	},
+				-- 	["{"] = {
+				-- 		["("] = [["pdi{h2xi(<C-r>p)<Esc>]], -- Brace -> Paren
+				-- 		["["] = [["pdi{h2xi[<C-r>p]<Esc>]], -- Brace -> Bracket
+				-- 	},
+				-- 	["["] = {
+				-- 		["("] = [["pdi[h2xi(<C-r>p)<Esc>]], -- Bracket -> Paren
+				-- 		["{"] = [["pdi[h2xi{<C-r>p}<Esc>]], -- Bracket -> Brace
+				-- 	},
+				-- },
 
 				-- MARK: Terminal
-				t = {
-					j = ":ToggleTerm 1<cr>",
-					k = ":ToggleTerm 2<cr>",
-					l = ":ToggleTerm 3<cr>",
-					v = {
-						j = ":ToggleTerm 1 direction=vertical<cr>",
-						k = ":ToggleTerm 2 direction=vertical<cr>",
-						l = ":ToggleTerm 3 direction=vertical<cr>",
-					},
-					h = {
-						j = ":ToggleTerm 1 direction=horizontal<cr>",
-						k = ":ToggleTerm 2 direction=horizontal<cr>",
-						l = ":ToggleTerm 3 direction=horizontal<cr>",
-					},
-					f = {
-						j = ":ToggleTerm 1 direction=float<cr>",
-						k = ":ToggleTerm 2 direction=float<cr>",
-						l = ":ToggleTerm 3 direction=float<cr>",
-					},
-				},
+				-- t = {
+				-- 	j = ":ToggleTerm 1<cr>",
+				-- 	k = ":ToggleTerm 2<cr>",
+				-- 	l = ":ToggleTerm 3<cr>",
+				-- 	v = {
+				-- 		j = ":ToggleTerm 1 direction=vertical<cr>",
+				-- 		k = ":ToggleTerm 2 direction=vertical<cr>",
+				-- 		l = ":ToggleTerm 3 direction=vertical<cr>",
+				-- 	},
+				-- 	h = {
+				-- 		j = ":ToggleTerm 1 direction=horizontal<cr>",
+				-- 		k = ":ToggleTerm 2 direction=horizontal<cr>",
+				-- 		l = ":ToggleTerm 3 direction=horizontal<cr>",
+				-- 	},
+				-- 	f = {
+				-- 		j = ":ToggleTerm 1 direction=float<cr>",
+				-- 		k = ":ToggleTerm 2 direction=float<cr>",
+				-- 		l = ":ToggleTerm 3 direction=float<cr>",
+				-- 	},
+				-- },
 			},
 		},
 	},

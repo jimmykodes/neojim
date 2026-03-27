@@ -26,10 +26,9 @@ end
 M.conditions = {
 	treesitter = hide_on_ignored_ft,
 	lsp = hide_on_ignored_ft,
-	breadcrumbs = function()
-		local status_ok, navic = pcall(require, "nvim-navic")
-		return status_ok and navic.is_available()
-	end
+	tabs = function()
+		return #vim.api.nvim_list_tabpages() > 1
+	end,
 }
 
 
@@ -90,7 +89,19 @@ M.components = {
 		end,
 		cond = M.conditions.treesitter,
 	},
-	usage = require("plugins.lualine.components.llm_usage")
+	usage = require("plugins.lualine.components.llm_usage"),
+	buffers = {
+		"buffers",
+		symbols = {
+			alternate_file = "",
+		},
+	},
+	tabs = {
+		"tabs",
+		mode = 1,
+		cond = M.conditions.tabs,
+	}
+
 }
 
 
@@ -130,7 +141,9 @@ M.opts = {
 		lualine_z = {}
 	},
 	tabline = {
-		lualine_a = { require("plugins.lualine.components.buffers") },
+		-- lualine_a = { require("plugins.lualine.components.buffers") },
+		lualine_a = { M.components.buffers },
+		lualine_z = { M.components.tabs }
 	},
 	winbar = {},
 	inactive_winbar = {},
