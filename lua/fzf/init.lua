@@ -1,8 +1,5 @@
 local fzf = require("fzf-lua")
 
-local function withops(f, ...)
-	f(...)
-end
 
 local M = {
 	buffers = fzf.buffers,

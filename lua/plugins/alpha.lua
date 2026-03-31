@@ -24,16 +24,10 @@ local function button(shortcut, value, keybind, opts)
 		opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true, nowait = true } }
 	end
 
-	local function on_press()
-		-- runs when <CR> is pressed while cursor is on the button
-		local key = vim.api.nvim_replace_termcodes(keybind or sc_ .. "<Ignore>", true, false, true)
-		vim.api.nvim_feedkeys(key, "t", false)
-	end
-
 	return {
 		type = "button",
 		val = value,
-		on_press = on_press,
+		on_press = function() end,
 		opts = opts,
 	}
 end
@@ -67,11 +61,9 @@ local M = {
 		type = "group",
 		val = {
 			button("n", withIcon("New File", icons.ui.NewFile), "<CMD>ene!<CR>"),
+			button("l", withIcon("Llima", icons.ui.Network), "<CMD>LlimaOpen<CR>"),
 			button("f", withIcon("Find File", icons.ui.FindFile), require("fzf").files),
-			button("r", withIcon("Recent files", icons.ui.History), require("fzf").oldfiles),
 			button("t", withIcon("Find Text", icons.ui.FindText), require("fzf").find_text),
-			button("l", withIcon("Lazy", icons.ui.Package), "<CMD>Lazy<CR>"),
-			button("m", withIcon("Mason", icons.ui.Server), "<CMD>Mason<CR>"),
 			button("q", withIcon("Quit", icons.ui.Close), "<CMD>quit<CR>"),
 		},
 		opts = {
