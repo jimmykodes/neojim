@@ -1,299 +1,76 @@
-local icons = require("icons")
-
-
-local plugins = {
-	-- MARK: LSP
-	{
-		"williamboman/mason.nvim",
-		opts = {},
-	},
-	-- MARK: Formatting
-	{
-		"tommcdo/vim-lion",
-	},
+vim.pack.add({
+	-- MARK: LSP / Formatting
+	"https://github.com/williamboman/mason.nvim",
+	"https://github.com/tommcdo/vim-lion",
 
 	-- MARK: Completions
-	{
-		"hrsh7th/nvim-cmp",
-		config = function()
-			require("plugins.completion").setup()
-		end,
-		event = { "InsertEnter", "CmdlineEnter" },
-		dependencies = {
-			"cmp-nvim-lsp",
-			"cmp-buffer",
-			"cmp-path",
-			"cmp-cmdline",
-			"cmp-calc",
-		},
-	},
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-path" },
-	{ "hrsh7th/cmp-cmdline" },
-	{ "hrsh7th/cmp-calc" },
+	"https://github.com/hrsh7th/nvim-cmp",
+	"https://github.com/hrsh7th/cmp-nvim-lsp",
+	"https://github.com/hrsh7th/cmp-buffer",
+	"https://github.com/hrsh7th/cmp-path",
+	"https://github.com/hrsh7th/cmp-cmdline",
+	"https://github.com/hrsh7th/cmp-calc",
 
 	-- MARK: Functionality
-	{
-		"akinsho/toggleterm.nvim",
-		opts = {
-			open_mapping = [[<C-\>]],
-			direction = "float",
-			float_opts = {
-				border = "curved",
-			},
-		},
-	},
-	{
-		"kyazdani42/nvim-tree.lua",
-		config = function()
-			require("plugins.nvim-tree").setup()
-		end
-	},
+	"https://github.com/akinsho/toggleterm.nvim",
+	"https://github.com/kyazdani42/nvim-tree.lua",
+
 	-- MARK: UI
-	{
-		"goolord/alpha-nvim",
-		config = function()
-			require("plugins.alpha").setup()
-		end
-	},
-	{
-		"jimmykodes/colorschemes.nvim",
-		priority = 1000,
-	},
-	{
-		"uga-rosa/ccc.nvim",
-		opts = {
-			highlighter = {
-				auto_enable = true,
-				lsp = true,
-			},
-		},
-	},
-	{
-		"lewis6991/gitsigns.nvim",
-		opts = {
-			attach_to_untracked = true,
-		},
-	},
-	{
-		"nvim-tree/nvim-web-devicons",
-		opts = {},
-	},
-	{
-		"stevearc/dressing.nvim",
-		opts = {},
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
-		config = function()
-			require("plugins.lualine").setup()
-		end,
-	},
-	{
-		"RRethy/vim-illuminate",
-		config = function()
-			require('illuminate').configure({
-				filetypes_denylist = {
-					"NvimTree",
-					"alpha",
-				}
-			})
-		end
-	},
-	{
-		'stevearc/quicker.nvim',
-		opts = {},
-	},
-	{
-		"chentoast/marks.nvim",
-		opts = {},
-	},
+	"https://github.com/jimmykodes/colorschemes.nvim",
+	"https://github.com/nvim-tree/nvim-web-devicons",
+	"https://github.com/stevearc/dressing.nvim",
+	"https://github.com/stevearc/quicker.nvim",
+	"https://github.com/goolord/alpha-nvim",
+	"https://github.com/uga-rosa/ccc.nvim",
+	"https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/nvim-lualine/lualine.nvim",
+	"https://github.com/RRethy/vim-illuminate",
+	"https://github.com/folke/todo-comments.nvim",
+	"https://github.com/chentoast/marks.nvim",
 
 	-- MARK: Convenience
-	{
-		"jimmykodes/llima.nvim",
-		opts = {}
-	},
-	{
-		"jimmykodes/strman.nvim",
-	},
-	{
-		"jimmykodes/incr.nvim",
-	},
-	{
-		"jimmykodes/expand.nvim",
-	},
-	{
-		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {
-			keywords = {
-				MARK = {
-					icon = icons.ui.BookMark,
-					color = "hint"
-				},
-			},
-			highlight = {
-				keyword = "bg",
-				pattern = [[.*<(KEYWORDS)[^:]*:]],
-			},
-			search = {
-				pattern = [[\b(KEYWORDS)(?:\(\w*\)|):]],
-			},
-		},
-	},
-	{
-		-- Lazy loaded by Comment.nvim pre_hook
-		"JoosepAlviste/nvim-ts-context-commentstring",
-	},
-	{
-		"numToStr/Comment.nvim",
-		opts = {
-			pre_hook = function(...)
-				local loaded, ts_comment = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
-				if loaded and ts_comment then
-					return ts_comment.create_pre_hook()(...)
-				end
-			end,
-		},
-	},
-	{
-		"ggandor/lightspeed.nvim",
-	},
-	{
-		"nvim-lua/plenary.nvim",
-	},
+	"https://github.com/numToStr/Comment.nvim",
+	"https://github.com/ggandor/lightspeed.nvim",
+	"https://github.com/jimmykodes/llima.nvim",
+	"https://github.com/jimmykodes/strman.nvim",
+	"https://github.com/jimmykodes/incr.nvim",
+	"https://github.com/jimmykodes/expand.nvim",
+
 	-- MARK: fzf
-	{
-		"ibhagwan/fzf-lua",
-		-- optional for icon support
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require('fzf-lua').setup({})
-			require('fzf-lua').register_ui_select()
-		end
-	},
+	"https://github.com/ibhagwan/fzf-lua",
 
 	-- MARK: Treesitter
-	{
-		"nvim-treesitter/nvim-treesitter",
-		branch = "main",
-		build = ":TSUpdate",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-context",
-		},
-	},
-	{
-		-- This plugin pins lines to the top of the buffer
-		-- to see the context of the current line
-		-- this could be function name, markdown headings,
-		-- class name, etc.
-		"nvim-treesitter/nvim-treesitter-context",
-		opts = { multiline_threshold = 3 },
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
-	},
+	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/nvim-treesitter/nvim-treesitter-context",
 
 	-- MARK: DAP
-	{
-		"mfussenegger/nvim-dap",
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-		opts = {},
-	},
+	"https://github.com/mfussenegger/nvim-dap",
+	"https://github.com/rcarriga/nvim-dap-ui",
+	"https://github.com/nvim-neotest/nvim-nio",
 
 	-- MARK: Go
-	{
-		"olexsmir/gopher.nvim",
-		build = ":GoInstallDeps",
-	},
-	{
-		"leoluz/nvim-dap-go",
-		ft = "go",
-		opts = {},
-	},
+	"https://github.com/olexsmir/gopher.nvim",
+	"https://github.com/leoluz/nvim-dap-go",
 
 	-- MARK: Python
-	{
-		"mfussenegger/nvim-dap-python",
-		ft = "python",
-		config = function()
-			require('dap-python').setup("uv")
-
-			table.insert(require('dap').configurations.python or {}, {
-				name = "Remote Airflow",
-				type = 'python',
-				request = "attach",
-				connect = {
-					host = "localhost",
-					port = 5678,
-				},
-				pathMappings = {
-					{
-						localRoot = "${workspaceFolder}/venv/lib/python3.11/site-packages",
-						remoteRoot = "/home/airflow/.local/lib/python3.11/site-packages"
-					},
-					{
-						localRoot = "${workspaceFolder}/dags",
-						remoteRoot = "/opt/airflow/dags/repo/dags",
-					}
-				},
-				justMyCode = false,
-			})
-
-			table.insert(require('dap').configurations.python, {
-				name = "Docker",
-				type = 'python',
-				request = "attach",
-				connect = {
-					host = "localhost",
-					port = 5678,
-				},
-				pathMappings = {
-					{
-						localRoot = "${workspaceFolder}",
-						remoteRoot = "/app"
-					}
-				},
-				justMyCode = false,
-			})
-		end
-	},
+	"https://github.com/mfussenegger/nvim-dap-python",
 
 	-- MARK: Neovim Dev
-	{
-		"folke/lazydev.nvim",
-		ft = "lua",
-		opts = {},
-	},
-}
+	"https://github.com/folke/lazydev.nvim",
+	"https://github.com/nvim-lua/plenary.nvim",
+})
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath
-	})
-end
+vim.pack.add({ "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" }, {load = function() end})	
 
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup(plugins, {
-	rocks = { enabled = false },
-	performance = {
-		rtp = {
-			disabled_plugins = {
-				'netrwPlugin',
-				'tohtml',
-				'tutor',
-			}
-		}
-	}
+vim.api.nvim_create_autocmd('PackChanged', {
+	callback = function(ev)
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
+			if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
+			vim.cmd('TSUpdate')
+		elseif name == 'gopher.nvim' and (kind == 'install' or kind == 'update') then
+			if not ev.data.active then vim.cmd.packadd('gopher.nvim') end
+			vim.cmd('GoInstallDeps')
+		end
+	end,
 })

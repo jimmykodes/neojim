@@ -43,16 +43,18 @@ function M.start_lsp(conf)
 	end
 end
 
+---@param client vim.lsp.Client
+---@param bufnr number
 function M.setup_codelens_refresh(client, bufnr)
 	local status_ok, codelens_supported = pcall(function()
-		return client.supports_method "textDocument/codeLens"
+		return client:supports_method("textDocument/codeLens")
 	end)
 	if not status_ok or not codelens_supported then
 		return
 	end
 
 	-- refresh right away
-	vim.lsp.codelens.refresh({ bufnr = bufnr })
+	vim.lsp.codelens.enable(true, { bufnr = bufnr })
 
 	local group = "lsp_code_lens_refresh"
 	local cl_events = { "BufEnter", "InsertLeave", "TextChanged" }
@@ -70,7 +72,7 @@ function M.setup_codelens_refresh(client, bufnr)
 		group = group,
 		buffer = bufnr,
 		callback = function(_)
-			vim.lsp.codelens.refresh({ bufnr = 0 })
+			vim.lsp.codelens.enable(true, { bufnr = 0 })
 		end,
 	})
 end

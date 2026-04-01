@@ -1,7 +1,5 @@
 local icons = require("icons")
 
-local M = {}
-
 local ignore_bufs = {
 	"checkhealth",
 	"DressingInput",
@@ -13,6 +11,7 @@ local ignore_bufs = {
 	"qf",
 	"toggleterm",
 }
+
 local function hide_on_ignored_ft()
 	local buf_ft = vim.bo.filetype
 	for _, i in ipairs(ignore_bufs) do
@@ -23,7 +22,7 @@ local function hide_on_ignored_ft()
 	return true
 end
 
-M.conditions = {
+local conditions = {
 	treesitter = hide_on_ignored_ft,
 	lsp = hide_on_ignored_ft,
 	tabs = function()
@@ -31,8 +30,7 @@ M.conditions = {
 	end,
 }
 
-
-M.components = {
+local components = {
 	mode = {
 		"mode",
 		fmt = function(name, _)
@@ -69,7 +67,7 @@ M.components = {
 				return ""
 			end
 		end,
-		cond = M.conditions.lsp,
+		cond = conditions.lsp,
 		color = { gui = "bold" },
 	},
 	treesitter = {
@@ -87,7 +85,7 @@ M.components = {
 			end
 			return "TSMissing"
 		end,
-		cond = M.conditions.treesitter,
+		cond = conditions.treesitter,
 	},
 	usage = require("plugins.lualine.components.llm_usage"),
 	buffers = {
@@ -99,13 +97,11 @@ M.components = {
 	tabs = {
 		"tabs",
 		mode = 1,
-		cond = M.conditions.tabs,
+		cond = conditions.tabs,
 	}
-
 }
 
-
-M.opts = {
+require("lualine").setup({
 	options = {
 		icons_enabled = true,
 		theme = 'auto',
@@ -125,10 +121,10 @@ M.opts = {
 		}
 	},
 	sections = {
-		lualine_a = { M.components.mode },
+		lualine_a = { components.mode },
 		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { M.components.usage },
-		lualine_x = { M.components.lsp, M.components.treesitter },
+		lualine_c = { components.usage },
+		lualine_x = { components.lsp, components.treesitter },
 		lualine_y = { 'filetype' },
 		lualine_z = { 'location' }
 	},
@@ -142,16 +138,10 @@ M.opts = {
 	},
 	tabline = {
 		-- lualine_a = { require("plugins.lualine.components.buffers") },
-		lualine_a = { M.components.buffers },
-		lualine_z = { M.components.tabs }
+		lualine_a = { components.buffers },
+		lualine_z = { components.tabs }
 	},
 	winbar = {},
 	inactive_winbar = {},
 	extensions = {}
-}
-
-function M.setup()
-	require("lualine").setup(M.opts)
-end
-
-return M
+})
