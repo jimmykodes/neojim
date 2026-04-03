@@ -24,7 +24,13 @@ end
 
 local conditions = {
 	treesitter = hide_on_ignored_ft,
-	lsp = hide_on_ignored_ft,
+	lsp = function()
+		if not hide_on_ignored_ft() then
+			return false
+		else
+			return #vim.lsp.get_clients({ bufnr = 0 }) > 0
+		end
+	end,
 	tabs = function()
 		return #vim.api.nvim_list_tabpages() > 1
 	end,
@@ -47,7 +53,7 @@ local components = {
 	},
 	lsp = {
 		function()
-			local buf_clients = vim.lsp.get_clients { bufnr = 0 }
+			local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
 
 			local buf_client_names = {}
 
@@ -57,18 +63,17 @@ local components = {
 			end
 
 			if #buf_client_names == 0 then
-				buf_client_names = { "Inactive" }
+				return ""
 			end
 
 			local unique_client_names = vim.fn.uniq(buf_client_names)
 			if unique_client_names ~= 0 then
-				return "LSP: " .. table.concat(unique_client_names, " ")
+				return table.concat(unique_client_names, " ")
 			else
 				return ""
 			end
 		end,
 		cond = conditions.lsp,
-		color = { gui = "bold" },
 	},
 	treesitter = {
 		-- green if treesitter installed for buffer type, otherwise red.
@@ -80,10 +85,13 @@ local components = {
 		color = function()
 			local buf = vim.api.nvim_get_current_buf()
 			local ts = vim.treesitter.highlighter.active[buf]
+			local existing
 			if ts and not vim.tbl_isempty(ts) then
-				return "TSInstalled"
+				existing = vim.api.nvim_get_hl(0, { name = "Added", link = false })
+			else
+				existing = vim.api.nvim_get_hl(0, { name = "Removed", link = false })
 			end
-			return "TSMissing"
+			return { fg = string.format("#%x", existing.fg) }
 		end,
 		cond = conditions.treesitter,
 	},
@@ -124,8 +132,8 @@ require("lualine").setup({
 		lualine_a = { components.mode },
 		lualine_b = { 'branch', 'diff', 'diagnostics' },
 		lualine_c = { components.usage },
-		lualine_x = { components.lsp, components.treesitter },
-		lualine_y = { 'filetype' },
+		lualine_x = { components.treesitter },
+		lualine_y = { components.lsp, 'filetype' },
 		lualine_z = { 'location' }
 	},
 	inactive_sections = {
