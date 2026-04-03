@@ -16,7 +16,7 @@ vim.pack.add({
 	"https://github.com/kyazdani42/nvim-tree.lua",
 
 	-- MARK: UI
-	"https://github.com/jimmykodes/colorschemes.nvim",
+	"https://github.com/jimmykodes/colorschemes",
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/stevearc/dressing.nvim",
 	"https://github.com/stevearc/quicker.nvim",
@@ -31,7 +31,7 @@ vim.pack.add({
 	-- MARK: Convenience
 	"https://github.com/numToStr/Comment.nvim",
 	"https://github.com/ggandor/lightspeed.nvim",
-	"https://github.com/jimmykodes/llima.nvim",
+	{ src = "https://github.com/jimmykodes/llima.nvim", version = "streaming" },
 	"https://github.com/jimmykodes/strman.nvim",
 	"https://github.com/jimmykodes/incr.nvim",
 	"https://github.com/jimmykodes/expand.nvim",
@@ -60,7 +60,7 @@ vim.pack.add({
 	"https://github.com/nvim-lua/plenary.nvim",
 })
 
-vim.pack.add({ "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" }, {load = function() end})	
+vim.pack.add({ "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" }, { load = function() end })
 
 vim.api.nvim_create_autocmd('PackChanged', {
 	callback = function(ev)

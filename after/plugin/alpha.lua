@@ -62,6 +62,7 @@ local buttons = {
 		button("l", withIcon("Llima", icons.ui.Network), "<CMD>LlimaOpen<CR>"),
 		button("f", withIcon("Find File", icons.ui.FindFile), require("fzf").files),
 		button("t", withIcon("Find Text", icons.ui.FindText), require("fzf").find_text),
+		button("U", withIcon("Pack Update", icons.ui.Package), vim.pack.update),
 		button("q", withIcon("Quit", icons.ui.Close), "<CMD>quit<CR>"),
 	},
 	opts = {
