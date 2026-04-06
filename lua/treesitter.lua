@@ -1,5 +1,12 @@
-local function official(language)
-	return string.format("https://github.com/tree-sitter/tree-sitter-%s", language)
+local function gh(repo)
+	return "https://github.com/" .. repo
+end
+local function treesitter(language)
+	return gh(string.format("tree-sitter/tree-sitter-%s", language))
+end
+
+local function treesitterGrammars(language)
+	return gh(string.format("tree-sitter-grammars/tree-sitter-%s", language))
 end
 
 ---@class Grammar
@@ -10,68 +17,61 @@ end
 
 ---@type table<string, string|Grammar>
 local parsers = {
-	joker = {
-		url = "https://github.com/jimmykodes/tree-sitter-joker",
-		branch = "main",
-	},
-	todo = {
-		url = "https://github.com/jimmykodes/tree-sitter-todo",
-		branch = "main",
-	},
-	typescript = {
-		url = official("typescript"),
-		dir = "typescript",
-	},
-	bash = official("bash"),
-	css = official("css"),
-	go = official("go"),
-	html = official("html"),
-	javascript = official("javascript"),
-	json = official("json"),
-	python = official("python"),
-	rust = official("rust"),
-	awk = "https://github.com/Beaglefoot/tree-sitter-awk",
-	csv = "https://github.com/weartist/rainbow-csv-tree-sitter",
-	diff = "https://github.com/the-mikedavis/tree-sitter-diff",
-	dockerfile = "https://github.com/camdencheek/tree-sitter-dockerfile",
-	ghostty = "https://github.com/bezhermoso/tree-sitter-ghostty",
-	gitattributes = "https://github.com/mtoohey31/tree-sitter-gitattributes",
-	gitcommit = "https://github.com/gbprod/tree-sitter-gitcommit",
-	gitignore = "https://github.com/shunsambongi/tree-sitter-gitignore",
-	["git-config"] = "https://github.com/the-mikedavis/tree-sitter-git-config",
-	["git-rebase"] = "https://github.com/the-mikedavis/tree-sitter-git-rebase",
-	gomod = "https://github.com/camdencheek/tree-sitter-go-mod",
-	gotmpl = "https://github.com/ngalaiko/tree-sitter-go-template",
-	gowork = "https://github.com/omertuc/tree-sitter-go-work",
-	graphql = "https://github.com/bkegley/tree-sitter-graphql",
-	jinja2 = "https://github.com/varpeti/tree-sitter-jinja2",
-	jq = "https://github.com/flurie/tree-sitter-jq",
-	make = "https://github.com/alemuller/tree-sitter-make",
-	nginx = "https://gitlab.com/joncoole/tree-sitter-nginx",
-	proto = "https://github.com/sdoerner/tree-sitter-proto",
-	requirements = "https://github.com/tree-sitter-grammars/tree-sitter-requirements",
-	sql = { url = "https://github.com/DerekStride/tree-sitter-sql", branch = "gh-pages" },
-	task = "https://github.com/alexanderbrevig/tree-sitter-task",
-	toml = "https://github.com/ikatyang/tree-sitter-toml",
-	vue = "https://github.com/tree-sitter-grammars/tree-sitter-vue",
-	yaml = "https://github.com/tree-sitter-grammars/tree-sitter-yaml",
-	zig = "https://github.com/tree-sitter-grammars/tree-sitter-zig",
+	bash           = treesitter("bash"),
+	css            = treesitter("css"),
+	go             = treesitter("go"),
+	html           = treesitter("html"),
+	javascript     = treesitter("javascript"),
+	json           = treesitter("json"),
+	python         = treesitter("python"),
+	rust           = treesitter("rust"),
+
+	hcl            = treesitterGrammars("hcl"),
+	requirements   = treesitterGrammars("requirements"),
+	vue            = treesitterGrammars("vue"),
+	yaml           = treesitterGrammars("yaml"),
+	zig            = treesitterGrammars("zig"),
+
+	["git-config"] = gh("the-mikedavis/tree-sitter-git-config"),
+	["git-rebase"] = gh("the-mikedavis/tree-sitter-git-rebase"),
+	awk            = gh("Beaglefoot/tree-sitter-awk"),
+	csv            = gh("weartist/rainbow-csv-tree-sitter"),
+	diff           = gh("the-mikedavis/tree-sitter-diff"),
+	dockerfile     = gh("camdencheek/tree-sitter-dockerfile"),
+	ghostty        = gh("bezhermoso/tree-sitter-ghostty"),
+	gitattributes  = gh("mtoohey31/tree-sitter-gitattributes"),
+	gitcommit      = gh("gbprod/tree-sitter-gitcommit"),
+	gitignore      = gh("shunsambongi/tree-sitter-gitignore"),
+	gomod          = gh("camdencheek/tree-sitter-go-mod"),
+	gotmpl         = gh("ngalaiko/tree-sitter-go-template"),
+	gowork         = gh("omertuc/tree-sitter-go-work"),
+	graphql        = gh("bkegley/tree-sitter-graphql"),
+	jinja2         = gh("varpeti/tree-sitter-jinja2"),
+	jq             = gh("flurie/tree-sitter-jq"),
+	make           = gh("alemuller/tree-sitter-make"),
+	proto          = gh("sdoerner/tree-sitter-proto"),
+	task           = gh("alexanderbrevig/tree-sitter-task"),
+	toml           = gh("ikatyang/tree-sitter-toml"),
+
+	joker          = gh("jimmykodes/tree-sitter-joker"),
+	todo           = gh("jimmykodes/tree-sitter-todo"),
+
+	nginx          = "https://gitlab.com/joncoole/tree-sitter-nginx",
+	typescript     = { url = treesitter("typescript"), dir = "typescript" },
 }
 
+-- to fix:
+-- sql = { url = "https://github.com/DerekStride/tree-sitter-sql", branch = "gh-pages" },
+-- hcl - has no queries
+-- ghostty - seems to have no highlights
+-- make - has highlights, but very incomplete
+-- graphql - no highlights
 
 local opts = {
-	ensure_installed = {
-		"gomod",
-		"gotmpl",
-		"gowork",
-		"make",
-		"terraform",
-		"vue",
-		"yaml",
-	},
 	remap = {
 		zsh = "bash",
 		sh = "bash",
+		terraform = "hcl",
 	},
 }
 
