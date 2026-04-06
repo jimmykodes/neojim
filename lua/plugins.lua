@@ -39,10 +39,6 @@ vim.pack.add({
 	-- MARK: fzf
 	"https://github.com/ibhagwan/fzf-lua",
 
-	-- MARK: Treesitter
-	"https://github.com/nvim-treesitter/nvim-treesitter",
-	"https://github.com/nvim-treesitter/nvim-treesitter-context",
-
 	-- MARK: DAP
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/rcarriga/nvim-dap-ui",
