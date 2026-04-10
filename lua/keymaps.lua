@@ -181,14 +181,17 @@ M.config = {
 				-- MARK: LLiMa
 				l = {
 					o = "<Plug>LlimaOpen",
-					n = "<Plug>LlimaNew",
+					N = "<Plug>LlimaNew",
 					s = "<Plug>LlimaSend",
+					m = "<Plug>LlimaSwitchModel",
 					l = "<Plug>LlimaSelect",
 					c = "<Plug>LlimaClose",
 					t = "<Plug>LlimaUseTool",
 					w = "<Plug>LlimaSave",
 					a = "<Plug>LlimaApproveTool",
 					d = "<Plug>LlimaDenyTool",
+					n = "<Plug>LlimaScrollForward",
+					p = "<Plug>LlimaScrollBack",
 				},
 
 				-- MARK: Transforms

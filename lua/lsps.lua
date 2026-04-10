@@ -78,11 +78,14 @@ function M.setup_codelens_refresh(client, bufnr)
 end
 
 function M.common_on_attach(client, bufnr)
-	-- turn off tokens in favor of treesitter
-	client.server_capabilities.semanticTokensProvider = nil
-
 	-- Enable completion triggered by <c-x><c-o>
 	vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+	local ok, _ = pcall(require, "cmp")
+	if not ok and client:supports_method("textDocument/completion") then
+		-- cmp isn't installed, enable core lsp completion.
+		vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+	end
 
 	if vim.fn.maparg("grf", "n") == "" then
 		-- we didn't set the keymap to format, which means we didn't set an autocommand either.

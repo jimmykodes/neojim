@@ -6,6 +6,7 @@ return {
 	settings = {
 		gopls = {
 			hints = { parameterNames = true, functionTypeParameters = true },
+			semanticTokens = true,
 		}
 	},
 	root_markers = {

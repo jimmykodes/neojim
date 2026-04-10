@@ -1,4 +1,5 @@
 local M = require('lualine.component'):extend()
+local icons = require("icons")
 
 function M:init(options)
 	options.component_name = 'usage'
@@ -18,12 +19,24 @@ function M:update_status(is_focused)
 		return ""
 	end
 
-	local usage = llima.usage()
-	return ("Input Tokens: %d - Output Tokens: %d - Context Usage: %g"):format(
+	local meta = llima.metadata()
+	local str = ""
+	if meta.is_ephemeral or meta.name == nil then
+		str = icons.misc.Watch .. " - "
+	else
+		str = string.format("%s %s - ", icons.ui.Forum, meta.name)
+	end
+	local usage = meta.usage or {}
+	return str .. string.format(
+		"%s %s - %s %s %d %s %d",
+		icons.misc.Robot,
+		meta.model,
+		icons.ui.Ticket,
+		icons.ui.BoldArrowUp,
 		usage.input_tokens or 0,
-		usage.output_tokens or 0,
-		(usage.context_used or 0) * 100
-	) .. "%%"
+		icons.ui.BoldArrowDown,
+		usage.output_tokens or 0
+	)
 end
 
 return M

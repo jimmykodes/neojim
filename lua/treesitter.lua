@@ -72,6 +72,7 @@ local opts = {
 		zsh = "bash",
 		sh = "bash",
 		terraform = "hcl",
+		helm = "gotmpl",
 	},
 }
 

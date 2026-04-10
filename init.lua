@@ -9,6 +9,7 @@ require("commands")
 require("filtetypes")
 require("plugins")
 require("treesitter")
+require("completion")
 
 -- Goal: eventually refactor this to get rid of the need
 -- for a setup function

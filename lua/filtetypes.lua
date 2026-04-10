@@ -9,9 +9,6 @@ local function yaml(path, _)
 		return "yaml.github"
 	end
 	if vim.fs.root(path, { "Chart.yaml" }) ~= nil then
-		-- TODO: this works, but i need to do some work next
-		-- time i'm poking in a helm chart to get the right
-		-- queries so gotmpl injections work in the yaml
 		return "helm"
 	end
 	return "yaml"
