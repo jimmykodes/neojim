@@ -11,6 +11,9 @@ function M:init(options)
 end
 
 function M:update_status(is_focused)
+	if vim.bo.filetype ~= "markdown.llm" then
+		return ""
+	end
 	if not is_focused then
 		return ""
 	end
