@@ -1,3 +1,6 @@
+local ok, _ = pcall(require, 'lualine')
+if not ok then return end
+
 local icons = require("icons")
 
 local ignore_bufs = {

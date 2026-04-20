@@ -65,3 +65,5 @@ opt.whichwrap:append "<,>,[,],h,l"
 -- rounded window borders (default: none)
 opt.winborder = 'rounded'
 opt.writebackup = false
+
+opt.statusline = "%!v:lua.require'statusline'.render()"
