@@ -1,0 +1,5 @@
+return {
+	hl = function() return "StatusLine" end,
+	show = function() return true end,
+	render = function() return "" end
+}

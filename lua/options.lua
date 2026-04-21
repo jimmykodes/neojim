@@ -66,4 +66,5 @@ opt.whichwrap:append "<,>,[,],h,l"
 opt.winborder = 'rounded'
 opt.writebackup = false
 
-opt.statusline = "%!v:lua.require'statusline'.render()"
+opt.statusline = "%!v:lua.require'statusline'.status()"
+opt.tabline = "%!v:lua.require'statusline'.tab()"
