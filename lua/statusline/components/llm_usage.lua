@@ -2,12 +2,27 @@ local icons = require('icons')
 local utils = require('statusline.utils')
 
 local function contextUsage(p)
-	local blocks = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' }
-	local hl = { 'Success', 'Success', 'Success', 'Warning', 'Warning', 'Warning', 'Error', 'Error' }
-	local i = math.floor(p * #blocks) + 1
+	local partial = { '▏', '▎', '▍', '▌', '▋', '▊', '▉', '█' }
+	local num_chars = 3
+	local total_steps = num_chars * (#partial - 1)
+	local step = math.floor(p * total_steps) + 1
+
+	local bar = ""
+	local hl
+	if step < #partial then
+		hl = 'Success'
+		bar = partial[step] .. " " .. " "
+	elseif step - #partial < #partial then
+		hl = 'Warning'
+		bar = '█' .. partial[step - #partial] .. " "
+	else
+		hl = 'Error'
+		bar = '██' .. partial[step - #partial - #partial]
+	end
+
 	return {
-		char = blocks[math.min(i, #blocks)],
-		hl = hl[math.min(i, #hl)],
+		bar = bar .. '▏' .. string.format("%0.0f%%%%", p * 100),
+		hl = hl,
 	}
 end
 
@@ -42,7 +57,7 @@ return {
 			usage.input_tokens or 0,
 			icons.ui.BoldArrowDown,
 			usage.output_tokens or 0,
-			utils.renderComponent(utils.simple_module(ctxUsage.char, ctxUsage.hl))
+			utils.renderComponent(utils.simple_module(ctxUsage.bar, ctxUsage.hl))
 		)
 	end
 }
