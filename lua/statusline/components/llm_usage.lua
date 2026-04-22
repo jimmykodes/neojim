@@ -22,7 +22,6 @@ return {
 			return ""
 		end
 
-		---@type Metadata
 		local meta = llima.metadata()
 		local str = ""
 		if meta.is_ephemeral or meta.name == nil then
@@ -33,7 +32,6 @@ return {
 
 		local ctxUsage = contextUsage(meta.context_usage or 0)
 
-		---@type Usage
 		local usage = meta.usage or {}
 		return str .. string.format(
 			"%s %s - %s %s %d %s %d %s",
