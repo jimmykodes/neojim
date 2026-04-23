@@ -120,6 +120,7 @@ M.config = {
 					n = "<cmd>bn<cr>",
 					p = "<cmd>bp<cr>",
 					c = "<cmd>bd<CR>", -- "Close Buffer"
+					a = "<cmd>b#<CR>",
 					f = function()
 						vim.cmd("set nobuflisted")
 						vim.cmd("set winfixbuf")
