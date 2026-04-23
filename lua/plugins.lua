@@ -31,7 +31,7 @@ vim.pack.add({
 	-- MARK: Convenience
 	"https://github.com/numToStr/Comment.nvim",
 	"https://github.com/ggandor/lightspeed.nvim",
-	{ src = "https://github.com/jimmykodes/llima.nvim", version = "streaming" },
+	"https://github.com/jimmykodes/llima.nvim",
 	"https://github.com/jimmykodes/strman.nvim",
 	"https://github.com/jimmykodes/incr.nvim",
 	"https://github.com/jimmykodes/expand.nvim",
