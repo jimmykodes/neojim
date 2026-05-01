@@ -190,9 +190,12 @@ M.config = {
 					t = "<Plug>LlimaUseTool",
 					w = "<Plug>LlimaSave",
 					a = "<Plug>LlimaApproveTool",
+					A = "<Plug>LlimaApproveAllTools",
 					d = "<Plug>LlimaDenyTool",
+					D = "<Plug>LlimaDenyAllTools",
 					n = "<Plug>LlimaScrollForward",
 					p = "<Plug>LlimaScrollBack",
+					G = "<Plug>LlimaScrollEnd",
 				},
 
 				-- MARK: Transforms
