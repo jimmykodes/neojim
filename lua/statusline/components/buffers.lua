@@ -7,7 +7,12 @@ local buffer = {
 	end,
 	render = function()
 		local buf = 0
-		return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
+
+		local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
+		if vim.bo[buf].modified then
+			name = string.format("* %s", name)
+		end
+		return name
 	end
 }
 
