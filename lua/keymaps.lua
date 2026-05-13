@@ -196,6 +196,7 @@ M.config = {
 					n = "<Plug>LlimaScrollForward",
 					p = "<Plug>LlimaScrollBack",
 					G = "<Plug>LlimaScrollEnd",
+					b = "<Plug>LlimaBranch",
 				},
 
 				-- MARK: Transforms

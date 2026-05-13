@@ -1,3 +1,4 @@
+local utils = require "statusline.utils"
 local show = false
 local version = ""
 vim.system({ "go", "mod", "edit", "-json" }, function(out)
@@ -7,7 +8,7 @@ vim.system({ "go", "mod", "edit", "-json" }, function(out)
 	show = true
 	version = vim.json.decode(out.stdout).Go
 
-	vim.schedule(function() vim.cmd("redrawstatus") end)
+	utils.redraw()
 end)
 return {
 	hl = function()

@@ -14,6 +14,10 @@ function M.always()
 	return true
 end
 
+function M.redraw()
+	vim.schedule(function() vim.cmd("redrawstatus") end)
+end
+
 function M.is_ignored_ft(fts)
 	local ignored = fts or default_fts
 	return vim.list_contains(ignored, vim.bo.filetype)

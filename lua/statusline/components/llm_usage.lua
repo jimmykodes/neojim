@@ -26,6 +26,12 @@ local function contextUsage(p)
 	}
 end
 
+vim.api.nvim_create_autocmd("User", {
+	pattern = "LlimaMetadataChange",
+	callback = utils.redraw,
+})
+
+
 return {
 	hl = function() return "StatusLine" end,
 	show = function()

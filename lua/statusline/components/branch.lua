@@ -1,4 +1,5 @@
 local icons = require "icons"
+local utils = require "statusline.utils"
 local show = false
 local branch = ""
 
@@ -8,7 +9,7 @@ vim.system({ "git", "branch", "--show-current" }, function(resp)
 	end
 	show = true
 	branch = vim.trim(resp.stdout)
-	vim.schedule(function() vim.cmd("redrawstatus") end)
+	utils.redraw()
 end)
 
 
