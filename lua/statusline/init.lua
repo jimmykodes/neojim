@@ -15,6 +15,7 @@ function M.status()
 		lr_sep,
 
 		-- right
+		utils.simple_module(vim.ui.progress_status()),
 		require('statusline.components.languages'),
 		utils.simple_module(vim.bo.filetype),
 		utils.bubble(require('statusline.components.lsp')),
