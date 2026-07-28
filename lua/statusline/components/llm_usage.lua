@@ -55,7 +55,7 @@ return {
 
 		local usage = meta.usage or {}
 		return str .. string.format(
-			"%s %s - %s %s %d %s %d %s",
+			"%s %s - %s %s %d %s %d $%0.2f %s",
 			icons.misc.Robot,
 			meta.model,
 			icons.ui.Ticket,
@@ -63,6 +63,7 @@ return {
 			usage.input_tokens or 0,
 			icons.ui.BoldArrowDown,
 			usage.output_tokens or 0,
+			(meta.cost or 0) / 100,
 			utils.renderComponent(utils.simple_module(ctxUsage.bar, ctxUsage.hl))
 		)
 	end
