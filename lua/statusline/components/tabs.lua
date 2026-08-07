@@ -37,8 +37,13 @@ return {
 		for _, tabnr in ipairs(vim.api.nvim_list_tabpages()) do
 			local ok, tabname = pcall(vim.api.nvim_tabpage_get_var, tabnr, "tabname")
 			if not ok or tabname == "" then
-				local bufnr = vim.fn.tabpagebuflist(tabnr)[1]
-				tabname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+				local buflist = vim.fn.tabpagebuflist(tabnr)
+				if buflist == 0 then
+					tabname = "[No Name]"
+				else
+					local bufnr = buflist[1]
+					tabname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+				end
 			end
 			if tabnr == current then
 				table.insert(tabs, activeTab(tabnr, tabname))

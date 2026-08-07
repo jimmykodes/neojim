@@ -13,6 +13,24 @@ local cmds = {
 		end,
 	},
 	{
+		name = "TabName",
+		command = function(opts)
+			if opts.args == "" then
+				vim.ui.input({ prompt = "tab name" }, function(input)
+					if input == "" then
+						return
+					end
+					vim.api.nvim_tabpage_set_var(0, "tabname", input)
+					vim.schedule(function() vim.cmd("redrawtabline") end)
+				end)
+			else
+				vim.api.nvim_tabpage_set_var(0, "tabname", opts.args)
+				vim.schedule(function() vim.cmd("redrawtabline") end)
+			end
+		end,
+		opts = { nargs = '?' },
+	},
+	{
 		name = "Scratch",
 		command = function()
 			vim.cmd 'bel 10new'
