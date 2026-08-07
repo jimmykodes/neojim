@@ -54,17 +54,29 @@ return {
 		local ctxUsage = contextUsage(meta.context_usage or 0)
 
 		local usage = meta.usage or {}
+		local with_icon = function(icon, digit)
+			return string.format("%s %d", icon, digit)
+		end
+		local usage_str = string.format(
+			"%s %s %s %s",
+			with_icon(icons.ui.SignIn, usage.cache_creation_input_tokens or 0),
+			with_icon(icons.ui.SignOut, usage.cache_read_input_tokens or 0),
+			with_icon(icons.ui.BoldArrowUp, usage.input_tokens or 0),
+			with_icon(icons.ui.BoldArrowDown, usage.output_tokens or 0)
+		)
+		local cache_hl = "StatusLineSuccess"
+		if not llima.cache_enabled() then
+			cache_hl = "StatusLineWarning"
+		end
 		return str .. string.format(
-			"%s %s - %s %s %d %s %d $%0.2f %s",
+			"%s %s - %s %s $%0.2f %s %s",
 			icons.misc.Robot,
 			meta.model,
 			icons.ui.Ticket,
-			icons.ui.BoldArrowUp,
-			usage.input_tokens or 0,
-			icons.ui.BoldArrowDown,
-			usage.output_tokens or 0,
+			usage_str,
 			(meta.cost or 0) / 100,
-			utils.renderComponent(utils.simple_module(ctxUsage.bar, ctxUsage.hl))
+			utils.renderComponent(utils.simple_module(ctxUsage.bar, ctxUsage.hl)),
+			utils.renderComponent(utils.bubble(utils.simple_module(icons.ui.Database, cache_hl)))
 		)
 	end
 }

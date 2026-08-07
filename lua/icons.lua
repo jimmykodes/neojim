@@ -83,6 +83,7 @@ return {
 		Comment = "",
 		Counter = "󰎠",
 		Dashboard = "",
+		Database = "",
 		DebugConsole = "",
 		DividerLeft = "",
 		DividerRight = "",
