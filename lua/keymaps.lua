@@ -156,16 +156,12 @@ M.config = {
 
 				-- MARK: Git
 				g = {
-					d = "<cmd>lua require 'gitsigns'.diffthis()<cr>",                         -- Diff
-					j = "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>", -- Next Hunk
-					k = "<cmd>lua require 'gitsigns'.prev_hunk({navigation_message = false})<cr>", -- Prev Hunk
-					l = "<cmd>lua require 'gitsigns'.blame_line()<cr>",                       -- Blame
-					r = "<cmd>lua require 'gitsigns'.reset_hunk()<cr>",                       -- Reset Hunk
-					R = "<cmd>lua require 'gitsigns'.reset_buffer()<cr>",                     -- Reset Buffer
+					d = "<cmd>lua require 'gitsigns'.diffthis()<cr>",
+					l = "<cmd>lua require 'gitsigns'.blame_line()<cr>",
+					r = "<cmd>lua require 'gitsigns'.reset_hunk()<cr>",
+					R = "<cmd>lua require 'gitsigns'.reset_buffer()<cr>",
 					s = "<cmd>lua require 'gitsigns'.stage_hunk()<cr>",
 					S = "<cmd>lua require 'gitsigns'.stage_buffer()<cr>",
-					q = "<cmd>lua require 'gitsigns'.setqflist()<cr>",
-					c = "<cmd>GitCommitMsg<cr>",
 				},
 
 				-- MARK: Search
@@ -178,6 +174,7 @@ M.config = {
 					t = require("fzf").find_text,       -- Text
 					r = require("fzf").resume,          -- Resume last search
 				},
+				S = "<cmd>FzfLua<cr>",
 
 				-- MARK: LLiMa
 				l = {

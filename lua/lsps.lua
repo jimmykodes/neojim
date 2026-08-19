@@ -8,6 +8,7 @@ local M = {
 		"gopls",
 		"graphql_ls",
 		"helmls",
+		"html_ls",
 		"journey_lsp",
 		"jsonls",
 		"lua_ls",
