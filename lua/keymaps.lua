@@ -33,8 +33,8 @@ M.config = {
 		-- MARK: Visual Line
 		x = {
 			-- Move groups of lines
-			["<a-j>"] = ":m '>+1<CR>gv-gv",
-			["<a-k>"] = ":m '<-2<CR>gv-gv",
+			["<C-j>"] = ":m '>+2<CR>gv-gv",
+			["<C-k>"] = ":m '<-2<CR>gv-gv",
 		},
 
 		-- MARK: Visual Block
@@ -64,8 +64,8 @@ M.config = {
 		-- MARK: Normal
 		n = {
 			-- move lines
-			["<a-j>"]    = ":m .+1<CR>==",
-			["<a-k>"]    = ":m .-2<CR>==",
+			["<C-j>"]    = ":m .+1<CR>==",
+			["<C-k>"]    = ":m .-2<CR>==",
 
 			-- color pick
 			["<C-p>"]    = ":CccPick<CR>",

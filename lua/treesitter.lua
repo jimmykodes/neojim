@@ -111,18 +111,24 @@ end
 ---copy query files from a cloned grammar
 ---@param name string
 local function queries(name)
-	local repopath = clonepath .. "/" .. name
-	local languageQueries = repopath .. "/queries"
-	if vim.uv.fs_stat(languageQueries) then
-		vim.system({ "cp", "-r", repopath .. "/queries", queriespath .. "/" .. name }, function(res)
-			if res.code ~= 0 then
-				vim.schedule(function()
-					vim.notify(string.format("%s: copy query error<%d>: %s", name, res.code, res.stderr), vim.log.levels.ERROR)
-				end)
-			end
+	if not vim.uv.fs_stat(queriespath) then
+		vim.system({"mkdir", "-p", queriespath}, function()
+			vim.schedule(function() queries(name) end)
 		end)
 	else
-		vim.notify(string.format("%s: no queries found", name), vim.log.levels.WARN)
+		local repopath = clonepath .. "/" .. name
+		local languageQueries = repopath .. "/queries"
+		if vim.uv.fs_stat(languageQueries) then
+			vim.system({ "cp", "-r", repopath .. "/queries", queriespath .. "/" .. name }, function(res)
+				if res.code ~= 0 then
+					vim.schedule(function()
+						vim.notify(string.format("%s: copy query error<%d>: %s", name, res.code, res.stderr), vim.log.levels.ERROR)
+					end)
+				end
+			end)
+		else
+			vim.notify(string.format("%s: no queries found", name), vim.log.levels.WARN)
+		end
 	end
 end
 
