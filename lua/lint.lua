@@ -6,7 +6,7 @@
 ---@field name string
 ---@field parser Parser
 ---@field cmd Linter
----@field expectedCode integer?
+---@field additionalValidCodes integer[]?
 
 local M = {}
 
@@ -17,13 +17,13 @@ function M.lint(ns_id, lint, args)
 	local cmd = lint.cmd(args.buf)
 	local filename = vim.fn.bufname(args.buf)
 	local cwd = vim.fn.getcwd()
-	local expectedCode = lint.expectedCode or 0
+	local expectedCode = lint.additionalValidCodes or {}
 	vim.system(cmd, { text = true }, function(out)
-		if out.code ~= expectedCode then
+		if out.code ~= 0 and not vim.list_contains(expectedCode, out.code) then
 			vim.schedule(function()
 				vim.notify(
 					string.format(
-						"%s exited non-zero: %d - %s",
+						"%s exited with unexpected code: %d - %s",
 						lint.name,
 						out.code,
 						out.stderr
@@ -32,7 +32,13 @@ function M.lint(ns_id, lint, args)
 			end)
 			return
 		end
-		local diags = lint.parser(out.stdout, filename, cwd)
+
+		local output = vim.trim(out.stdout)
+		if output == "" then
+			return
+		end
+
+		local diags = lint.parser(output, filename, cwd)
 		vim.schedule(function()
 			vim.diagnostic.set(ns_id, args.buf, diags, {
 				virtual_text = true,  -- show virtual text

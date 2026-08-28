@@ -5,6 +5,8 @@ function M.mypy(bufnr)
 	local filename = vim.fn.bufname(bufnr)
 	return {
 		"mypy",
+		"--disable-error-code=import-untyped",
+		"--disable-error-code=import-not-found",
 		"--output",
 		"json",
 		filename
@@ -55,7 +57,7 @@ M.opts = {
 		name = "mypy",
 		cmd = M.mypy,
 		parser = M.mypyParse,
-		expectedCode = 1,
+		additionalValidCodes = { 1 },
 	}
 }
 

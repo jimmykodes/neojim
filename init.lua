@@ -19,6 +19,8 @@ require("autocmds").setup()
 require("keymaps").setup()
 require("lsps").setup()
 
+vim.cmd.colorscheme("system76")
+
 vim.api.nvim_create_autocmd("OptionSet", {
 	pattern = "background",
 	callback = function()
