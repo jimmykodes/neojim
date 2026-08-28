@@ -14,6 +14,7 @@ vim.pack.add({
 	-- MARK: Functionality
 	"https://github.com/akinsho/toggleterm.nvim",
 	"https://github.com/kyazdani42/nvim-tree.lua",
+	"https://github.com/atusy/treemonkey.nvim",
 
 	-- MARK: UI
 	"https://github.com/jimmykodes/colorschemes",
@@ -23,7 +24,6 @@ vim.pack.add({
 	"https://github.com/goolord/alpha-nvim",
 	"https://github.com/uga-rosa/ccc.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
-	-- "https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/RRethy/vim-illuminate",
 	"https://github.com/folke/todo-comments.nvim",
 	"https://github.com/chentoast/marks.nvim",

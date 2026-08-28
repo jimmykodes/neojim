@@ -35,6 +35,12 @@ M.config = {
 			-- Move groups of lines
 			["<C-j>"] = ":m '>+2<CR>gv-gv",
 			["<C-k>"] = ":m '<-2<CR>gv-gv",
+			["<C-m>"] = function()
+				require('treemonkey').select({
+					ignore_injections = false,
+					highlight = { backdrop = "Comment", label = "Error" },
+				})
+			end,
 		},
 
 		-- MARK: Visual Block
@@ -44,6 +50,12 @@ M.config = {
 		v = {
 			["<"]        = "<gv",
 			[">"]        = ">gv",
+			["<C-m>"]    = function()
+				require('treemonkey').select({
+					ignore_injections = false,
+					highlight = { backdrop = "Comment", label = "Error" },
+				})
+			end,
 			["<leader>"] = {
 				["/"] = "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", -- Comment toggle linewise (visual)
 				g     = {
