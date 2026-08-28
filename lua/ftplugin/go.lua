@@ -191,7 +191,10 @@ M.opts = {
 							vim.cmd(':!go run ' .. file)
 						end)
 					end
-				}
+				},
+				n = ":GoNew<cr>",
+				g = ":!go generate %<cr>",
+				G = ":!go generate ./...<cr>",
 			}
 		}
 	},
