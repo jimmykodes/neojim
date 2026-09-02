@@ -24,6 +24,53 @@ local function run_format(cmd, input)
 	return vim.trim(output.stdout)
 end
 
+local function apply_format(new_text)
+	local old_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	local new_lines = vim.split(new_text, "\n", { plain = true })
+
+	-- trim a possible trailing empty string from split (if new_text ends with \n)
+	if new_lines[#new_lines] == "" then
+		table.remove(new_lines)
+	end
+
+	local old_text = table.concat(old_lines, "\n")
+	if old_text == table.concat(new_lines, "\n") then
+		return -- nothing changed, don't touch the buffer at all
+	end
+
+	local hunks = vim.text.diff(old_text, table.concat(new_lines, "\n"), {
+		result_type = "indices",
+		algorithm = "histogram",
+	})
+
+	if not hunks then
+		return
+	end
+
+	-- apply hunks in reverse so earlier line numbers stay valid
+	for i = #hunks, 1, -1 do
+		local start_a, count_a, start_b, count_b = unpack(hunks[i])
+
+		-- vim.diff uses 1-based, "0 count" meaning pure insertion/deletion
+		local replacement = {}
+		for j = start_b, start_b + count_b - 1 do
+			table.insert(replacement, new_lines[j])
+		end
+
+		local remove_start, remove_end
+		if count_a == 0 then
+			-- pure insertion after line start_a
+			remove_start = start_a
+			remove_end = start_a
+		else
+			remove_start = start_a - 1
+			remove_end = start_a - 1 + count_a
+		end
+
+		vim.api.nvim_buf_set_lines(0, remove_start, remove_end, false, replacement)
+	end
+end
+
 local function format(formatters)
 	return function()
 		local data = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
@@ -33,7 +80,7 @@ local function format(formatters)
 		if #data == 0 then
 			return
 		end
-		vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(data, "\n"))
+		apply_format(data)
 	end
 end
 
