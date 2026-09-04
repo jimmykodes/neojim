@@ -42,6 +42,18 @@ local M = {
 				end,
 			},
 		},
+		{
+			event = "BufWritePre",
+			opts = {
+				group = "UserWhitespace",
+				pattern = "*",
+				callback = function()
+					local saved_pos = vim.fn.getpos(".")
+					vim.cmd("%s/\\s\\+$//e")
+					vim.fn.setpos(".", saved_pos)
+				end,
+			}
+		}
 	}
 }
 
