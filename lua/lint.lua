@@ -35,7 +35,15 @@ function M.lint(ns_id, lint, args)
 
 		local output = vim.trim(out.stdout)
 		if output == "" then
-			return
+			-- clear diags
+			vim.schedule(function()
+				vim.diagnostic.set(ns_id, args.buf, {}, {
+					virtual_text = true, -- show virtual text
+					signs = true,        -- show signs in sign column
+					underline = true,    -- underline diagnostic text
+					update_in_insert = false, -- don't update in insert mode
+				})
+			end)
 		end
 
 		local diags = lint.parser(output, filename, cwd)
