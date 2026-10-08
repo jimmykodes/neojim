@@ -3,10 +3,11 @@ local show = false
 local number = ""
 local state = ""
 local decision = ""
+local isDraft = false
 
 
 local function fetch_number()
-	vim.system({ "gh", "pr", "view", "--json", "number,state,reviewDecision" }, function(resp)
+	vim.system({ "gh", "pr", "view", "--json", "number,state,reviewDecision,isDraft" }, function(resp)
 		if resp.code ~= 0 then
 			return
 		end
@@ -14,6 +15,7 @@ local function fetch_number()
 		number = data.number
 		state = data.state
 		decision = data.reviewDecision
+		isDraft = data.isDraft
 		show = true
 		utils.redraw()
 	end)
@@ -24,15 +26,15 @@ fetch_number()
 return utils.bubble({
 	hl = function()
 		if state == "OPEN" then
-			if decision == "CHANGES_REQUESTED" then
+			if isDraft then
+				return "StatusLineDull"
+			elseif decision == "CHANGES_REQUESTED" then
 				return "StatusLineWarning"
 			elseif decision == "APPROVED" then
 				return "StatusLineSuccess"
 			else
 				return "StatusLineInfo"
 			end
-		elseif state == "DRAFT" then
-			return "StatusLineModePending"
 		elseif state == "MERGED" then
 			return "StatusLineModeVisual"
 		elseif state == "CLOSED" then

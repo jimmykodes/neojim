@@ -1,5 +1,8 @@
 local utils = require "statusline.utils"
 local lr_sep = utils.simple_module("%=%#StatusLine#")
+local hl = require "statusline.hl"
+
+hl.set_hl_groups()
 
 local M = {}
 
@@ -11,6 +14,7 @@ function M.status()
 		require('statusline.components.pr'),
 		require('statusline.components.diagnostics'),
 		require('statusline.components.llm_usage'),
+
 
 		-- div
 		lr_sep,

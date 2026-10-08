@@ -10,12 +10,14 @@ end
 
 M.base = hl("StatusLine")
 M.groups = {
-	ModeNormal = { fg = M.base.bg, bg = hl("StatusLine").fg },
-	ModePending = { fg = M.base.bg, bg = hl("Comment").fg },
-	ModeVisual = { fg = M.base.bg, bg = hl("SpecialKey").fg },
-	ModeInsert = { fg = M.base.bg, bg = hl("Keyword").fg },
-	ModeCommand = { fg = M.base.bg, bg = hl("Number").fg },
-	ModeReplace = { fg = M.base.bg, bg = hl("Constant").fg },
+	ModeNormal = { fg = M.base.bg, bg = hl("Constant").fg },
+	ModeVisual = { fg = M.base.bg, bg = hl("Keyword").fg },
+	ModeCommand = { fg = M.base.bg, bg = hl("Special").fg },
+	ModeInsert = { fg = M.base.bg, bg = hl("String").fg },
+	ModePending = { fg = M.base.bg, bg = hl("Function").fg },
+	ModeReplace = { fg = M.base.bg, bg = hl("Error").fg },
+
+	Dull = { fg = M.base.bg, bg = hl("Comment").fg },
 	-- Bold = { fg = M.base.fg, bg = M.base.bg, bold = true },
 	-- Dim = { fg = hl("LineNr").fg, bg = M.base.bg },
 }
