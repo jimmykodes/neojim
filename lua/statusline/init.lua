@@ -8,6 +8,7 @@ function M.status()
 		-- left
 		utils.bubble(require('statusline.components.mode')),
 		require('statusline.components.branch'),
+		require('statusline.components.pr'),
 		require('statusline.components.diagnostics'),
 		require('statusline.components.llm_usage'),
 
